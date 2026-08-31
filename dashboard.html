@@ -601,11 +601,20 @@ document.getElementById('timeTabs').addEventListener('click', function(e) {
     document.getElementById('aas-view').style.display = t === 'aas' ? 'block' : 'none';
     document.getElementById('howto-view').style.display = t === 'howto' ? 'block' : 'none';
 
-    // Reset question sub-tabs to "All Questions" when switching to QR/AAs/HowTo
-    if (t === 'qr' || t === 'aas' || t === 'howto') {
+    // Reset question sub-tabs to "All Questions" when switching top tabs
+    if (qTab === 'notes' || qTab === 'bday') {
         document.querySelectorAll('#qTabs .qtab').forEach(function(el) { el.classList.remove('on'); });
         document.querySelector('#qTabs .qtab[data-q="all"]').classList.add('on');
         qTab = 'all';
+        // Hide notes and bday sections
+        document.getElementById('notesSection').style.display = 'none';
+        document.getElementById('bdaySection').style.display = 'none';
+        // Restore regular dashboard panels for when user comes back
+        document.getElementById('selectorRow').style.display = 'flex';
+        document.getElementById('kpiGrid').style.display = 'grid';
+        document.getElementById('panelsRow').style.display = 'grid';
+        document.getElementById('distPanel').style.display = 'block';
+        document.getElementById('tblSec').style.display = 'block';
     }
 
     if (t === 'aas') { initAAView(); }
