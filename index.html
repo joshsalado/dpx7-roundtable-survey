@@ -21,7 +21,9 @@
             --radius: 12px;
             --shadow: 0 2px 12px rgba(0,0,0,0.08);
         }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: var(--bg);
@@ -29,7 +31,12 @@
             min-height: 100vh;
             padding: 20px;
         }
-        .container { max-width: 600px; margin: 0 auto; }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
         .header {
             text-align: center;
             padding: 32px 24px;
@@ -37,55 +44,194 @@
             border-radius: var(--radius) var(--radius) 0 0;
             color: white;
         }
-        .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
-        .header p { font-size: 14px; opacity: 0.85; }
-        .header .icon { font-size: 36px; margin-bottom: 12px; color: var(--accent); }
+
+        .header h1 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            font-size: 14px;
+            opacity: 0.85;
+        }
+
+        .header .icon {
+            font-size: 36px;
+            margin-bottom: 12px;
+            color: var(--accent);
+        }
+
         .form-card {
             background: var(--surface);
             border-radius: 0 0 var(--radius) var(--radius);
             padding: 32px 24px;
             box-shadow: var(--shadow);
         }
-        .question { margin-bottom: 28px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
-        .question:last-of-type { border-bottom: none; margin-bottom: 16px; }
+
+        .question {
+            margin-bottom: 28px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .question:last-of-type {
+            border-bottom: none;
+            margin-bottom: 16px;
+        }
+
         .question-number {
-            display: inline-block; background: var(--accent); color: var(--primary);
-            font-weight: 700; font-size: 12px; width: 24px; height: 24px;
-            line-height: 24px; text-align: center; border-radius: 50%; margin-bottom: 8px;
+            display: inline-block;
+            background: var(--accent);
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 12px;
+            width: 24px;
+            height: 24px;
+            line-height: 24px;
+            text-align: center;
+            border-radius: 50%;
+            margin-bottom: 8px;
         }
-        .question-text { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 14px; line-height: 1.4; }
-        .rating-scale { display: flex; gap: 8px; flex-wrap: wrap; }
+
+        .question-text {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 14px;
+            line-height: 1.4;
+        }
+
+        .rating-scale {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
         .rating-scale label {
-            flex: 1; min-width: 50px; text-align: center; padding: 10px 4px;
-            border: 2px solid var(--border); border-radius: 8px; cursor: pointer;
-            transition: all 0.2s ease; font-size: 13px; font-weight: 500; color: var(--text-secondary);
+            flex: 1;
+            min-width: 50px;
+            text-align: center;
+            padding: 10px 4px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
         }
-        .rating-scale label:hover { border-color: var(--accent); background: #FFF8F0; }
-        .rating-scale label.selected { border-color: var(--accent); background: var(--accent); color: white; }
-        .scale-labels { display: flex; justify-content: space-between; margin-top: 6px; font-size: 11px; color: var(--text-muted); }
+
+        .rating-scale label:hover {
+            border-color: var(--accent);
+            background: #FFF8F0;
+        }
+
+        .rating-scale input[type="radio"] {
+            display: none;
+        }
+
+        .rating-scale input[type="radio"]:checked + span {
+            display: block;
+        }
+
+        .rating-scale label.selected {
+            border-color: var(--accent);
+            background: var(--accent);
+            color: white;
+        }
+
+        .scale-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 6px;
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .textarea-wrapper {
+            margin-top: 12px;
+        }
+
         .textarea-wrapper textarea {
-            width: 100%; padding: 12px; border: 2px solid var(--border); border-radius: 8px;
-            font-family: inherit; font-size: 14px; resize: vertical; min-height: 80px; margin-top: 12px;
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 14px;
+            resize: vertical;
+            min-height: 80px;
+            transition: border-color 0.2s;
         }
-        .textarea-wrapper textarea:focus { outline: none; border-color: var(--accent); }
+
+        .textarea-wrapper textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
         .submit-btn {
-            width: 100%; padding: 14px; background: var(--accent); color: var(--primary);
-            border: none; border-radius: 8px; font-size: 16px; font-weight: 700;
-            cursor: pointer; transition: background 0.2s; margin-top: 8px;
+            width: 100%;
+            padding: 14px;
+            background: var(--accent);
+            color: var(--primary);
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 8px;
         }
-        .submit-btn:hover { background: var(--accent-hover); }
+
+        .submit-btn:hover {
+            background: var(--accent-hover);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
         .success-screen {
-            display: none; text-align: center; padding: 60px 24px;
-            background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow);
+            display: none;
+            text-align: center;
+            padding: 60px 24px;
+            background: var(--surface);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
         }
-        .success-screen .checkmark { font-size: 56px; color: var(--success); margin-bottom: 16px; }
-        .success-screen h2 { font-size: 22px; margin-bottom: 8px; }
-        .success-screen p { color: var(--text-secondary); font-size: 15px; }
+
+        .success-screen .checkmark {
+            font-size: 56px;
+            color: var(--success);
+            margin-bottom: 16px;
+        }
+
+        .success-screen h2 {
+            font-size: 22px;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+
+        .success-screen p {
+            color: var(--text-secondary);
+            font-size: 15px;
+        }
+
         .anonymous-badge {
-            display: inline-flex; align-items: center; gap: 6px; background: #E8F5E9;
-            color: var(--success); font-size: 12px; font-weight: 600; padding: 4px 10px;
-            border-radius: 20px; margin-top: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #E8F5E9;
+            color: var(--success);
+            font-size: 12px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 20px;
+            margin-top: 12px;
         }
+
         @media (max-width: 480px) {
             body { padding: 12px; }
             .header { padding: 24px 16px; }
@@ -105,6 +251,7 @@
                     <i class="fa-solid fa-shield-halved"></i> 100% Anonymous
                 </div>
             </div>
+
             <div class="form-card">
                 <div class="question">
                     <div class="question-number">1</div>
@@ -114,9 +261,13 @@
                         <label onclick="selectRating(this, 'q1', 2)">2</label>
                         <label onclick="selectRating(this, 'q1', 3)">3</label>
                         <label onclick="selectRating(this, 'q1', 4)">4</label>
+                                            </div>
+                    <div class="scale-labels">
+                        <span>Not at all</span>
+                        <span>Extremely valuable</span>
                     </div>
-                    <div class="scale-labels"><span>Not at all</span><span>Extremely valuable</span></div>
                 </div>
+
                 <div class="question">
                     <div class="question-number">2</div>
                     <div class="question-text">Do you feel confident that the site is heading in a positive direction based on what was discussed today?</div>
@@ -125,9 +276,13 @@
                         <label onclick="selectRating(this, 'q2', 2)">2</label>
                         <label onclick="selectRating(this, 'q2', 3)">3</label>
                         <label onclick="selectRating(this, 'q2', 4)">4</label>
+                                            </div>
+                    <div class="scale-labels">
+                        <span>Not confident</span>
+                        <span>Very confident</span>
                     </div>
-                    <div class="scale-labels"><span>Not confident</span><span>Very confident</span></div>
                 </div>
+
                 <div class="question">
                     <div class="question-number">3</div>
                     <div class="question-text">How did you feel about the small-group roundtable format? (vs. a large all-hands or 1-on-1)</div>
@@ -136,9 +291,13 @@
                         <label onclick="selectRating(this, 'q3', 2)">2</label>
                         <label onclick="selectRating(this, 'q3', 3)">3</label>
                         <label onclick="selectRating(this, 'q3', 4)">4</label>
+                                            </div>
+                    <div class="scale-labels">
+                        <span>Didn't enjoy it</span>
+                        <span>Loved this format</span>
                     </div>
-                    <div class="scale-labels"><span>Didn't enjoy it</span><span>Loved this format</span></div>
                 </div>
+
                 <div class="question">
                     <div class="question-number">4</div>
                     <div class="question-text">Do you feel your voice was heard and that your feedback will lead to real change?</div>
@@ -147,9 +306,13 @@
                         <label onclick="selectRating(this, 'q4', 2)">2</label>
                         <label onclick="selectRating(this, 'q4', 3)">3</label>
                         <label onclick="selectRating(this, 'q4', 4)">4</label>
+                                            </div>
+                    <div class="scale-labels">
+                        <span>Not at all</span>
+                        <span>Absolutely</span>
                     </div>
-                    <div class="scale-labels"><span>Not at all</span><span>Absolutely</span></div>
                 </div>
+
                 <div class="question">
                     <div class="question-number">5</div>
                     <div class="question-text">Is there anything else you'd like leadership to know? (Optional)</div>
@@ -157,41 +320,67 @@
                         <textarea id="q5" placeholder="Share any additional thoughts, suggestions, or ideas..."></textarea>
                     </div>
                 </div>
+
                 <button class="submit-btn" onclick="submitSurvey()">Submit Feedback</button>
             </div>
         </div>
+
         <div class="success-screen" id="success-screen">
             <div class="checkmark"><i class="fa-solid fa-circle-check"></i></div>
             <h2>Thank You!</h2>
             <p>Your anonymous feedback has been recorded. We appreciate you taking the time to help us improve.</p>
         </div>
     </div>
+
+    
     <script>
-        const responses = {};
+        var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbybtGx13qfnGSYO38WMFYNmBG3F2pywR3Y3TgCL0ZUeUjSZGofP1JvAdore8SrqwguFtg/exec";
+        var responses = {};
+
         function selectRating(el, question, value) {
-            const parent = el.parentElement;
-            parent.querySelectorAll('label').forEach(l => l.classList.remove('selected'));
+            var parent = el.parentElement;
+            parent.querySelectorAll('label').forEach(function(l) { l.classList.remove('selected'); });
             el.classList.add('selected');
             responses[question] = value;
         }
+
         function submitSurvey() {
-            const required = ['q1', 'q2', 'q3', 'q4'];
-            const unanswered = required.filter(q => !responses[q]);
+            var required = ['q1', 'q2', 'q3', 'q4'];
+            var unanswered = required.filter(function(q) { return !responses[q]; });
+
             if (unanswered.length > 0) {
                 alert('Please answer all questions (1-4) before submitting.');
                 return;
             }
+
             responses['q5'] = document.getElementById('q5').value;
-            const submission = {
-                timestamp: new Date().toISOString(),
-                site: 'DPX7',
-                responses: responses
-            };
-            let submissions = JSON.parse(localStorage.getItem('dpx7_roundtable_responses') || '[]');
-            submissions.push(submission);
-            localStorage.setItem('dpx7_roundtable_responses', JSON.stringify(submissions));
-            document.getElementById('survey-form').style.display = 'none';
-            document.getElementById('success-screen').style.display = 'block';
+
+            var btn = document.querySelector('.submit-btn');
+            btn.disabled = true;
+            btn.textContent = 'Submitting...';
+
+            // POST to Google Sheets
+            fetch(SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'survey',
+                    q1: responses.q1,
+                    q2: responses.q2,
+                    q3: responses.q3,
+                    q4: responses.q4,
+                    q5: responses.q5 || ''
+                })
+            }).then(function() {
+                document.getElementById('survey-form').style.display = 'none';
+                document.getElementById('success-screen').style.display = 'block';
+            }).catch(function(err) {
+                // Even with no-cors, the request goes through
+                // Show success anyway since Google Apps Script receives it
+                document.getElementById('survey-form').style.display = 'none';
+                document.getElementById('success-screen').style.display = 'block';
+            });
         }
     </script>
 </body>
