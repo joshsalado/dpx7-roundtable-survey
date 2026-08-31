@@ -93,6 +93,20 @@
         .wk-bubble:hover{border-color:var(--accent);color:var(--text);}
         .wk-bubble.on{background:var(--accent);border-color:var(--accent);color:var(--primary);font-weight:600;}
 
+        
+        /* Recognition Modal */
+        .recog-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px;}
+        .recog-modal{background:var(--surface);border-radius:var(--radius);padding:24px;max-width:500px;width:100%;max-height:80vh;overflow-y:auto;box-shadow:0 8px 32px rgba(0,0,0,.2);}
+        .recog-modal h3{font-size:16px;font-weight:700;margin-bottom:4px;}
+        .recog-modal .recog-sub{font-size:12px;color:var(--text-muted);margin-bottom:16px;}
+        .recog-aa-row{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--bg);border-radius:8px;margin-bottom:6px;}
+        .recog-aa-name{font-size:13px;font-weight:600;display:flex;align-items:center;gap:6px;}
+        .recog-btn-sm{padding:5px 10px;border:1px solid var(--border);border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;background:var(--surface);color:var(--text-sec);transition:all .15s;}
+        .recog-btn-sm:hover{border-color:var(--accent);color:var(--accent);}
+        .recog-btn-sm.copied{background:var(--success);color:#fff;border-color:var(--success);}
+        .recog-msg-box{background:var(--bg);border-radius:8px;padding:12px;margin:12px 0;font-size:12px;color:var(--text-sec);font-style:italic;line-height:1.6;}
+        .recog-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;}
+
         @media(max-width:768px){.panels-row{grid-template-columns:1fr;}.kpis{grid-template-columns:repeat(2,1fr);}}
     </style>
 </head>
@@ -260,9 +274,11 @@
             </div>
 
             <!-- View Toggle -->
-            <div style="display:flex;gap:6px;margin-bottom:14px;">
+            <div style="display:flex;gap:6px;margin-bottom:14px;align-items:center;">
                 <div class="chip on" id="aaViewWeek" onclick="switchAAView('week')">By Week</div>
                 <div class="chip" id="aaViewAll" onclick="switchAAView('all')">All AAs</div>
+                <div style="flex:1;"></div>
+                <button onclick="openRecognizeModal()" style="padding:8px 14px;background:var(--accent);color:var(--primary);border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:5px;white-space:nowrap;"><i class="fa-solid fa-star"></i> Recognize AAs</button>
             </div>
 
             <!-- Week View -->
@@ -1149,7 +1165,10 @@ function renderAAWeekView() {
             html += '<i class="fa-solid fa-user" style="color:var(--accent);font-size:11px;"></i>';
             html += '<span style="font-size:12px;font-weight:500;">' + escapeHTML(r.name) + '</span>';
             html += '</div>';
+            html += '<div style="display:flex;align-items:center;gap:6px;">';
+            html += '<button data-engage-login="' + escapeHTML(r.name) + '" class="engage-btn" style="padding:4px 10px;background:var(--accent);color:var(--primary);border:none;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:4px;white-space:nowrap;" title="Copy login & open Engage"><i class="fa-solid fa-star"></i>Engage</button>';
             html += '<button onclick="removeAA(' + origIdx + ')" style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:10px;" title="Remove"><i class="fa-solid fa-xmark"></i></button>';
+            html += '</div>';
             html += '</div>';
         });
         html += '</div>';
@@ -1196,7 +1215,7 @@ function renderAAAllView() {
         }).join('');
 
         html += '<tr>';
-        html += '<td style="padding:8px 10px;"><div style="display:flex;align-items:center;gap:6px;"><i class="fa-solid fa-user" style="color:var(--accent);font-size:10px;"></i><span style="font-weight:500;">' + escapeHTML(aa.name) + '</span></div></td>';
+        html += '<td style="padding:8px 10px;"><div style="display:flex;align-items:center;gap:6px;"><i class="fa-solid fa-user" style="color:var(--accent);font-size:10px;"></i><span style="font-weight:500;">' + escapeHTML(aa.name) + '</span><button data-engage-login="' + escapeHTML(aa.name) + '" class="engage-btn" style="padding:2px 8px;background:var(--accent);color:var(--primary);border:none;border-radius:4px;font-size:10px;font-weight:700;cursor:pointer;margin-left:4px;" title="Copy login & open Engage"><i class="fa-solid fa-star"></i></button></div></td>';
         html += '<td style="padding:8px 10px;text-align:center;"><span style="display:inline-block;background:' + (aa.count >= 3 ? 'var(--success-light)' : aa.count >= 2 ? 'var(--warning-light)' : 'var(--error-light)') + ';color:' + (aa.count >= 3 ? 'var(--success)' : aa.count >= 2 ? 'var(--warning)' : 'var(--error)') + ';padding:2px 8px;border-radius:10px;font-weight:700;font-size:11px;">' + aa.count + '</span></td>';
         html += '<td style="padding:8px 10px;">' + weekChips + '</td>';
         html += '</tr>';
@@ -1211,6 +1230,285 @@ document.addEventListener('keydown', function(e) {
     if (e.key === 'Enter' && document.activeElement && document.activeElement.id === 'aaNameInput') {
         e.preventDefault();
         addAA();
+    }
+});
+
+
+
+// --- OPEN ENGAGE FOR AA ---
+var engagePresets = [];
+
+function getFormattedDate() {
+    var d = new Date();
+    var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    return months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
+}
+
+function openEngage(login) {
+    var today = getFormattedDate();
+    var weekLabel = aaSelectedWeek === 'all' ? 'Wk ' + getWeekNum(new Date()) : aaSelectedWeek;
+
+    // Build presets array (avoids inline quote escaping)
+    engagePresets = [
+        // Engagement presets
+        'Date: ' + today + '\nType: Recognition\nCategory: Recommended Engagement\n\nParticipated in the DPX7 Connections Roundtable (' + weekLabel + '). Provided valuable feedback related to Connection scores to help identify improvement areas for the site. Thank you for your contribution to making DPX7 a better workplace.',
+        'Date: ' + today + '\nType: Recognition\nCategory: Recommended Engagement\n\nActively engaged in the DPX7 Connections Roundtable (' + weekLabel + '). Shared feedback on key Connection topics including scheduling, skills development, and leader support. Their input directly contributes to our action plan for improving site engagement.',
+        // Shout-out presets
+        'Thank you for participating in this week\'s DPX7 Connections Roundtable! Your willingness to share honest feedback helps us build a better workplace for everyone. Your voice matters and we appreciate you taking the time.',
+        'Shout-out to you for being part of the DPX7 Connections Roundtable! Your feedback and ideas are a big reason this site continues to grow and improve. By speaking up, you\'re helping shape the future of DPX7 — and that makes a real difference. Thank you for helping us build on our success!',
+        'Thank you for your positive energy and engagement during the DPX7 Connections Roundtable! Your thoughtful input and willingness to have open dialogue with leadership shows real ownership of our site culture. We appreciate your positive interaction and look forward to continuing the conversation!'
+    ];
+
+    var el = document.createElement('div');
+    el.id = 'engageMenuContainer';
+
+    var modal = document.createElement('div');
+    modal.className = 'recog-overlay';
+    modal.onclick = function(e) { if (e.target === modal) closeEngageMenu(); };
+
+    var box = document.createElement('div');
+    box.className = 'recog-modal';
+
+    // Header
+    var hdr = document.createElement('div');
+    hdr.style.cssText = 'display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;';
+    var hdrLeft = document.createElement('div');
+    hdrLeft.innerHTML = '<h3 style="font-size:16px;"><i class="fa-solid fa-star" style="color:var(--accent);margin-right:6px;"></i>Recognize: ' + escapeHTML(login) + '</h3><div style="font-size:11px;color:var(--text-muted);margin-top:2px;">' + today + ' &bull; ' + weekLabel + '</div>';
+    var closeBtn = document.createElement('button');
+    closeBtn.textContent = '\u00D7';
+    closeBtn.style.cssText = 'background:none;border:none;font-size:18px;cursor:pointer;color:var(--text-muted);';
+    closeBtn.onclick = closeEngageMenu;
+    hdr.appendChild(hdrLeft);
+    hdr.appendChild(closeBtn);
+    box.appendChild(hdr);
+
+    // Step 1: Copy & Open
+    var step1 = document.createElement('div');
+    step1.style.marginBottom = '16px';
+    step1.innerHTML = '<div style="font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;margin-bottom:6px;">Step 1: Open Engage & Search</div>';
+    var openBtn = document.createElement('button');
+    openBtn.style.cssText = 'display:flex;align-items:center;gap:6px;padding:10px 16px;background:var(--primary);color:var(--accent);border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;width:100%;justify-content:center;';
+    openBtn.innerHTML = '<i class="fa-solid fa-arrow-up-right-from-square"></i>Copy \u201C' + escapeHTML(login) + '\u201D & Open Engage';
+    openBtn.onclick = function() {
+        navigator.clipboard.writeText(login).then(function() {
+            openBtn.innerHTML = '<i class="fa-solid fa-check"></i> Copied! Opening Engage...';
+            openBtn.style.background = 'var(--success)';
+            setTimeout(function() { window.open('https://atoz.amazon.work/engage', '_blank'); }, 500);
+        });
+    };
+    step1.appendChild(openBtn);
+    box.appendChild(step1);
+
+    // Divider
+    var div1 = document.createElement('div');
+    div1.style.cssText = 'border-top:1px solid var(--border);margin:12px 0;';
+    box.appendChild(div1);
+
+    // Engagement presets
+    var engSec = document.createElement('div');
+    engSec.style.marginBottom = '16px';
+    engSec.innerHTML = '<div style="font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;margin-bottom:8px;"><i class="fa-solid fa-clipboard-list" style="margin-right:4px;color:var(--warning);"></i>Log Engagement \u2014 Presets (click to copy)</div>';
+
+    var engLabels = [
+        ['Roundtable Participation \u2014 Recognition', 'Date: ' + today + ' | Type: Recognition | Recommended Engagement | Participated in the DPX7 Connections Roundtable. Provided valuable feedback related to Connection scores.'],
+        ['Active Contributor \u2014 Recognition', 'Date: ' + today + ' | Type: Recognition | Recommended Engagement | Actively engaged in roundtable. Shared feedback on scheduling, skills development, and leader support.']
+    ];
+
+    engLabels.forEach(function(item, idx) {
+        var card = document.createElement('div');
+        card.className = 'recog-msg-box';
+        card.style.cssText = 'cursor:pointer;border:1px solid transparent;transition:all .15s;';
+        card.onmouseover = function() { card.style.borderColor = 'var(--accent)'; };
+        card.onmouseout = function() { card.style.borderColor = 'transparent'; };
+        card.onclick = function() { copyPresetByIndex(idx, card); };
+        card.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:4px;"><span style="font-size:10px;font-weight:700;color:var(--warning);font-style:normal;">' + item[0] + '</span><span class="copy-label" style="font-size:10px;color:var(--text-muted);font-style:normal;">click to copy</span></div><div style="font-style:italic;">' + item[1] + '</div>';
+        engSec.appendChild(card);
+    });
+    box.appendChild(engSec);
+
+    // Divider
+    var div2 = document.createElement('div');
+    div2.style.cssText = 'border-top:1px solid var(--border);margin:12px 0;';
+    box.appendChild(div2);
+
+    // Shout-out presets
+    var soSec = document.createElement('div');
+    soSec.innerHTML = '<div style="font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;margin-bottom:8px;"><i class="fa-solid fa-star" style="margin-right:4px;color:var(--accent);"></i>Send Shout-Out \u2014 Presets (click to copy)</div>';
+
+    var soLabels = [
+        ['Thank You for Participating', 'Thank you for participating in this week\'s DPX7 Connections Roundtable! Your willingness to share honest feedback helps us build a better workplace for everyone.'],
+        ['Helping the Site Succeed', 'Shout-out for being part of the DPX7 Connections Roundtable! Your feedback and ideas are a big reason this site continues to grow and improve.'],
+        ['Positive Interaction', 'Thank you for your positive energy and engagement during the Roundtable! Your thoughtful input and willingness to have open dialogue shows real ownership of our site culture.']
+    ];
+
+    soLabels.forEach(function(item, idx) {
+        var card = document.createElement('div');
+        card.className = 'recog-msg-box';
+        card.style.cssText = 'cursor:pointer;border:1px solid transparent;transition:all .15s;';
+        card.onmouseover = function() { card.style.borderColor = 'var(--accent)'; };
+        card.onmouseout = function() { card.style.borderColor = 'transparent'; };
+        card.onclick = function() { copyPresetByIndex(idx + 2, card); };
+        card.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:4px;"><span style="font-size:10px;font-weight:700;color:var(--accent);font-style:normal;">' + item[0] + '</span><span class="copy-label" style="font-size:10px;color:var(--text-muted);font-style:normal;">click to copy</span></div><div style="font-style:italic;">' + item[1] + '</div>';
+        soSec.appendChild(card);
+    });
+    box.appendChild(soSec);
+
+    // Reminder
+    var reminder = document.createElement('div');
+    reminder.style.cssText = 'margin-top:14px;padding:10px 12px;background:#FFF8F0;border-radius:8px;border:1px solid var(--accent);font-size:11px;color:var(--text-sec);';
+    reminder.innerHTML = '<strong style="color:var(--accent);">Reminder:</strong> Classify Shout-Outs as <strong>"Positive Participant"</strong> and Log Engagements as <strong>"Recognition"</strong>.';
+    box.appendChild(reminder);
+
+    modal.appendChild(box);
+    el.appendChild(modal);
+
+    var existing = document.getElementById('engageMenuContainer');
+    if (existing) existing.remove();
+    document.body.appendChild(el);
+}
+
+function closeEngageMenu() {
+    var el = document.getElementById('engageMenuContainer');
+    if (el) el.remove();
+}
+
+function copyPresetByIndex(idx, cardEl) {
+    var text = engagePresets[idx] || '';
+    text = text.replace(/\\n/g, '\n');
+    navigator.clipboard.writeText(text).then(function() {
+        cardEl.style.borderColor = 'var(--success)';
+        cardEl.style.background = 'var(--success-light)';
+        var label = cardEl.querySelector('.copy-label');
+        if (label) { label.textContent = '\u2713 Copied!'; label.style.color = 'var(--success)'; }
+        setTimeout(function() {
+            cardEl.style.borderColor = 'transparent';
+            cardEl.style.background = 'var(--bg)';
+            if (label) { label.textContent = 'click to copy'; label.style.color = 'var(--text-muted)'; }
+        }, 2500);
+    });
+}
+
+// --- AA RECOGNITION ---
+function openRecognizeModal() {
+    var records = loadAAs();
+    // Filter by selected week if not "all"
+    var filtered = aaSelectedWeek === 'all' ? records : records.filter(function(r) { return r.week === aaSelectedWeek; });
+
+    if (!filtered.length) {
+        alert('No AAs logged for the selected week. Log attendance first!');
+        return;
+    }
+
+    // Get unique logins for the selected period
+    var seen = {};
+    var uniqueAAs = [];
+    filtered.forEach(function(r) {
+        var key = r.name.toLowerCase();
+        if (!seen[key]) {
+            seen[key] = true;
+            uniqueAAs.push(r);
+        }
+    });
+
+    var weekLabel = aaSelectedWeek === 'all' ? 'All Weeks' : aaSelectedWeek;
+
+    // Build modal HTML
+    var html = '<div class="recog-overlay" id="recogOverlay" onclick="if(event.target===this)closeRecognizeModal()">';
+    html += '<div class="recog-modal">';
+    html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">';
+    html += '<h3><i class="fa-solid fa-star" style="color:var(--accent);margin-right:6px;"></i>Recognize AAs</h3>';
+    html += '<button onclick="closeRecognizeModal()" style="background:none;border:none;font-size:18px;cursor:pointer;color:var(--text-muted);">&times;</button>';
+    html += '</div>';
+    html += '<div class="recog-sub">' + uniqueAAs.length + ' AA' + (uniqueAAs.length !== 1 ? 's' : '') + ' from ' + weekLabel + '</div>';
+
+    // Open Engage button
+    html += '<a href="https://atoz.amazon.work/engage" target="_blank" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:var(--primary);color:var(--accent);border-radius:8px;font-size:12px;font-weight:700;text-decoration:none;margin-bottom:14px;"><i class="fa-solid fa-arrow-up-right-from-square"></i>Open Engage in New Tab</a>';
+
+    // AA list
+    uniqueAAs.forEach(function(aa, i) {
+        html += '<div class="recog-aa-row">';
+        html += '<div class="recog-aa-name"><i class="fa-solid fa-user" style="color:var(--accent);font-size:11px;"></i>' + escapeHTML(aa.name) + '</div>';
+        html += '<button class="recog-btn-sm" id="copyLogin' + i + '" onclick="copyToClip(\'' + escapeHTML(aa.name).replace(/'/g, "\\'") + '\', \'copyLogin' + i + '\')"><i class="fa-solid fa-copy" style="margin-right:3px;"></i>Copy Login</button>';
+        html += '</div>';
+    });
+
+    // Shout-out message
+    html += '<div style="margin-top:14px;"><div style="font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;margin-bottom:4px;">Shout-Out Message (copy & paste into Engage)</div>';
+    html += '<div class="recog-msg-box" id="recogMessage">"Thank you for participating in this week\'s DPX7 Connections Roundtable! Your willingness to share honest feedback helps us build a better workplace for everyone. Your voice matters and we appreciate you taking the time."</div>';
+    html += '</div>';
+
+    // Action buttons
+    html += '<div class="recog-actions">';
+    html += '<button class="recog-btn-sm" id="copyMsgBtn" onclick="copyMessage()" style="padding:8px 14px;"><i class="fa-solid fa-copy" style="margin-right:4px;"></i>Copy Shout-Out Message</button>';
+    html += '<button class="recog-btn-sm" id="copyAllBtn" onclick="copyAllLogins()" style="padding:8px 14px;"><i class="fa-solid fa-list" style="margin-right:4px;"></i>Copy All Logins</button>';
+    html += '</div>';
+
+    html += '</div></div>';
+
+    // Insert into page
+    var container = document.createElement('div');
+    container.id = 'recogContainer';
+    container.innerHTML = html;
+    document.body.appendChild(container);
+}
+
+function closeRecognizeModal() {
+    var el = document.getElementById('recogContainer');
+    if (el) el.remove();
+}
+
+function copyToClip(text, btnId) {
+    navigator.clipboard.writeText(text).then(function() {
+        var btn = document.getElementById(btnId);
+        btn.classList.add('copied');
+        btn.innerHTML = '<i class="fa-solid fa-check" style="margin-right:3px;"></i>Copied!';
+        setTimeout(function() {
+            btn.classList.remove('copied');
+            btn.innerHTML = '<i class="fa-solid fa-copy" style="margin-right:3px;"></i>Copy Login';
+        }, 2000);
+    });
+}
+
+function copyMessage() {
+    var msg = document.getElementById('recogMessage').textContent;
+    navigator.clipboard.writeText(msg).then(function() {
+        var btn = document.getElementById('copyMsgBtn');
+        btn.classList.add('copied');
+        btn.innerHTML = '<i class="fa-solid fa-check" style="margin-right:4px;"></i>Copied!';
+        setTimeout(function() {
+            btn.classList.remove('copied');
+            btn.innerHTML = '<i class="fa-solid fa-copy" style="margin-right:4px;"></i>Copy Shout-Out Message';
+        }, 2000);
+    });
+}
+
+function copyAllLogins() {
+    var records = loadAAs();
+    var filtered = aaSelectedWeek === 'all' ? records : records.filter(function(r) { return r.week === aaSelectedWeek; });
+    var seen = {};
+    var logins = [];
+    filtered.forEach(function(r) {
+        var key = r.name.toLowerCase();
+        if (!seen[key]) { seen[key] = true; logins.push(r.name); }
+    });
+    navigator.clipboard.writeText(logins.join('\n')).then(function() {
+        var btn = document.getElementById('copyAllBtn');
+        btn.classList.add('copied');
+        btn.innerHTML = '<i class="fa-solid fa-check" style="margin-right:4px;"></i>Copied All!';
+        setTimeout(function() {
+            btn.classList.remove('copied');
+            btn.innerHTML = '<i class="fa-solid fa-list" style="margin-right:4px;"></i>Copy All Logins';
+        }, 2000);
+    });
+}
+
+
+// --- Engage button delegation (avoids inline onclick escaping issues) ---
+document.addEventListener('click', function(e) {
+    var btn = e.target.closest('.engage-btn');
+    if (btn) {
+        var login = btn.getAttribute('data-engage-login');
+        if (login) openEngage(login);
     }
 });
 
