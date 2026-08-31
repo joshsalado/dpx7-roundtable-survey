@@ -1,0 +1,2273 @@
+<!DOCTYPE html>
+<html lang="en"><head><style id="qw-theme">:root {
+  --color-bg: #faf9fc;
+  --color-text: #131920;
+  --color-navbar-bg: #f9f9fb;
+  --color-bg-chat-view: #fcfcfd;
+  --color-bg-secondary: #fff;
+  --color-bg-tertiary: #f9fafb;
+  --color-bg-hover: #f3f4f6;
+  --color-surface: #f9fafb;
+  --color-surface-hover: #f3f4f6;
+  --color-surface-active: #e5e7eb;
+  --color-border: #0000001f;
+  --color-border-light: #0000000f;
+  --color-border-strong: #d1d5db;
+  --color-primary: #4200db;
+  --color-primary-dark: #35009e;
+  --color-primary-light: #8575ff;
+  --color-primary-bg: #e8e6ff;
+  --color-primary-hover-border: #35009e;
+  --color-nav-icon-active: #4200db;
+  --color-nav-hover-border: #4200db;
+  --color-primary-alpha-3: color-mix(in srgb, #4200db 3%, transparent);
+  --color-primary-alpha-5: color-mix(in srgb, #4200db 5%, transparent);
+  --color-primary-alpha-8: color-mix(in srgb, #4200db 8%, transparent);
+  --color-primary-alpha-12: color-mix(in srgb, #4200db 12%, transparent);
+  --color-primary-alpha-15: color-mix(in srgb, #4200db 15%, transparent);
+  --color-primary-alpha-20: color-mix(in srgb, #4200db 20%, transparent);
+  --color-primary-alpha-25: color-mix(in srgb, #4200db 25%, transparent);
+  --color-primary-alpha-30: color-mix(in srgb, #4200db 30%, transparent);
+  --color-primary-alpha-40: color-mix(in srgb, #4200db 40%, transparent);
+  --color-primary-alpha-50: color-mix(in srgb, #4200db 50%, transparent);
+  --color-primary-alpha-60: color-mix(in srgb, #4200db 60%, transparent);
+  --color-primary-subtle: color-mix(in srgb, #4200db 12%, transparent);
+  --color-primary-border: color-mix(in srgb, #4200db 30%, transparent);
+  --color-focus-ring: color-mix(in srgb, #4200db 50%, transparent);
+  --color-sidebar-hover: color-mix(in srgb, #4200db 12%, transparent);
+  --block-hover-outline: 1px dashed color-mix(in srgb, #4200db 50%, transparent);
+  --block-selected-outline: 1px solid #8575ff;
+  --block-selection-outline-offset: 2px;
+  --block-selected-halo: 0 0 8px color-mix(in srgb, #4200db 40%, transparent);
+  --color-accent: #4200db;
+  --color-accent-foreground: #4200db;
+  --color-accent-dark: #35009e;
+  --color-accent-light: #e8e6ff;
+  --color-accent-inverse: #fff;
+  --color-link: #4200db;
+  --color-primary-gradient-end: #e8e6ff;
+  --color-primary-bg-solid: #e8e6ff;
+  --color-user-bubble: #f3f3f7;
+  --color-user-bubble-text: #131920;
+  --color-text-secondary: #5e5e5e;
+  --color-text-tertiary: #656871;
+  --color-text-muted: #9ca3af;
+  --color-text-on-primary: #fff;
+  --color-success: #00802f;
+  --color-success-dark: #00471e;
+  --color-success-light: #d9ffd6;
+  --color-success-hover: #005c26;
+  --color-success-bg: #e6f5eb;
+  --color-success-border: #b3d9bf;
+  --color-success-foreground: #00802f;
+  --color-success-dark-foreground: #00471e;
+  --color-success-text: #00471e;
+  --color-error: #db0000;
+  --color-error-dark: #700000;
+  --color-error-light: #ffe0e0;
+  --color-error-hover: #ffe0e0;
+  --color-error-bg: #fceaea;
+  --color-error-border: #f2cccc;
+  --color-error-active-border: #db0000;
+  --color-error-foreground: #db0000;
+  --color-error-dark-foreground: #700000;
+  --color-error-inverse: #fff;
+  --color-error-text: #700000;
+  --color-warning: #f2b100;
+  --color-warning-dark: #573a00;
+  --color-warning-light: #fffbbd;
+  --color-warning-hover: #db9200;
+  --color-warning-bg: #fef7e6;
+  --color-warning-border: #f9dfa3;
+  --color-warning-foreground: #f2b100;
+  --color-warning-dark-foreground: #573a00;
+  --color-warning-inverse: #573a00;
+  --color-surface-warning: #fffbbd;
+  --color-text-warning: #573a00;
+  --color-info: #006ce0;
+  --color-info-dark: #002a66;
+  --color-info-light: #d1f1ff;
+  --color-info-hover: #003b8f;
+  --color-info-bg: #ebf3fc;
+  --color-info-border: #b3d1f0;
+  --color-info-foreground: #006ce0;
+  --color-info-dark-foreground: #002a66;
+  --color-info-inverse: #fff;
+  --color-overlay: #00000080;
+  --color-shadow: #00000014;
+  --color-hover: #0000000d;
+  --color-tooltip-bg: #000000d9;
+  --color-tooltip-text: #fff;
+  --color-voice-purple: #8575ff;
+  --color-voice-purple-dark: #4200db;
+  --color-voice-purple-light: #8575ff;
+  --color-voice-red: #db0000;
+  --color-voice-red-dark: #700000;
+  --color-voice-amber: #f2b100;
+  --color-voice-purple-glow: #4200db66;
+  --color-voice-red-glow: #db000066;
+  --font-sans: "Amazon Ember", "Helvetica Neue", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: "SF Mono", "Monaco", "Menlo", "Consolas", monospace;
+  --text-2xs: .5625rem;
+  --text-xs: .625rem;
+  --text-sm: .6875rem;
+  --text-base: .75rem;
+  --text-md: .8125rem;
+  --text-lg: .875rem;
+  --text-xl: 1rem;
+  --text-2xl: 1.125rem;
+  --text-3xl: 1.25rem;
+  --text-4xl: 1.5rem;
+  --text-5xl: 2rem;
+  --spacing-1: calc(.25rem * 1);
+  --spacing-1-5: calc(.25rem * 1.5);
+  --spacing-2: calc(.25rem * 2);
+  --spacing-3: calc(.25rem * 3);
+  --spacing-4: calc(.25rem * 4);
+  --spacing-5: calc(.25rem * 5);
+  --spacing-6: calc(.25rem * 6);
+  --spacing-7: calc(.25rem * 7);
+  --spacing-8: calc(.25rem * 8);
+  --spacing-9: calc(.25rem * 9);
+  --spacing-10: calc(.25rem * 10);
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-card: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 8px;
+  --shadow-sm: 0 1px 2px #0000000d;
+  --shadow-md: 0 4px 12px #00000014;
+  --color-success-bg-solid: #d9ffd6;
+  --color-error-bg-solid: #ffe0e0;
+  --color-error-border-solid: #ffe0e0;
+  --color-warning-bg-solid: #fffbbd;
+  --color-warning-text: #573a00;
+  --color-info-bg-solid: #d1f1ff;
+  --color-info-bg-solid-alt: #d1f1ff;
+  --color-info-text: #002a66;
+  --color-info-text-alt: #002a66;
+  --color-emerald: #10b981;
+  --color-teal: #4ecdc4;
+  --color-code-bg: #f3f3f7;
+  --color-code-header-bg: #f1f3f5;
+  --color-code-text: #24292e;
+  --color-code-border: #e1e4e8;
+  --color-code-muted: #6a737d;
+  --color-inline-code-bg: #f3f3f7;
+  --color-inline-code-text: #24292e;
+  --color-inline-code-border: #e1e4e8;
+  --color-scrollbar-thumb: #d1d5db;
+  --color-scrollbar-track: transparent;
+  --color-graph-node-text: #333;
+  --color-graph-node-text-dim: #7f8c8d;
+  --color-graph-edge-default: #95a5a6;
+  --color-graph-edge-cross: #e67e22;
+  --color-graph-edge-text: #666;
+  --color-graph-edge-stroke: #fff;
+  --color-graph-highlight-bg: #ff6b6b;
+  --color-graph-highlight-border: #e74c3c;
+  --color-graph-search-bg: gold;
+  --color-graph-search-border: orange;
+  --color-graph-focus-border: #c0392b;
+  --color-graph-external-border: #95a5a6;
+  --color-graph-cat-file: #3498db;
+  --color-graph-cat-folder: #7f8c8d;
+  --color-graph-cat-file-aggregate: #2980b9;
+  --color-graph-cat-class: #9b59b6;
+  --color-graph-cat-function: #2ecc71;
+  --color-graph-cat-method: #1abc9c;
+  --color-graph-cat-variable: #f39c12;
+  --color-graph-cat-import: #d35400;
+  --color-graph-cat-module: #5b6abf;
+  --color-graph-cat-concept: #e74c3c;
+  --color-graph-cat-person: #ff6b6b;
+  --color-graph-cat-org: #4ecdc4;
+  --color-graph-cat-organization: #4ecdc4;
+  --color-graph-cat-product: #a29bfe;
+  --color-graph-cat-metric: #fd79a8;
+  --color-graph-cat-location: #34495e;
+  --color-graph-cat-date: #e056a0;
+  --color-graph-cat-code: #3498db;
+  --color-graph-cat-doc: #7f8c8d;
+  --color-graph-cat-url: #00b894;
+  --color-graph-cat-email: #6c5ce7;
+  --color-graph-cat-unknown: #bdc3c7;
+  --color-graph-rel-contains: #bdc3c7;
+  --color-graph-rel-extends: #9b59b6;
+  --color-graph-rel-implements: #3498db;
+  --color-graph-rel-imports: #e67e22;
+  --color-graph-rel-uses: #2ecc71;
+  --color-graph-rel-calls: #27ae60;
+  --color-graph-rel-references: #f39c12;
+  --color-graph-rel-related-to: #95a5a6;
+  --color-graph-rel-works-on: #e74c3c;
+  --color-graph-rel-owns: #1abc9c;
+  --color-graph-rel-depends-on: #e67e22;
+  --color-graph-rel-parent-of: #bdc3c7;
+  --qs-content: #fff;
+  --qs-main: #fff;
+  --qs-primary-foreground: #131920;
+  --qs-secondary-foreground: #656871;
+  --qs-tertiary-foreground: #9ca3af;
+  --qs-placeholder-foreground: #8c8c94;
+  --qs-divider: #dedee3;
+  --qs-default-border: #8c8c94;
+  --qs-neutral-soft: #b4b4bb;
+  --qs-neutral-gray-50: #f9fafb;
+  --qs-tertiary-background: #f9fafb;
+  --qs-action-hover: #f3f3f7;
+  --qs-primary-default: #4200db;
+  --qs-primary-dark: #35009e;
+  --qs-primary-light: #e8e6ff;
+  --qs-success-default: #00802f;
+  --qs-error-default: #db0000;
+  --qs-font-sans: "Amazon Ember", "Helvetica Neue", "Segoe UI", Helvetica, Arial, sans-serif;
+  --safe-top: 0px;
+  --safe-bottom: 0px;
+  --safe-left: 0px;
+  --safe-right: 0px;
+  --qs-font-family: "Amazon Ember", "Helvetica Neue", "Segoe UI", Helvetica, Arial, sans-serif;
+  --qs-font-base-letter-spacing: .15px;
+  --qs-shadow-sm: 0 0 2px 0 #00000029, 0 0 4px 0 #00000029;
+  --qs-shadow-md: 0 0 2px 0 #00000029, 0 2px 8px 1px #00000029;
+  --qs-shadow-lg: 0 4px 16px 4px #00000029, 0 2px 6px 1px #00000029;
+  --qs-shadow-xl: 0 4px 8px 2px #00000029, 0 6px 20px 4px #00000029;
+  --qs-width-modal-sm: 384px;
+  --qs-width-modal-md: 600px;
+  --qs-width-modal-lg: 1136px;
+  --qs-grid-gap: 16px;
+  --qs-grid-gap-xl: 24px;
+  --qs-primary-medium: #8575ff;
+  --qs-primary-inverse: #fff;
+  --qs-neutral-lightest: #f9f9fb;
+  --qs-neutral-light: #f3f3f7;
+  --qs-neutral-default: #dedee3;
+  --qs-neutral-medium: #8c8c94;
+  --qs-neutral-deep: #656871;
+  --qs-neutral-dark: #333843;
+  --qs-neutral-strong: #131920;
+  --qs-neutral-white: #fff;
+  --qs-neutral-black: #000;
+  --qs-success-medium: #005c26;
+  --qs-success-dark: #00471e;
+  --qs-success-light: #d9ffd6;
+  --qs-success-inverse: #fff;
+  --qs-info-default: #006ce0;
+  --qs-info-medium: #003b8f;
+  --qs-info-dark: #002a66;
+  --qs-info-light: #d1f1ff;
+  --qs-info-inverse: #fff;
+  --qs-warning-default: #f2b100;
+  --qs-warning-medium: #db9200;
+  --qs-warning-dark: #573a00;
+  --qs-warning-light: #fffbbd;
+  --qs-warning-inverse: #573a00;
+  --qs-warning-experimental: #f2b100;
+  --qs-warning-experimental-light: #fffbbd;
+  --qs-warning-experimental-light-foreground: #fffbbd;
+  --qs-error-medium: #900;
+  --qs-error-dark: #700000;
+  --qs-error-light: #ffe0e0;
+  --qs-error-inverse: #fff;
+  --qs-connection-default: #db3300;
+  --qs-connection-soft: #ff997a;
+  --qs-connection-light: #ffe0d6;
+  --qs-connection-dark: #661800;
+  --qs-automation-default: #b3008f;
+  --qs-automation-medium: #d600ba;
+  --qs-automation-soft: #ff94f1;
+  --qs-automation-light: #ffe0fb;
+  --qs-automation-dark: #660052;
+  --qs-insight-default: #a000b8;
+  --qs-insight-soft: #f299ff;
+  --qs-insight-light: #fce6ff;
+  --qs-insight-dark: #590066;
+  --qs-visualization-default: #7300e5;
+  --qs-visualization-soft: #d4a8ff;
+  --qs-visualization-light: #f2e5ff;
+  --qs-visualization-dark: #45008a;
+  --qs-spice: #ff9800;
+  --qs-coachmark: #006ce0;
+  --qs-brand: #fff;
+  --qs-brand-foreground: #131920;
+  --qs-brand-navbar: #131920;
+  --qs-brand-navbar-foreground: #fff;
+  --qs-brand-navbar-light: #dedee3;
+  --qs-brand-navbar-dark: #000;
+  --qs-application-navbar: #4200db;
+  --qs-application-navbar-foreground: #fff;
+  --qs-application-navbar-light: #e8e6ff;
+  --qs-application-navbar-dark: #35009e;
+  --qs-dimension: #4200db;
+  --qs-dimension-foreground: #fff;
+  --qs-dimension-experimental: #4200db;
+  --qs-dimension-experimental-foreground: #4200db;
+  --qs-measure: #00802f;
+  --qs-measure-foreground: #fff;
+  --qs-measure-experimental: #f2b100;
+  --qs-measure-experimental-foreground: #f2b100;
+  --qs-content-inverse: #333843;
+  --qs-content-inverse-active: #131920;
+  --qs-secondary: #dedee3;
+  --qs-disabled: #8c8c94;
+  --qs-divider-light: #f3f3f7;
+  --qs-hover-border: #333843;
+  --qs-active-border: #4200db;
+  --qs-disabled-border: #dedee3;
+  --qs-error-border: #ffe0e0;
+  --qs-error-active-border: #db0000;
+  --qs-disabled-foreground: #b4b4bb;
+  --qs-primary-inverse-foreground: #fff;
+  --qs-error-foreground: #db0000;
+  --qs-contrast-foreground: #131920;
+  --qs-main-foreground: #131920;
+  --qs-main-secondary-foreground: #656871;
+  --qs-action-disabled: #f3f3f7;
+  --qs-action-active: #e8e6ff;
+  --qs-default-badge: #dedee3;
+  --qs-tag-default: #dedee3;
+  --qs-tag-soft-border: #b4b4bb;
+  --qs-focus-offset: 1px;
+  --qs-toggle-tile-sm: calc(.25rem * 8);
+  --qs-toggle-tile-md: calc(.25rem * 12);
+  --qs-toggle-tile-lg: calc(.25rem * 15);
+  --qs-shadow-pin-right: inset 4px 0 4px -4px #00000029;
+  --qs-shadow-pin-left: inset -4px 0 4px -4px #00000029;
+  --react-pdf-text-layer: 1;
+  --highlight-bg-color: #b400aa;
+  --highlight-selected-bg-color: #006400;
+  --react-pdf-annotation-layer: 1;
+  --annotation-unfocused-field-background: url("data:image/svg+xml;charset=UTF-8,<svg width='1px' height='1px' xmlns='http://www.w3.org/2000/svg'><rect width='100%' height='100%' style='fill:rgba(0, 54, 255, 0.13);'/></svg>");
+  --input-focus-border-color: Highlight;
+  --input-focus-outline: 1px solid Canvas;
+  --input-unfocused-border-color: transparent;
+  --input-disabled-border-color: transparent;
+  --input-hover-border-color: black;
+  --link-outline: none;
+  color-scheme: light;
+}
+body { background: var(--color-bg); color: var(--color-text); }
+a { color: var(--color-link, var(--color-primary)); }</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DPX7 Connections Roundtable - Leadership Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root { --primary:#232F3E; --accent:#FF9900; --success:#067D62; --success-light:#E8F5E9; --warning:#D4760A; --warning-light:#FFF8E1; --error:#D13212; --error-light:#FFEBEE; --bg:#F5F7FA; --surface:#FFF; --text:#1D2129; --text-sec:#5F6B7A; --text-muted:#8C96A4; --border:#E2E6EB; --radius:12px; --shadow:0 2px 12px rgba(0,0,0,.06); }
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);padding:24px;min-height:100vh;}
+        .hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:16px;}
+        .hdr-left{display:flex;align-items:center;gap:12px;}
+        .badge{background:var(--primary);color:var(--accent);font-weight:800;font-size:14px;padding:4px 10px;border-radius:6px;}
+        .hdr h1{font-size:20px;font-weight:700;}
+        .hdr .sub{font-size:12px;color:var(--text-muted);}
+
+        .tab-bar{display:flex;background:var(--surface);border-radius:10px;box-shadow:var(--shadow);margin-bottom:12px;overflow:hidden;}
+        .tab{flex:1;text-align:center;padding:11px 10px;font-size:12px;font-weight:600;color:var(--text-sec);cursor:pointer;border-bottom:3px solid transparent;transition:all .2s;}
+        .tab:hover{background:#F8F9FA;color:var(--text);}
+        .tab.on{color:var(--accent);border-bottom-color:var(--accent);background:#FFF8F0;}
+
+        .q-tab-bar{display:flex;background:var(--surface);border-radius:10px;box-shadow:var(--shadow);margin-bottom:12px;overflow:hidden;}
+        .qtab{flex:1;text-align:center;padding:10px 8px;font-size:11px;font-weight:600;color:var(--text-sec);cursor:pointer;border-bottom:3px solid transparent;transition:all .2s;}
+        .qtab:hover{background:#F8F9FA;color:var(--text);}
+        .qtab.on.q-all{background:var(--primary);color:var(--accent);border-bottom-color:transparent;}
+        .qtab.on.q-1{background:#FF9900;color:var(--primary);border-bottom-color:transparent;}
+        .qtab.on.q-2{background:#232F3E;color:#fff;border-bottom-color:transparent;}
+        .qtab.on.q-3{background:#067D62;color:#fff;border-bottom-color:transparent;}
+        .qtab.on.q-4{background:#0073BB;color:#fff;border-bottom-color:transparent;}
+        .qtab.on.q-5{background:#8B5CF6;color:#fff;border-bottom-color:transparent;}
+        .qtab.on.q-notes{background:#D4760A;color:#fff;border-bottom-color:transparent;}
+        .qtab.on.q-bday{background:#E91E90;color:#fff;border-bottom-color:transparent;}
+
+        .selector-row{display:flex;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap;}
+        .selector-row label{font-size:12px;font-weight:600;color:var(--text-sec);}
+        .chip{padding:5px 10px;border:1px solid var(--border);border-radius:16px;font-size:11px;font-weight:500;color:var(--text-sec);cursor:pointer;transition:all .15s;display:inline-block;}
+        .chip:hover{border-color:var(--accent);color:var(--text);}
+        .chip.on{background:var(--accent);border-color:var(--accent);color:var(--primary);font-weight:600;}
+
+        .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:14px;margin-bottom:20px;}
+        .kpi{background:var(--surface);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);text-align:center;}
+        .kpi .lbl{font-size:10px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:5px;}
+        .kpi .val{font-size:26px;font-weight:800;}
+        .kpi .tr{font-size:11px;font-weight:600;margin-top:3px;}
+        .kpi .tr.up{color:var(--success);} .kpi .tr.down{color:var(--error);} .kpi .tr.neu{color:var(--text-muted);}
+
+        .panels-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;}
+        .panel{background:var(--surface);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);margin-bottom:16px;}
+        .panel h3{font-size:13px;font-weight:600;margin-bottom:2px;}
+        .panel .ps{font-size:11px;color:var(--text-muted);margin-bottom:12px;}
+
+        .bar-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+        .bar-label{font-size:11px;font-weight:500;color:var(--text-sec);width:100px;text-align:right;}
+        .bar-track{flex:1;height:22px;background:#F0F2F5;border-radius:6px;overflow:hidden;position:relative;}
+        .bar-fill{height:100%;border-radius:6px;transition:width .4s;}
+        .bar-val{position:absolute;right:8px;top:3px;font-size:11px;font-weight:700;color:var(--text);}
+        .goal-line{position:absolute;left:75%;top:0;height:100%;width:2px;background:var(--success);opacity:.6;}
+
+        .dist-bars{display:flex;align-items:flex-end;gap:8px;height:130px;padding-top:10px;}
+        .dist-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;}
+        .dist-bar{width:100%;border-radius:4px 4px 0 0;transition:height .4s;}
+        .dist-num{font-size:11px;font-weight:600;color:var(--text-sec);}
+        .dist-lbl{font-size:10px;color:var(--text-muted);}
+
+        .trend-row{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--border);}
+        .trend-row:last-child{border-bottom:none;}
+        .trend-period{font-size:11px;font-weight:500;color:var(--text-sec);width:100px;}
+        .trend-dots{display:flex;gap:6px;flex:1;}
+        .dot{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;}
+        .dot-single{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;}
+        .trend-n{font-size:10px;color:var(--text-muted);width:40px;text-align:right;}
+
+        .tbl-sec{background:var(--surface);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);}
+        .tbl-sec h3{font-size:13px;font-weight:600;margin-bottom:12px;}
+        table{width:100%;border-collapse:collapse;font-size:12px;}
+        th{text-align:left;padding:8px 10px;background:var(--bg);color:var(--text-sec);font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.4px;}
+        td{padding:8px 10px;border-bottom:1px solid #F0F2F5;}
+        tr:last-child td{border-bottom:none;}
+        .sb{display:inline-block;padding:2px 7px;border-radius:10px;font-weight:600;font-size:11px;}
+        .sb.h{background:var(--success-light);color:var(--success);} .sb.m{background:var(--warning-light);color:var(--warning);} .sb.l{background:var(--error-light);color:var(--error);}
+        .wf{font-style:italic;color:var(--text-sec);max-width:300px;font-size:11px;}
+        .empty{text-align:center;padding:30px;color:var(--text-muted);}
+
+        .written-list{display:flex;flex-direction:column;gap:8px;}
+        .written-item{padding:10px 14px;background:var(--bg);border-radius:8px;border-left:3px solid #8B5CF6;}
+        .written-item .wi-date{font-size:10px;color:var(--text-muted);margin-bottom:3px;}
+        .written-item .wi-text{font-size:12px;color:var(--text);font-style:italic;}
+
+        .legend{display:flex;gap:12px;margin-top:8px;font-size:10px;color:var(--text-muted);}
+
+        /* Week bubbles for notes */
+        .wk-bubble{padding:5px 12px;border:1px solid var(--border);border-radius:14px;font-size:11px;font-weight:500;color:var(--text-sec);cursor:pointer;transition:all .15s;display:inline-block;}
+        .wk-bubble:hover{border-color:var(--accent);color:var(--text);}
+        .wk-bubble.on{background:var(--accent);border-color:var(--accent);color:var(--primary);font-weight:600;}
+
+        
+        /* Recognition Modal */
+        .recog-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px;}
+        .recog-modal{background:var(--surface);border-radius:var(--radius);padding:28px 32px;max-width:640px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 8px 32px rgba(0,0,0,.2);}
+        .recog-modal h3{font-size:20px;font-weight:700;margin-bottom:6px;}
+        .recog-modal .recog-sub{font-size:14px;color:var(--text-muted);margin-bottom:18px;}
+        .recog-aa-row{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:var(--bg);border-radius:8px;margin-bottom:8px;}
+        .recog-aa-name{font-size:15px;font-weight:600;display:flex;align-items:center;gap:8px;}
+        .recog-btn-sm{padding:7px 14px;border:1px solid var(--border);border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;background:var(--surface);color:var(--text-sec);transition:all .15s;}
+        .recog-btn-sm:hover{border-color:var(--accent);color:var(--accent);}
+        .recog-btn-sm.copied{background:var(--success);color:#fff;border-color:var(--success);}
+        .recog-msg-box{background:var(--bg);border-radius:8px;padding:14px;margin:14px 0;font-size:14px;color:var(--text-sec);font-style:italic;line-height:1.6;}
+        .recog-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px;}
+
+        @media(max-width:768px){.panels-row{grid-template-columns:1fr;}.kpis{grid-template-columns:repeat(2,1fr);}}
+    </style>
+</head>
+<body>
+    <div class="hdr">
+        <div class="hdr-left"><span class="badge">DPX7</span><div><h1>Connections Roundtable Results</h1><div class="sub">Leadership Dashboard</div></div></div>
+        <div style="display:flex;align-items:center;gap:12px;"><div class="sub" id="headerStats"></div><a href="https://docs.google.com/spreadsheets/d/1tPuGQcPbQbuhYUX6K642-lB4z1OXqUx9ue_j6sZvCO4/edit" target="_blank" style="display:inline-flex;align-items:center;gap:5px;padding:6px 12px;background:var(--success);color:white;border-radius:6px;font-size:11px;font-weight:600;text-decoration:none;white-space:nowrap;"><i class="fa-solid fa-table"></i>View Raw Data</a></div>
+    </div>
+
+    <!-- Time Period Tabs -->
+    <div class="tab-bar" id="timeTabs">
+        <div class="tab on" data-tab="week"><i class="fa-solid fa-calendar-week" style="margin-right:4px;"></i>Week</div>
+        <div class="tab" data-tab="month"><i class="fa-solid fa-calendar-days" style="margin-right:4px;"></i>Month</div>
+        <div class="tab" data-tab="quarter"><i class="fa-solid fa-chart-pie" style="margin-right:4px;"></i>Quarter</div>
+        <div class="tab" data-tab="year"><i class="fa-solid fa-calendar" style="margin-right:4px;"></i>Year</div>
+        <div class="tab" data-tab="qr" style="border-left:1px solid var(--border);"><i class="fa-solid fa-qrcode" style="margin-right:4px;"></i>QR Code</div>
+        <div class="tab" data-tab="aas"><i class="fa-solid fa-users" style="margin-right:4px;"></i>AAs</div>
+        <div class="tab" data-tab="howto"><i class="fa-solid fa-circle-question" style="margin-right:4px;"></i>How To</div>
+    </div>
+
+    <!-- Dashboard View -->
+    <div id="dash-view">
+        <!-- Question Tabs -->
+        <div class="q-tab-bar" id="qTabs">
+            <div class="qtab on q-all" data-q="all">All Questions</div>
+            <div class="qtab q-1" data-q="q1">Q1: Value Added</div>
+            <div class="qtab q-2" data-q="q2">Q2: Site Direction</div>
+            <div class="qtab q-3" data-q="q3">Q3: Format</div>
+            <div class="qtab q-4" data-q="q4">Q4: Voice Heard</div>
+            <div class="qtab q-5" data-q="q5">Q5: Written</div>
+            <div class="qtab q-notes" data-q="notes"><i class="fa-solid fa-notebook" style="margin-right:3px;"></i>Leader Notes</div>
+            <div class="qtab q-bday" data-q="bday"><i class="fa-solid fa-cake-candles" style="margin-right:3px;"></i>Birthday RT</div>
+        </div>
+
+        <!-- Period Selector -->
+        <div class="selector-row" id="selectorRow">
+            <label id="sel-label">Select Week(s):</label>
+            <div id="period-chips" style="display:flex;gap:6px;flex-wrap:wrap;"></div>
+        </div>
+
+        <!-- KPIs -->
+        <div class="kpis" id="kpiGrid"></div>
+
+        <!-- Two-column panels -->
+        <div class="panels-row" id="panelsRow">
+            <div class="panel" id="trendPanel">
+                <h3><i class="fa-solid fa-chart-line" style="color:var(--accent);margin-right:6px;"></i>Score Trend</h3>
+                <div class="ps">Average scores across periods</div>
+                <div id="trendContent"></div>
+            </div>
+            <div class="panel" id="compPanel">
+                <h3><i class="fa-solid fa-bars" style="color:var(--accent);margin-right:6px;"></i>Question Comparison</h3>
+                <div class="ps">Average by question (| = 3.0 goal)</div>
+                <div id="compContent"></div>
+            </div>
+        </div>
+
+        <!-- Distribution -->
+        <div class="panel" id="distPanel">
+            <h3><i class="fa-solid fa-chart-column" style="color:var(--accent);margin-right:6px;"></i>Score Distribution</h3>
+            <div class="ps">How scores break down across the 1-4 scale</div>
+            <div class="dist-bars" id="distContent"></div>
+        </div>
+
+        <!-- Individual Responses Table -->
+        <div class="tbl-sec" id="tblSec">
+            <h3 id="tbl-title"><i class="fa-solid fa-comments" style="color:var(--accent);margin-right:6px;"></i>Individual Responses</h3>
+            <div id="tblContent"></div>
+        </div>
+
+        <!-- Leader Notes Section (hidden by default, shown when Notes tab clicked) -->
+        <div id="notesSection" style="display:none;">
+            <div style="background:var(--surface);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);margin-bottom:14px;">
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+                    <i class="fa-solid fa-notebook" style="color:#D4760A;font-size:16px;"></i>
+                    <h3 style="font-size:14px;font-weight:700;">Leader Notes</h3>
+                </div>
+                <div style="font-size:11px;color:var(--text-muted);margin-bottom:10px;">Select a week to view or add notes:</div>
+                <div id="noteWeekBubbles" style="display:flex;gap:6px;flex-wrap:wrap;"></div>
+            </div>
+
+            <!-- Add Note Form -->
+            <div style="background:var(--surface);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);margin-bottom:14px;">
+                <h4 style="font-size:13px;font-weight:600;margin-bottom:12px;"><i class="fa-solid fa-plus-circle" style="color:var(--accent);margin-right:4px;"></i>Add Note</h4>
+                <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+                    <div style="flex:1;min-width:140px;">
+                        <label style="font-size:10px;font-weight:600;color:var(--text-muted);display:block;margin-bottom:3px;">WEEK</label>
+                        <select id="noteWeekSelect" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:6px;font-size:12px;font-family:inherit;background:white;color:var(--text);"></select>
+                    </div>
+                    <div style="flex:1;min-width:140px;">
+                        <label style="font-size:10px;font-weight:600;color:var(--text-muted);display:block;margin-bottom:3px;">DATE</label>
+                        <input type="date" id="noteDate" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:6px;font-size:12px;font-family:inherit;color:var(--text);">
+                    </div>
+                    <div style="flex:1;min-width:140px;">
+                        <label style="font-size:10px;font-weight:600;color:var(--text-muted);display:block;margin-bottom:3px;">LEADER</label>
+                        <input type="text" id="noteLeader" placeholder="Your name" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:6px;font-size:12px;font-family:inherit;color:var(--text);">
+                    </div>
+                </div>
+                <div style="margin-bottom:8px;">
+                    <label style="font-size:10px;font-weight:600;color:var(--text-muted);display:block;margin-bottom:3px;">KEY THEMES DISCUSSED</label>
+                    <textarea id="noteThemes" rows="2" placeholder="What topics came up?" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:6px;font-size:12px;font-family:inherit;color:var(--text);resize:vertical;"></textarea>
+                </div>
+                <div style="margin-bottom:8px;">
+                    <label style="font-size:10px;font-weight:600;color:var(--text-muted);display:block;margin-bottom:3px;">ACTION ITEMS</label>
+                    <textarea id="noteActions" rows="2" placeholder="What did you commit to?" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:6px;font-size:12px;font-family:inherit;color:var(--text);resize:vertical;"></textarea>
+                </div>
+                <div style="margin-bottom:12px;">
+                    <label style="font-size:10px;font-weight:600;color:var(--text-muted);display:block;margin-bottom:3px;">FOLLOW-UP STATUS</label>
+                    <textarea id="noteFollowup" rows="2" placeholder="Status of previous action items" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:6px;font-size:12px;font-family:inherit;color:var(--text);resize:vertical;"></textarea>
+                </div>
+                <button onclick="addNote()" style="background:var(--accent);color:var(--primary);border:none;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;">
+                    <i class="fa-solid fa-plus" style="margin-right:4px;"></i>Save Note
+                </button>
+            </div>
+
+            <!-- Saved Notes -->
+            <div id="notesEmpty" style="text-align:center;padding:30px;color:var(--text-muted);background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);display:none;">
+                <i class="fa-solid fa-notebook" style="font-size:32px;margin-bottom:8px;color:var(--border);"></i>
+                <div style="font-size:13px;">No notes yet. Add your first note above!</div>
+            </div>
+            <div id="notesList"></div>
+        </div>
+
+        <!-- Birthday Roundtables Section -->
+        <div id="bdaySection" style="display:none;">
+            <div style="background:var(--surface);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);margin-bottom:14px;">
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+                    <i class="fa-solid fa-cake-candles" style="color:#E91E90;font-size:16px;"></i>
+                    <h3 style="font-size:14px;font-weight:700;">Birthday Roundtables</h3>
+                </div>
+                <div style="font-size:11px;color:var(--text-muted);margin-bottom:10px;">Log AAs who attended birthday roundtable sessions</div>
+                <div id="bdayWeekBubbles" style="display:flex;gap:6px;flex-wrap:wrap;"></div>
+            </div>
+
+            <!-- Add Birthday RT Entry -->
+            <div style="background:var(--surface);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);margin-bottom:14px;">
+                <h4 style="font-size:13px;font-weight:600;margin-bottom:12px;"><i class="fa-solid fa-plus-circle" style="color:#E91E90;margin-right:4px;"></i>Log Birthday Roundtable Attendance</h4>
+                <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+                    <div style="flex:1;min-width:120px;">
+                        <label style="font-size:10px;font-weight:600;color:var(--text-muted);display:block;margin-bottom:3px;">MONTH</label>
+                        <select id="bdayMonth" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:6px;font-size:12px;font-family:inherit;background:white;color:var(--text);"></select>
+                    </div>
+                    <div style="flex:1;min-width:120px;">
+                        <label style="font-size:10px;font-weight:600;color:var(--text-muted);display:block;margin-bottom:3px;">WEEK</label>
+                        <select id="bdayWeekSelect" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:6px;font-size:12px;font-family:inherit;background:white;color:var(--text);"></select>
+                    </div>
+                    <div style="flex:1;min-width:120px;">
+                        <label style="font-size:10px;font-weight:600;color:var(--text-muted);display:block;margin-bottom:3px;">DATE</label>
+                        <input type="date" id="bdayDate" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:6px;font-size:12px;font-family:inherit;color:var(--text);">
+                    </div>
+                </div>
+                <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
+                    <div style="flex:2;min-width:200px;">
+                        <label style="font-size:10px;font-weight:600;color:var(--text-muted);display:block;margin-bottom:3px;">AA LOGIN</label>
+                        <input type="text" id="bdayAAInput" placeholder="e.g. jsmith" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:6px;font-size:12px;font-family:inherit;color:var(--text);">
+                    </div>
+                </div>
+                <button onclick="addBdayAA()" style="background:#E91E90;color:white;border:none;padding:10px 18px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;">
+                    <i class="fa-solid fa-plus" style="margin-right:4px;"></i>Add
+                </button>
+            </div>
+
+            <!-- Birthday RT List -->
+            <div id="bdayList"></div>
+            <div id="bdayEmpty" style="text-align:center;padding:30px;color:var(--text-muted);background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);display:none;">
+                <i class="fa-solid fa-cake-candles" style="font-size:32px;margin-bottom:8px;color:var(--border);display:block;"></i>
+                <div style="font-size:13px;">No birthday roundtable attendance logged yet.</div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- QR View -->
+    <div id="qr-view" style="display:none;">
+        <div style="background:var(--surface);border-radius:var(--radius);padding:48px 32px;box-shadow:var(--shadow);text-align:center;max-width:500px;margin:0 auto;">
+            <div style="margin-bottom:20px;"><span class="badge" style="font-size:16px;padding:6px 14px;">DPX7</span></div>
+            <h2 style="font-size:22px;font-weight:700;margin-bottom:6px;">Connections Roundtable</h2>
+            <p style="font-size:14px;color:var(--text-sec);margin-bottom:24px;">Your feedback helps us build a better workplace</p>
+            <div style="border:2px solid var(--border);border-radius:12px;padding:16px;display:inline-block;background:#fff;margin-bottom:20px;">
+                <div style="width:280px;height:280px;display:flex;align-items:center;justify-content:center;"><svg xmlns="http://www.w3.org/2000/svg" width="287" height="287" viewBox="0 0 287 287"><rect width="287" height="287" fill="white"></rect><path d="M28,28h7v7h-7zM35,28h7v7h-7zM42,28h7v7h-7zM49,28h7v7h-7zM56,28h7v7h-7zM63,28h7v7h-7zM70,28h7v7h-7zM105,28h7v7h-7zM112,28h7v7h-7zM119,28h7v7h-7zM126,28h7v7h-7zM133,28h7v7h-7zM147,28h7v7h-7zM161,28h7v7h-7zM175,28h7v7h-7zM182,28h7v7h-7zM189,28h7v7h-7zM210,28h7v7h-7zM217,28h7v7h-7zM224,28h7v7h-7zM231,28h7v7h-7zM238,28h7v7h-7zM245,28h7v7h-7zM252,28h7v7h-7zM28,35h7v7h-7zM70,35h7v7h-7zM84,35h7v7h-7zM112,35h7v7h-7zM126,35h7v7h-7zM133,35h7v7h-7zM140,35h7v7h-7zM154,35h7v7h-7zM161,35h7v7h-7zM168,35h7v7h-7zM175,35h7v7h-7zM182,35h7v7h-7zM189,35h7v7h-7zM196,35h7v7h-7zM210,35h7v7h-7zM252,35h7v7h-7zM28,42h7v7h-7zM42,42h7v7h-7zM49,42h7v7h-7zM56,42h7v7h-7zM70,42h7v7h-7zM91,42h7v7h-7zM105,42h7v7h-7zM119,42h7v7h-7zM126,42h7v7h-7zM133,42h7v7h-7zM147,42h7v7h-7zM154,42h7v7h-7zM168,42h7v7h-7zM189,42h7v7h-7zM196,42h7v7h-7zM210,42h7v7h-7zM224,42h7v7h-7zM231,42h7v7h-7zM238,42h7v7h-7zM252,42h7v7h-7zM28,49h7v7h-7zM42,49h7v7h-7zM49,49h7v7h-7zM56,49h7v7h-7zM70,49h7v7h-7zM105,49h7v7h-7zM119,49h7v7h-7zM126,49h7v7h-7zM140,49h7v7h-7zM147,49h7v7h-7zM154,49h7v7h-7zM182,49h7v7h-7zM189,49h7v7h-7zM210,49h7v7h-7zM224,49h7v7h-7zM231,49h7v7h-7zM238,49h7v7h-7zM252,49h7v7h-7zM28,56h7v7h-7zM42,56h7v7h-7zM49,56h7v7h-7zM56,56h7v7h-7zM70,56h7v7h-7zM84,56h7v7h-7zM105,56h7v7h-7zM112,56h7v7h-7zM126,56h7v7h-7zM140,56h7v7h-7zM154,56h7v7h-7zM168,56h7v7h-7zM189,56h7v7h-7zM196,56h7v7h-7zM210,56h7v7h-7zM224,56h7v7h-7zM231,56h7v7h-7zM238,56h7v7h-7zM252,56h7v7h-7zM28,63h7v7h-7zM70,63h7v7h-7zM98,63h7v7h-7zM105,63h7v7h-7zM112,63h7v7h-7zM119,63h7v7h-7zM126,63h7v7h-7zM133,63h7v7h-7zM140,63h7v7h-7zM147,63h7v7h-7zM154,63h7v7h-7zM161,63h7v7h-7zM168,63h7v7h-7zM175,63h7v7h-7zM189,63h7v7h-7zM196,63h7v7h-7zM210,63h7v7h-7zM252,63h7v7h-7zM28,70h7v7h-7zM35,70h7v7h-7zM42,70h7v7h-7zM49,70h7v7h-7zM56,70h7v7h-7zM63,70h7v7h-7zM70,70h7v7h-7zM84,70h7v7h-7zM98,70h7v7h-7zM112,70h7v7h-7zM126,70h7v7h-7zM140,70h7v7h-7zM154,70h7v7h-7zM168,70h7v7h-7zM182,70h7v7h-7zM196,70h7v7h-7zM210,70h7v7h-7zM217,70h7v7h-7zM224,70h7v7h-7zM231,70h7v7h-7zM238,70h7v7h-7zM245,70h7v7h-7zM252,70h7v7h-7zM91,77h7v7h-7zM105,77h7v7h-7zM112,77h7v7h-7zM119,77h7v7h-7zM133,77h7v7h-7zM147,77h7v7h-7zM168,77h7v7h-7zM175,77h7v7h-7zM182,77h7v7h-7zM189,77h7v7h-7zM196,77h7v7h-7zM28,84h7v7h-7zM42,84h7v7h-7zM56,84h7v7h-7zM70,84h7v7h-7zM91,84h7v7h-7zM98,84h7v7h-7zM105,84h7v7h-7zM119,84h7v7h-7zM140,84h7v7h-7zM147,84h7v7h-7zM161,84h7v7h-7zM168,84h7v7h-7zM175,84h7v7h-7zM224,84h7v7h-7zM245,84h7v7h-7zM28,91h7v7h-7zM42,91h7v7h-7zM63,91h7v7h-7zM77,91h7v7h-7zM84,91h7v7h-7zM91,91h7v7h-7zM112,91h7v7h-7zM119,91h7v7h-7zM126,91h7v7h-7zM147,91h7v7h-7zM168,91h7v7h-7zM175,91h7v7h-7zM196,91h7v7h-7zM203,91h7v7h-7zM210,91h7v7h-7zM217,91h7v7h-7zM245,91h7v7h-7zM252,91h7v7h-7zM42,98h7v7h-7zM49,98h7v7h-7zM56,98h7v7h-7zM63,98h7v7h-7zM70,98h7v7h-7zM91,98h7v7h-7zM98,98h7v7h-7zM105,98h7v7h-7zM126,98h7v7h-7zM154,98h7v7h-7zM175,98h7v7h-7zM182,98h7v7h-7zM196,98h7v7h-7zM203,98h7v7h-7zM210,98h7v7h-7zM217,98h7v7h-7zM238,98h7v7h-7zM252,98h7v7h-7zM35,105h7v7h-7zM42,105h7v7h-7zM77,105h7v7h-7zM84,105h7v7h-7zM91,105h7v7h-7zM98,105h7v7h-7zM112,105h7v7h-7zM119,105h7v7h-7zM126,105h7v7h-7zM140,105h7v7h-7zM147,105h7v7h-7zM154,105h7v7h-7zM168,105h7v7h-7zM175,105h7v7h-7zM182,105h7v7h-7zM189,105h7v7h-7zM203,105h7v7h-7zM224,105h7v7h-7zM252,105h7v7h-7zM28,112h7v7h-7zM35,112h7v7h-7zM42,112h7v7h-7zM56,112h7v7h-7zM70,112h7v7h-7zM84,112h7v7h-7zM126,112h7v7h-7zM133,112h7v7h-7zM140,112h7v7h-7zM154,112h7v7h-7zM168,112h7v7h-7zM175,112h7v7h-7zM189,112h7v7h-7zM196,112h7v7h-7zM203,112h7v7h-7zM210,112h7v7h-7zM231,112h7v7h-7zM245,112h7v7h-7zM252,112h7v7h-7zM28,119h7v7h-7zM42,119h7v7h-7zM49,119h7v7h-7zM91,119h7v7h-7zM112,119h7v7h-7zM126,119h7v7h-7zM133,119h7v7h-7zM140,119h7v7h-7zM154,119h7v7h-7zM182,119h7v7h-7zM196,119h7v7h-7zM210,119h7v7h-7zM238,119h7v7h-7zM252,119h7v7h-7zM28,126h7v7h-7zM70,126h7v7h-7zM84,126h7v7h-7zM105,126h7v7h-7zM112,126h7v7h-7zM119,126h7v7h-7zM126,126h7v7h-7zM133,126h7v7h-7zM140,126h7v7h-7zM154,126h7v7h-7zM196,126h7v7h-7zM203,126h7v7h-7zM231,126h7v7h-7zM238,126h7v7h-7zM245,126h7v7h-7zM252,126h7v7h-7zM35,133h7v7h-7zM56,133h7v7h-7zM63,133h7v7h-7zM77,133h7v7h-7zM84,133h7v7h-7zM105,133h7v7h-7zM112,133h7v7h-7zM119,133h7v7h-7zM126,133h7v7h-7zM140,133h7v7h-7zM147,133h7v7h-7zM161,133h7v7h-7zM175,133h7v7h-7zM189,133h7v7h-7zM196,133h7v7h-7zM210,133h7v7h-7zM224,133h7v7h-7zM245,133h7v7h-7zM56,140h7v7h-7zM70,140h7v7h-7zM84,140h7v7h-7zM119,140h7v7h-7zM133,140h7v7h-7zM140,140h7v7h-7zM147,140h7v7h-7zM161,140h7v7h-7zM168,140h7v7h-7zM175,140h7v7h-7zM189,140h7v7h-7zM196,140h7v7h-7zM203,140h7v7h-7zM210,140h7v7h-7zM231,140h7v7h-7zM28,147h7v7h-7zM42,147h7v7h-7zM49,147h7v7h-7zM63,147h7v7h-7zM91,147h7v7h-7zM98,147h7v7h-7zM105,147h7v7h-7zM119,147h7v7h-7zM140,147h7v7h-7zM154,147h7v7h-7zM168,147h7v7h-7zM175,147h7v7h-7zM196,147h7v7h-7zM203,147h7v7h-7zM210,147h7v7h-7zM217,147h7v7h-7zM252,147h7v7h-7zM28,154h7v7h-7zM56,154h7v7h-7zM70,154h7v7h-7zM77,154h7v7h-7zM91,154h7v7h-7zM126,154h7v7h-7zM147,154h7v7h-7zM168,154h7v7h-7zM203,154h7v7h-7zM210,154h7v7h-7zM238,154h7v7h-7zM252,154h7v7h-7zM28,161h7v7h-7zM42,161h7v7h-7zM77,161h7v7h-7zM91,161h7v7h-7zM98,161h7v7h-7zM112,161h7v7h-7zM119,161h7v7h-7zM133,161h7v7h-7zM168,161h7v7h-7zM175,161h7v7h-7zM182,161h7v7h-7zM203,161h7v7h-7zM217,161h7v7h-7zM224,161h7v7h-7zM245,161h7v7h-7zM28,168h7v7h-7zM35,168h7v7h-7zM42,168h7v7h-7zM56,168h7v7h-7zM70,168h7v7h-7zM77,168h7v7h-7zM84,168h7v7h-7zM98,168h7v7h-7zM105,168h7v7h-7zM119,168h7v7h-7zM126,168h7v7h-7zM133,168h7v7h-7zM161,168h7v7h-7zM175,168h7v7h-7zM196,168h7v7h-7zM203,168h7v7h-7zM210,168h7v7h-7zM231,168h7v7h-7zM35,175h7v7h-7zM42,175h7v7h-7zM49,175h7v7h-7zM56,175h7v7h-7zM63,175h7v7h-7zM77,175h7v7h-7zM84,175h7v7h-7zM91,175h7v7h-7zM98,175h7v7h-7zM105,175h7v7h-7zM112,175h7v7h-7zM119,175h7v7h-7zM126,175h7v7h-7zM133,175h7v7h-7zM147,175h7v7h-7zM168,175h7v7h-7zM175,175h7v7h-7zM182,175h7v7h-7zM196,175h7v7h-7zM203,175h7v7h-7zM210,175h7v7h-7zM231,175h7v7h-7zM245,175h7v7h-7zM252,175h7v7h-7zM28,182h7v7h-7zM49,182h7v7h-7zM70,182h7v7h-7zM77,182h7v7h-7zM112,182h7v7h-7zM119,182h7v7h-7zM126,182h7v7h-7zM182,182h7v7h-7zM196,182h7v7h-7zM217,182h7v7h-7zM224,182h7v7h-7zM245,182h7v7h-7zM252,182h7v7h-7zM35,189h7v7h-7zM42,189h7v7h-7zM49,189h7v7h-7zM84,189h7v7h-7zM105,189h7v7h-7zM119,189h7v7h-7zM133,189h7v7h-7zM147,189h7v7h-7zM154,189h7v7h-7zM161,189h7v7h-7zM168,189h7v7h-7zM175,189h7v7h-7zM182,189h7v7h-7zM203,189h7v7h-7zM210,189h7v7h-7zM245,189h7v7h-7zM28,196h7v7h-7zM49,196h7v7h-7zM63,196h7v7h-7zM70,196h7v7h-7zM84,196h7v7h-7zM105,196h7v7h-7zM112,196h7v7h-7zM119,196h7v7h-7zM140,196h7v7h-7zM147,196h7v7h-7zM168,196h7v7h-7zM175,196h7v7h-7zM196,196h7v7h-7zM203,196h7v7h-7zM210,196h7v7h-7zM217,196h7v7h-7zM224,196h7v7h-7zM245,196h7v7h-7zM252,196h7v7h-7zM84,203h7v7h-7zM98,203h7v7h-7zM105,203h7v7h-7zM126,203h7v7h-7zM140,203h7v7h-7zM147,203h7v7h-7zM175,203h7v7h-7zM196,203h7v7h-7zM224,203h7v7h-7zM231,203h7v7h-7zM252,203h7v7h-7zM28,210h7v7h-7zM35,210h7v7h-7zM42,210h7v7h-7zM49,210h7v7h-7zM56,210h7v7h-7zM63,210h7v7h-7zM70,210h7v7h-7zM91,210h7v7h-7zM105,210h7v7h-7zM119,210h7v7h-7zM126,210h7v7h-7zM140,210h7v7h-7zM154,210h7v7h-7zM175,210h7v7h-7zM182,210h7v7h-7zM189,210h7v7h-7zM196,210h7v7h-7zM210,210h7v7h-7zM224,210h7v7h-7zM238,210h7v7h-7zM245,210h7v7h-7zM252,210h7v7h-7zM28,217h7v7h-7zM70,217h7v7h-7zM126,217h7v7h-7zM140,217h7v7h-7zM147,217h7v7h-7zM154,217h7v7h-7zM168,217h7v7h-7zM175,217h7v7h-7zM196,217h7v7h-7zM224,217h7v7h-7zM245,217h7v7h-7zM28,224h7v7h-7zM42,224h7v7h-7zM49,224h7v7h-7zM56,224h7v7h-7zM70,224h7v7h-7zM84,224h7v7h-7zM98,224h7v7h-7zM112,224h7v7h-7zM133,224h7v7h-7zM140,224h7v7h-7zM154,224h7v7h-7zM161,224h7v7h-7zM168,224h7v7h-7zM175,224h7v7h-7zM196,224h7v7h-7zM203,224h7v7h-7zM210,224h7v7h-7zM217,224h7v7h-7zM224,224h7v7h-7zM231,224h7v7h-7zM252,224h7v7h-7zM28,231h7v7h-7zM42,231h7v7h-7zM49,231h7v7h-7zM56,231h7v7h-7zM70,231h7v7h-7zM91,231h7v7h-7zM105,231h7v7h-7zM112,231h7v7h-7zM133,231h7v7h-7zM140,231h7v7h-7zM147,231h7v7h-7zM154,231h7v7h-7zM168,231h7v7h-7zM175,231h7v7h-7zM182,231h7v7h-7zM196,231h7v7h-7zM224,231h7v7h-7zM238,231h7v7h-7zM252,231h7v7h-7zM28,238h7v7h-7zM42,238h7v7h-7zM49,238h7v7h-7zM56,238h7v7h-7zM70,238h7v7h-7zM84,238h7v7h-7zM105,238h7v7h-7zM126,238h7v7h-7zM133,238h7v7h-7zM140,238h7v7h-7zM147,238h7v7h-7zM154,238h7v7h-7zM168,238h7v7h-7zM189,238h7v7h-7zM224,238h7v7h-7zM231,238h7v7h-7zM252,238h7v7h-7zM28,245h7v7h-7zM70,245h7v7h-7zM98,245h7v7h-7zM105,245h7v7h-7zM112,245h7v7h-7zM126,245h7v7h-7zM140,245h7v7h-7zM147,245h7v7h-7zM168,245h7v7h-7zM175,245h7v7h-7zM189,245h7v7h-7zM196,245h7v7h-7zM203,245h7v7h-7zM224,245h7v7h-7zM245,245h7v7h-7zM28,252h7v7h-7zM35,252h7v7h-7zM42,252h7v7h-7zM49,252h7v7h-7zM56,252h7v7h-7zM63,252h7v7h-7zM70,252h7v7h-7zM84,252h7v7h-7zM98,252h7v7h-7zM105,252h7v7h-7zM112,252h7v7h-7zM133,252h7v7h-7zM140,252h7v7h-7zM147,252h7v7h-7zM154,252h7v7h-7zM168,252h7v7h-7zM175,252h7v7h-7zM189,252h7v7h-7zM196,252h7v7h-7zM203,252h7v7h-7zM210,252h7v7h-7zM224,252h7v7h-7zM231,252h7v7h-7zM245,252h7v7h-7zM252,252h7v7h-7z" fill="black"></path></svg></div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:center;gap:8px;font-size:16px;font-weight:600;color:var(--primary);margin-bottom:8px;">
+                <i class="fa-solid fa-camera" style="color:var(--accent);"></i> Scan with your phone camera
+            </div>
+            <p style="font-size:13px;color:var(--success);font-weight:500;"><i class="fa-solid fa-shield-halved" style="margin-right:4px;"></i>100% Anonymous — Takes 30 seconds</p>
+            <div style="margin-top:16px;padding:8px 14px;background:var(--bg);border-radius:6px;font-size:11px;color:var(--text-muted);font-family:monospace;word-break:break-all;">https://joshsalado.github.io/dpx7-roundtable-survey/</div>
+        </div>
+    </div>
+
+    
+    <!-- AAs Attendance View -->
+    <div id="aas-view" style="display:none;">
+        <div style="max-width:700px;margin:0 auto;">
+
+            <!-- Add Attendance -->
+            <div style="background:var(--surface);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);margin-bottom:16px;">
+                <h3 style="font-size:14px;font-weight:700;margin-bottom:12px;"><i class="fa-solid fa-user-plus" style="color:var(--accent);margin-right:6px;"></i>Log AA Attendance</h3>
+                <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
+                    <div style="flex:1;min-width:140px;">
+                        <label style="font-size:10px;font-weight:600;color:var(--text-muted);display:block;margin-bottom:3px;">WEEK</label>
+                        <select id="aaWeekSelect" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:6px;font-size:12px;font-family:inherit;background:white;color:var(--text);"></select>
+                    </div>
+                    <div style="flex:2;min-width:200px;">
+                        <label style="font-size:10px;font-weight:600;color:var(--text-muted);display:block;margin-bottom:3px;">AA NAME OR LOGIN</label>
+                        <input type="text" id="aaNameInput" placeholder="e.g. John Smith or jsmith" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:6px;font-size:12px;font-family:inherit;color:var(--text);">
+                    </div>
+                </div>
+                <div style="display:flex;gap:8px;align-items:center;">
+                    <button onclick="addAA()" style="background:var(--accent);color:var(--primary);border:none;padding:10px 18px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;">
+                        <i class="fa-solid fa-plus" style="margin-right:4px;"></i>Add
+                    </button>
+                    <span style="font-size:11px;color:var(--text-muted);">Tip: press Enter to add quickly</span>
+                </div>
+            </div>
+
+            <!-- View Toggle -->
+            <div style="display:flex;gap:6px;margin-bottom:14px;align-items:center;">
+                <div class="chip on" id="aaViewWeek" onclick="switchAAView('week')">By Week</div>
+                <div class="chip" id="aaViewAll" onclick="switchAAView('all')">All AAs</div>
+                <div style="flex:1;"></div>
+                <button onclick="openRecognizeModal()" style="padding:8px 14px;background:var(--accent);color:var(--primary);border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:5px;white-space:nowrap;"><i class="fa-solid fa-star"></i> Recognize AAs</button>
+            </div>
+
+            <!-- Week View -->
+            <div id="aaWeekView">
+                <div id="aaWeekBubbles" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;"></div>
+                <div id="aaWeekContent"></div>
+            </div>
+
+            <!-- All AAs View -->
+            <div id="aaAllView" style="display:none;">
+                <div style="background:var(--surface);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                        <h3 style="font-size:14px;font-weight:700;"><i class="fa-solid fa-list" style="color:var(--accent);margin-right:6px;"></i>All AAs Roster</h3>
+                        <span id="aaTotalCount" style="font-size:12px;color:var(--text-muted);"></span>
+                    </div>
+                    <div id="aaAllContent"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- How To View -->
+    <div id="howto-view" style="display:none;">
+        <div style="max-width:700px;margin:0 auto;">
+            <div style="background:var(--surface);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);margin-bottom:16px;">
+                <h2 style="font-size:18px;font-weight:700;margin-bottom:14px;"><i class="fa-solid fa-circle-question" style="color:var(--accent);margin-right:6px;"></i>How to Use the Roundtable Dashboard</h2>
+                <div style="display:flex;gap:14px;flex-wrap:wrap;margin-bottom:16px;">
+                    <div style="flex:1;min-width:180px;background:var(--bg);border-radius:10px;padding:14px;">
+                        <div style="font-size:24px;margin-bottom:6px;">1️⃣</div>
+                        <div style="font-size:13px;font-weight:600;margin-bottom:4px;">Run the Roundtable</div>
+                        <div style="font-size:11px;color:var(--text-sec);">Use the 20-min facilitation guide with 5-8 AAs. Focus on low-scoring Connections areas.</div>
+                    </div>
+                    <div style="flex:1;min-width:180px;background:var(--bg);border-radius:10px;padding:14px;">
+                        <div style="font-size:24px;margin-bottom:6px;">2️⃣</div>
+                        <div style="font-size:13px;font-weight:600;margin-bottom:4px;">Show the QR Code</div>
+                        <div style="font-size:11px;color:var(--text-sec);">At the end, have AAs scan the QR code. It takes 30 seconds and is 100% anonymous.</div>
+                    </div>
+                    <div style="flex:1;min-width:180px;background:var(--bg);border-radius:10px;padding:14px;">
+                        <div style="font-size:24px;margin-bottom:6px;">3️⃣</div>
+                        <div style="font-size:13px;font-weight:600;margin-bottom:4px;">Track Results Here</div>
+                        <div style="font-size:11px;color:var(--text-sec);">Come back to this dashboard to see scores, trends, and written feedback over time.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tips -->
+            <div style="background:var(--surface);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);margin-bottom:16px;">
+                <h3 style="font-size:14px;font-weight:700;margin-bottom:10px;"><i class="fa-solid fa-lightbulb" style="color:var(--accent);margin-right:6px;"></i>Tips for Leaders</h3>
+                <ul style="font-size:12px;color:var(--text-sec);padding-left:18px;line-height:2;">
+                    <li>Keep it casual — this is a conversation, not a lecture</li>
+                    <li>Don't defend or explain decisions — just listen and take notes</li>
+                    <li>Follow up on action items before starting new topics</li>
+                    <li>Target 6-12 month tenure group first (biggest gap: 15% below benchmark)</li>
+                    <li>Aim for groups of 6-10 AAs for best participation</li>
+                </ul>
+            </div>
+
+            <!-- Quick Links -->
+            <div style="background:var(--surface);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);margin-bottom:16px;">
+                <h3 style="font-size:14px;font-weight:700;margin-bottom:10px;"><i class="fa-solid fa-link" style="color:var(--accent);margin-right:6px;"></i>Quick Links</h3>
+                <p style="font-size:12px;margin-bottom:6px;"><strong>Survey:</strong> <a href="https://joshsalado.github.io/dpx7-roundtable-survey/" target="_blank" style="color:#0073BB;">https://joshsalado.github.io/dpx7-roundtable-survey/</a></p>
+                <p style="font-size:12px;"><strong>Dashboard:</strong> <a href="https://joshsalado.github.io/dpx7-roundtable-survey/dashboard.html" target="_blank" style="color:#0073BB;">https://joshsalado.github.io/dpx7-roundtable-survey/dashboard.html</a></p>
+            </div>
+
+            <!-- 20-Min Agenda (collapsible) -->
+            <div style="background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:16px;overflow:hidden;">
+                <div id="agendaHeader" onclick="toggleAgenda()" style="padding:16px 20px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;">
+                    <h3 style="font-size:14px;font-weight:700;"><i class="fa-solid fa-clipboard-list" style="color:var(--accent);margin-right:6px;"></i>20-Minute Roundtable Agenda</h3>
+                    <i class="fa-solid fa-chevron-down" id="agendaArrow" style="color:var(--text-muted);transition:transform .2s;"></i>
+                </div>
+                <div id="agendaBody" style="max-height:0;overflow:hidden;transition:max-height .3s ease;">
+                    <div style="padding:0 20px 20px;">
+                        <div style="border-left:3px solid var(--accent);padding:10px 0 10px 14px;margin-bottom:14px;">
+                            <div style="font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;">0-3 min — Welcome</div>
+                            <div style="font-size:13px;font-weight:600;margin:2px 0;">Set the Tone</div>
+                            <div style="font-size:11px;color:var(--text-sec);font-style:italic;">"Thanks for being here. This is your time — everything said here stays here. No wrong answers. We want to make DPX7 a better place to work."</div>
+                        </div>
+                        <div style="border-left:3px solid var(--accent);padding:10px 0 10px 14px;margin-bottom:14px;">
+                            <div style="font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;">3-8 min — Open Check-In</div>
+                            <div style="font-size:13px;font-weight:600;margin:2px 0;">How Are Things Going?</div>
+                            <div style="font-size:11px;color:var(--text-sec);font-style:italic;">"On a scale of 1-4, how would you rate your experience at DPX7 this past week? What went well? What could be better?"</div>
+                        </div>
+                        <div style="border-left:3px solid var(--accent);padding:10px 0 10px 14px;margin-bottom:14px;">
+                            <div style="font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;">8-15 min — Deep Dive</div>
+                            <div style="font-size:13px;font-weight:600;margin:2px 0;">Focus on Key Themes</div>
+                            <div style="font-size:11px;color:var(--text-sec);font-style:italic;">"What's one new skill you'd like to learn here?" / "How's your schedule flexibility?" / "Do you feel leaders are approachable?"</div>
+                        </div>
+                        <div style="border-left:3px solid var(--accent);padding:10px 0 10px 14px;margin-bottom:14px;">
+                            <div style="font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;">15-18 min — Action Commitment</div>
+                            <div style="font-size:13px;font-weight:600;margin:2px 0;">What Can We Do?</div>
+                            <div style="font-size:11px;color:var(--text-sec);font-style:italic;">"Based on what we discussed, here's what I'm going to follow up on: [list items]. Anything else?"</div>
+                        </div>
+                        <div style="border-left:3px solid var(--accent);padding:10px 0 10px 14px;">
+                            <div style="font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;">18-20 min — Close &amp; Survey</div>
+                            <div style="font-size:13px;font-weight:600;margin:2px 0;">QR Code Feedback</div>
+                            <div style="font-size:11px;color:var(--text-sec);font-style:italic;">"Please scan this QR code to give us quick anonymous feedback. It takes 30 seconds. Thank you — your voice matters."</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+<script>
+// ============================================================
+// DPX7 CONNECTIONS ROUNDTABLE DASHBOARD - CLEAN REBUILD
+// ============================================================
+
+var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbybtGx13qfnGSYO38WMFYNmBG3F2pywR3Y3TgCL0ZUeUjSZGofP1JvAdore8SrqwguFtg/exec";
+
+// --- Shared Data (Google Sheets) ---
+var cachedResponses = [];
+var cachedNotes = [];
+var cachedAAs = [];
+var dataLoaded = false;
+
+function loadResponses() { return cachedResponses; }
+function loadNotes() { return cachedNotes; }
+function loadAAs() { return cachedAAs; }
+
+function fetchAllData(callback) {
+    var done = 0;
+    var total = 3;
+    function check() { done++; if (done >= total) { dataLoaded = true; if (callback) callback(); } }
+
+    fetch(SCRIPT_URL + '?tab=Responses').then(function(r) { return r.json(); }).then(function(data) {
+        if (data.result === 'ok') {
+            cachedResponses = data.data.map(function(row) {
+                return {
+                    ts: row.Timestamp ? new Date(row.Timestamp).toISOString().slice(0,10) : new Date().toISOString().slice(0,10),
+                    q1: parseInt(row.Q1) || 0,
+                    q2: parseInt(row.Q2) || 0,
+                    q3: parseInt(row.Q3) || 0,
+                    q4: parseInt(row.Q4) || 0,
+                    q5: row.Q5 || ''
+                };
+            });
+        }
+        check();
+    }).catch(function() { check(); });
+
+    fetch(SCRIPT_URL + '?tab=Attendance').then(function(r) { return r.json(); }).then(function(data) {
+        if (data.result === 'ok') {
+            cachedAAs = data.data.map(function(row) {
+                return { week: row.Week || '', name: row.Name || '', added: row.Timestamp || '' };
+            });
+        }
+        check();
+    }).catch(function() { check(); });
+
+    fetch(SCRIPT_URL + '?tab=Notes').then(function(r) { return r.json(); }).then(function(data) {
+        if (data.result === 'ok') {
+            cachedNotes = data.data.map(function(row) {
+                return {
+                    week: row.Week || '',
+                    date: row.Date || '',
+                    leader: row.Leader || '',
+                    themes: row.Themes || '',
+                    actions: row.Actions || '',
+                    followup: row.Followup || '',
+                    created: row.Timestamp || ''
+                };
+            });
+        }
+        check();
+    }).catch(function() { check(); });
+}
+
+function postToSheet(payload, callback) {
+    fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+    }).then(function() {
+        // With no-cors we can not read the response, but the request goes through
+        // Refresh data after a short delay to let the Sheet update
+        setTimeout(function() { fetchAllData(callback); }, 1500);
+    }).catch(function() {
+        setTimeout(function() { fetchAllData(callback); }, 1500);
+    });
+}
+
+// --- State ---
+var timeTab = 'week';
+var qTab = 'all';
+var selectedPeriods = [];
+var selectedNoteWeek = 'all';
+var all = loadResponses();
+
+// --- Helpers ---
+function getWeekNum(d) {
+    var dt = new Date(d);
+    var start = new Date(dt.getFullYear(), 0, 1);
+    var diff = (dt - start + (start.getTimezoneOffset() - dt.getTimezoneOffset()) * 60000) / 86400000;
+    return Math.ceil((diff + start.getDay() + 1) / 7);
+}
+
+function getPeriodKey(ts) {
+    var d = new Date(ts);
+    if (timeTab === 'week') return 'Wk ' + getWeekNum(d);
+    if (timeTab === 'month') return ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.getMonth()] + ' ' + d.getFullYear();
+    if (timeTab === 'quarter') return 'Q' + (Math.floor(d.getMonth() / 3) + 1) + ' ' + d.getFullYear();
+    return '' + d.getFullYear();
+}
+
+function getPeriodSort(ts) {
+    var d = new Date(ts);
+    if (timeTab === 'week') return d.getFullYear() * 100 + getWeekNum(d);
+    if (timeTab === 'month') return d.getFullYear() * 100 + d.getMonth();
+    if (timeTab === 'quarter') return d.getFullYear() * 10 + Math.floor(d.getMonth() / 3);
+    return d.getFullYear();
+}
+
+function avg(arr) {
+    if (!arr.length) return 0;
+    return arr.reduce(function(a, b) { return a + b; }, 0) / arr.length;
+}
+
+function scoreClass(v) {
+    if (v >= 3.2) return 'h';
+    if (v >= 2.5) return 'm';
+    return 'l';
+}
+
+function scoreColor(v) {
+    if (v >= 3.2) return 'var(--success)';
+    if (v >= 2.5) return 'var(--warning)';
+    return 'var(--error)';
+}
+
+function scoreLabel(v) {
+    if (v >= 3.2) return 'Strong';
+    if (v >= 2.5) return 'Moderate';
+    return 'Needs Work';
+}
+
+function dotColor(v) {
+    if (v >= 3.2) return 'var(--success)';
+    if (v >= 2.5) return 'var(--accent)';
+    return 'var(--error)';
+}
+
+function badgeHTML(v) {
+    var cls = v >= 3 ? 'h' : v >= 2 ? 'm' : 'l';
+    return '<span class="sb ' + cls + '">' + v + '</span>';
+}
+
+// --- Tab Switching ---
+document.getElementById('timeTabs').addEventListener('click', function(e) {
+    var tab = e.target.closest('.tab');
+    if (!tab) return;
+    var t = tab.getAttribute('data-tab');
+    document.querySelectorAll('#timeTabs .tab').forEach(function(el) { el.classList.remove('on'); });
+    tab.classList.add('on');
+    timeTab = t;
+
+    // Show/hide views
+    document.getElementById('dash-view').style.display = (t === 'qr' || t === 'howto' || t === 'aas') ? 'none' : 'block';
+    document.getElementById('qr-view').style.display = t === 'qr' ? 'block' : 'none';
+    document.getElementById('aas-view').style.display = t === 'aas' ? 'block' : 'none';
+    document.getElementById('howto-view').style.display = t === 'howto' ? 'block' : 'none';
+
+    if (t === 'aas') { initAAView(); }
+    if (t !== 'qr' && t !== 'howto' && t !== 'aas') {
+        selectedPeriods = [];
+        buildChips();
+        render();
+    }
+});
+
+document.getElementById('qTabs').addEventListener('click', function(e) {
+    var tab = e.target.closest('.qtab');
+    if (!tab) return;
+    var q = tab.getAttribute('data-q');
+    document.querySelectorAll('#qTabs .qtab').forEach(function(el) { el.classList.remove('on'); });
+    tab.classList.add('on');
+    qTab = q;
+
+    if (q === 'notes') {
+        document.getElementById('selectorRow').style.display = 'none';
+        document.getElementById('kpiGrid').style.display = 'none';
+        document.getElementById('panelsRow').style.display = 'none';
+        document.getElementById('distPanel').style.display = 'none';
+        document.getElementById('tblSec').style.display = 'none';
+        document.getElementById('notesSection').style.display = 'block';
+        document.getElementById('bdaySection').style.display = 'none';
+        initNoteWeeks();
+        renderNotes();
+    } else if (q === 'bday') {
+        document.getElementById('selectorRow').style.display = 'none';
+        document.getElementById('kpiGrid').style.display = 'none';
+        document.getElementById('panelsRow').style.display = 'none';
+        document.getElementById('distPanel').style.display = 'none';
+        document.getElementById('tblSec').style.display = 'none';
+        document.getElementById('notesSection').style.display = 'none';
+        document.getElementById('bdaySection').style.display = 'block';
+        initBdayView();
+    } else {
+        document.getElementById('selectorRow').style.display = 'flex';
+        document.getElementById('kpiGrid').style.display = 'grid';
+        document.getElementById('panelsRow').style.display = 'grid';
+        document.getElementById('distPanel').style.display = 'block';
+        document.getElementById('tblSec').style.display = 'block';
+        document.getElementById('notesSection').style.display = 'none';
+        document.getElementById('bdaySection').style.display = 'none';
+        render();
+    }
+});
+
+// --- Chips ---
+function buildChips() {
+    all = loadResponses();
+    var periods = {};
+    all.forEach(function(d) {
+        var key = getPeriodKey(d.ts);
+        var sort = getPeriodSort(d.ts);
+        if (!periods[key]) periods[key] = {key: key, sort: sort, count: 0};
+        periods[key].count++;
+    });
+    var sorted = Object.values(periods).sort(function(a, b) { return a.sort - b.sort; });
+    var labels = {week:'Select Week(s):', month:'Select Month(s):', quarter:'Select Quarter(s):', year:'Select Year(s):'};
+    document.getElementById('sel-label').textContent = labels[timeTab] || 'Select:';
+
+    var container = document.getElementById('period-chips');
+    container.innerHTML = '';
+    sorted.forEach(function(p, i) {
+        var chip = document.createElement('div');
+        chip.className = 'chip' + (i === sorted.length - 1 ? ' on' : '');
+        chip.setAttribute('data-key', p.key);
+        chip.innerHTML = p.key + ' <span style="opacity:.6;font-size:10px;">(' + p.count + ')</span>';
+        chip.addEventListener('click', function() { toggleChip(this); });
+        container.appendChild(chip);
+    });
+    selectedPeriods = sorted.length ? [sorted[sorted.length - 1].key] : [];
+}
+
+function toggleChip(el) {
+    el.classList.toggle('on');
+    selectedPeriods = [];
+    document.querySelectorAll('#period-chips .chip.on').forEach(function(c) {
+        selectedPeriods.push(c.getAttribute('data-key'));
+    });
+    render();
+}
+
+// --- Main Render ---
+function render() {
+    all = loadResponses();
+    var filtered = all.filter(function(d) {
+        return selectedPeriods.length === 0 || selectedPeriods.indexOf(getPeriodKey(d.ts)) >= 0;
+    });
+
+    // Header stats
+    var totalAvg = 0, totalCount = 0;
+    all.forEach(function(d) {
+        [d.q1, d.q2, d.q3, d.q4].forEach(function(v) { if (v) { totalAvg += v; totalCount++; } });
+    });
+    var headerAvg = totalCount ? (totalAvg / totalCount).toFixed(1) : '--';
+    document.getElementById('headerStats').innerHTML = '<strong>' + all.length + '</strong> responses &bull; <strong>' + headerAvg + '</strong> avg score';
+
+    if (all.length === 0) {
+        document.getElementById('kpiGrid').innerHTML = '';
+        document.getElementById('trendContent').innerHTML = '';
+        document.getElementById('compContent').innerHTML = '';
+        document.getElementById('distContent').innerHTML = '';
+        document.getElementById('tblContent').innerHTML = '<div class="empty"><i class="fa-solid fa-chart-bar" style="font-size:32px;color:var(--border);margin-bottom:8px;display:block;"></i>No responses yet. Run a roundtable and have AAs scan the QR code!</div>';
+        return;
+    }
+
+    renderKPIs(filtered);
+    renderTrend();
+    renderComparison(filtered);
+    renderDistribution(filtered);
+    renderTable(filtered);
+}
+
+function renderKPIs(filtered) {
+    var grid = document.getElementById('kpiGrid');
+    grid.innerHTML = '';
+
+    var qKeys = (qTab === 'all' || qTab === 'q5') ? ['q1','q2','q3','q4'] : [qTab];
+    var labels = {q1:'Value Added', q2:'Site Direction', q3:'Format', q4:'Voice Heard'};
+
+    if (qTab === 'all' || qTab === 'q5') {
+        ['q1','q2','q3','q4'].forEach(function(q) {
+            var vals = filtered.map(function(d) { return d[q]; }).filter(Boolean);
+            var a = avg(vals);
+            grid.innerHTML += '<div class="kpi"><div class="lbl">' + labels[q] + '</div><div class="val" style="color:' + scoreColor(a) + ';">' + (vals.length ? a.toFixed(1) : '--') + '</div><div class="tr" style="color:' + scoreColor(a) + ';">' + (vals.length ? scoreLabel(a) : '') + '</div></div>';
+        });
+        grid.innerHTML += '<div class="kpi"><div class="lbl">Responses</div><div class="val" style="color:#0073BB;">' + filtered.length + '</div><div class="tr neu">in selection</div></div>';
+    } else {
+        var vals = filtered.map(function(d) { return d[qTab]; }).filter(Boolean);
+        var a = avg(vals);
+        grid.innerHTML = '<div class="kpi"><div class="lbl">' + (labels[qTab] || qTab) + '</div><div class="val" style="color:' + scoreColor(a) + ';">' + (vals.length ? a.toFixed(1) : '--') + '</div><div class="tr" style="color:' + scoreColor(a) + ';">' + (vals.length ? scoreLabel(a) + ' &bull; ' + vals.length + ' responses' : '') + '</div></div>';
+    }
+}
+
+function renderTrend() {
+    var content = document.getElementById('trendContent');
+    var periods = {};
+    all.forEach(function(d) {
+        var key = getPeriodKey(d.ts);
+        var sort = getPeriodSort(d.ts);
+        if (!periods[key]) periods[key] = {key: key, sort: sort, items: []};
+        periods[key].items.push(d);
+    });
+    var sorted = Object.values(periods).sort(function(a, b) { return a.sort - b.sort; });
+
+    if (sorted.length < 1) { content.innerHTML = '<div class="empty">Not enough data for trends</div>'; return; }
+
+    var qLabels = {q1:'Value', q2:'Direction', q3:'Format', q4:'Voice'};
+    var qKeys = (qTab === 'all' || qTab === 'q5') ? ['q1','q2','q3','q4'] : [qTab];
+
+    var html = '';
+    sorted.forEach(function(p) {
+        html += '<div class="trend-row"><div class="trend-period">' + p.key + '</div><div class="trend-dots">';
+        qKeys.forEach(function(q) {
+            var vals = p.items.map(function(d) { return d[q]; }).filter(Boolean);
+            var a = avg(vals);
+            if (qKeys.length === 1) {
+                html += '<div class="dot-single" style="background:' + dotColor(a) + ';" title="' + q + ': ' + a.toFixed(1) + '">' + a.toFixed(1) + '</div>';
+            } else {
+                html += '<div class="dot" style="background:' + dotColor(a) + ';" title="' + qLabels[q] + ': ' + a.toFixed(1) + '">' + a.toFixed(1) + '</div>';
+            }
+        });
+        html += '</div><div class="trend-n">n=' + p.items.length + '</div></div>';
+    });
+
+    if (qKeys.length > 1) {
+        html += '<div class="legend"><b style="color:var(--accent);">●</b>Value <b style="color:var(--primary);">●</b>Direction <b style="color:var(--success);">●</b>Format <b style="color:#0073BB;">●</b>Voice</div>';
+    }
+    content.innerHTML = html;
+}
+
+function renderComparison(filtered) {
+    var content = document.getElementById('compContent');
+    if (qTab !== 'all' && qTab !== 'q5') {
+        document.getElementById('compPanel').style.display = 'none';
+        return;
+    }
+    document.getElementById('compPanel').style.display = 'block';
+
+    var questions = [
+        {key:'q1', label:'Value Added', color:'var(--accent)'},
+        {key:'q2', label:'Site Direction', color:'var(--primary)'},
+        {key:'q3', label:'Format', color:'var(--success)'},
+        {key:'q4', label:'Voice Heard', color:'#0073BB'}
+    ];
+
+    var html = '';
+    questions.forEach(function(q) {
+        var vals = filtered.map(function(d) { return d[q.key]; }).filter(Boolean);
+        var a = avg(vals);
+        var pct = (a / 4 * 100).toFixed(0);
+        html += '<div class="bar-row">' +
+            '<div class="bar-label">' + q.label + '</div>' +
+            '<div class="bar-track"><div class="bar-fill" style="width:' + pct + '%;background:' + q.color + ';"></div><div class="goal-line"></div><div class="bar-val">' + a.toFixed(1) + '</div></div>' +
+            '</div>';
+    });
+    content.innerHTML = html;
+}
+
+function renderDistribution(filtered) {
+    var content = document.getElementById('distContent');
+    var counts = {1:0, 2:0, 3:0, 4:0};
+    var total = 0;
+    var qKeys = (qTab === 'all' || qTab === 'q5') ? ['q1','q2','q3','q4'] : [qTab];
+
+    filtered.forEach(function(d) {
+        qKeys.forEach(function(q) {
+            var v = d[q];
+            if (v >= 1 && v <= 4) { counts[v]++; total++; }
+        });
+    });
+
+    var maxCount = Math.max(counts[1], counts[2], counts[3], counts[4], 1);
+    var colors = {1:'var(--error)', 2:'var(--warning)', 3:'#0073BB', 4:'var(--success)'};
+    var labels = {1:'1 (Low)', 2:'2', 3:'3', 4:'4 (High)'};
+
+    content.innerHTML = '';
+    [1,2,3,4].forEach(function(s) {
+        var pct = total > 0 ? (counts[s] / total * 100).toFixed(0) : 0;
+        var h = Math.max(4, (counts[s] / maxCount) * 110);
+        var col = document.createElement('div');
+        col.className = 'dist-col';
+        col.innerHTML = '<div class="dist-num">' + pct + '%</div><div class="dist-bar" style="height:' + h + 'px;background:' + colors[s] + ';"></div><div class="dist-lbl">' + labels[s] + '</div>';
+        content.appendChild(col);
+    });
+}
+
+function renderTable(filtered) {
+    var content = document.getElementById('tblContent');
+
+    if (qTab === 'q5') {
+        // Written feedback only
+        document.getElementById('tbl-title').innerHTML = '<i class="fa-solid fa-pen" style="color:#8B5CF6;margin-right:6px;"></i>Written Feedback';
+        var withText = filtered.filter(function(d) { return d.q5 && d.q5.trim(); });
+        if (withText.length === 0) {
+            content.innerHTML = '<div class="empty">No written feedback yet</div>';
+            return;
+        }
+        var html = '<div class="written-list">';
+        withText.reverse().forEach(function(d) {
+            var dateStr = new Date(d.ts).toLocaleDateString('en-US', {month:'short', day:'numeric'});
+            html += '<div class="written-item"><div class="wi-date">' + dateStr + '</div><div class="wi-text">"' + escapeHTML(d.q5) + '"</div></div>';
+        });
+        html += '</div>';
+        content.innerHTML = html;
+        return;
+    }
+
+    document.getElementById('tbl-title').innerHTML = '<i class="fa-solid fa-comments" style="color:var(--accent);margin-right:6px;"></i>Individual Responses';
+    var html = '<table><thead><tr><th>Date</th><th>Q1</th><th>Q2</th><th>Q3</th><th>Q4</th><th>Written Feedback</th></tr></thead><tbody>';
+    filtered.slice().reverse().forEach(function(d) {
+        var dateStr = new Date(d.ts).toLocaleDateString('en-US', {month:'short', day:'numeric'});
+        html += '<tr><td>' + dateStr + '</td>';
+        ['q1','q2','q3','q4'].forEach(function(q) {
+            html += '<td>' + (d[q] ? badgeHTML(d[q]) : '-') + '</td>';
+        });
+        html += '<td class="wf">' + (d.q5 ? escapeHTML(d.q5) : '') + '</td></tr>';
+    });
+    html += '</tbody></table>';
+    content.innerHTML = html;
+}
+
+function escapeHTML(str) {
+    var div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+}
+
+// --- LEADER NOTES ---
+function initNoteWeeks() {
+    var sel = document.getElementById('noteWeekSelect');
+    sel.innerHTML = '';
+    var now = new Date();
+    var currentWk = getWeekNum(now);
+    for (var i = 0; i < 8; i++) {
+        var wk = currentWk - i;
+        if (wk < 1) continue;
+        var opt = document.createElement('option');
+        opt.value = 'Wk ' + wk;
+        opt.textContent = 'Wk ' + wk + (i === 0 ? ' (current)' : '');
+        sel.appendChild(opt);
+    }
+    document.getElementById('noteDate').value = now.toISOString().slice(0, 10);
+    buildNoteBubbles();
+    renderNotes();
+}
+
+function buildNoteBubbles() {
+    var notes = loadNotes();
+    var weeks = {};
+    notes.forEach(function(n) {
+        if (!weeks[n.week]) weeks[n.week] = 0;
+        weeks[n.week]++;
+    });
+    var currentWk = 'Wk ' + getWeekNum(new Date());
+    if (!weeks[currentWk]) weeks[currentWk] = 0;
+
+    var sorted = Object.keys(weeks).sort(function(a, b) {
+        return parseInt(b.replace('Wk ', '')) - parseInt(a.replace('Wk ', ''));
+    });
+
+    var container = document.getElementById('noteWeekBubbles');
+    container.innerHTML = '';
+
+    // "All" bubble
+    var allBubble = document.createElement('div');
+    allBubble.className = 'wk-bubble' + (selectedNoteWeek === 'all' ? ' on' : '');
+    allBubble.textContent = 'All';
+    allBubble.addEventListener('click', function() {
+        selectedNoteWeek = 'all';
+        buildNoteBubbles();
+        renderNotes();
+    });
+    container.appendChild(allBubble);
+
+    // Week bubbles
+    sorted.forEach(function(w) {
+        var count = weeks[w];
+        var bubble = document.createElement('div');
+        bubble.className = 'wk-bubble' + (selectedNoteWeek === w ? ' on' : '');
+        bubble.innerHTML = w + (count ? ' <span style="opacity:.6;font-size:9px;">(' + count + ')</span>' : '');
+        bubble.addEventListener('click', function() {
+            selectedNoteWeek = w;
+            buildNoteBubbles();
+            renderNotes();
+        });
+        container.appendChild(bubble);
+    });
+}
+
+function addNote() {
+    var week = document.getElementById('noteWeekSelect').value;
+    var date = document.getElementById('noteDate').value;
+    var leader = document.getElementById('noteLeader').value.trim();
+    var themes = document.getElementById('noteThemes').value.trim();
+    var actions = document.getElementById('noteActions').value.trim();
+    var followup = document.getElementById('noteFollowup').value.trim();
+
+    if (!themes && !actions) {
+        alert('Please enter at least themes or action items.');
+        return;
+    }
+
+    document.getElementById('noteThemes').value = '';
+    document.getElementById('noteActions').value = '';
+    document.getElementById('noteFollowup').value = '';
+
+    postToSheet({
+        action: 'addNote',
+        week: week,
+        date: date,
+        leader: leader || 'Leader',
+        themes: themes,
+        actions: actions,
+        followup: followup
+    }, function() {
+        buildNoteBubbles();
+        renderNotes();
+    });
+}
+
+function deleteNote(idx) {
+    if (!confirm('Delete this note?')) return;
+    var notes = loadNotes();
+    var note = notes[idx];
+    if (!note) return;
+
+    postToSheet({ action: 'deleteNote', timestamp: note.created }, function() {
+        buildNoteBubbles();
+        renderNotes();
+    });
+}
+
+function renderNotes() {
+    var notes = loadNotes();
+    var filtered = selectedNoteWeek === 'all' ? notes : notes.filter(function(n) { return n.week === selectedNoteWeek; });
+
+    var emptyEl = document.getElementById('notesEmpty');
+    var listEl = document.getElementById('notesList');
+
+    if (!filtered.length) {
+        emptyEl.style.display = 'block';
+        listEl.innerHTML = '';
+        return;
+    }
+    emptyEl.style.display = 'none';
+
+    var currentWeek = '';
+    var html = '';
+    filtered.forEach(function(n, i) {
+        // Find original index for delete
+        var origIdx = notes.indexOf(n);
+
+        if (n.week !== currentWeek) {
+            if (currentWeek) html += '</div>';
+            currentWeek = n.week;
+            html += '<div style="margin-bottom:14px;background:var(--surface);border-radius:var(--radius);padding:14px;box-shadow:var(--shadow);">';
+            html += '<div style="display:flex;align-items:center;gap:6px;padding-bottom:6px;border-bottom:2px solid var(--accent);margin-bottom:8px;">';
+            html += '<span style="background:var(--accent);color:var(--primary);font-weight:800;font-size:11px;padding:3px 8px;border-radius:4px;">' + escapeHTML(n.week) + '</span>';
+            html += '</div>';
+        }
+
+        var dateStr = '';
+        if (n.date) {
+            try { dateStr = new Date(n.date + 'T12:00:00').toLocaleDateString('en-US', {weekday:'short', month:'short', day:'numeric'}); }
+            catch(e) { dateStr = n.date; }
+        }
+
+        html += '<div style="background:var(--bg);border-radius:8px;padding:12px;margin-bottom:6px;border-left:3px solid #D4760A;">';
+        html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">';
+        html += '<div style="display:flex;gap:8px;align-items:center;">';
+        html += '<span style="font-size:11px;font-weight:600;color:var(--primary);">' + escapeHTML(n.leader) + '</span>';
+        html += '<span style="font-size:10px;color:var(--text-muted);">' + dateStr + '</span>';
+        html += '</div>';
+        html += '<button onclick="deleteNote(' + origIdx + ')" style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:10px;" title="Delete"><i class="fa-solid fa-xmark"></i></button>';
+        html += '</div>';
+
+        if (n.themes) {
+            html += '<div style="margin-bottom:6px;"><div style="font-size:9px;font-weight:600;color:var(--text-muted);text-transform:uppercase;margin-bottom:2px;">Themes</div>';
+            html += '<div style="font-size:11px;color:var(--text);line-height:1.5;">' + escapeHTML(n.themes) + '</div></div>';
+        }
+        if (n.actions) {
+            html += '<div style="margin-bottom:6px;"><div style="font-size:9px;font-weight:600;color:var(--success);text-transform:uppercase;margin-bottom:2px;"><i class="fa-solid fa-check-circle" style="margin-right:2px;"></i>Actions</div>';
+            html += '<div style="font-size:11px;color:var(--text);line-height:1.5;">' + escapeHTML(n.actions) + '</div></div>';
+        }
+        if (n.followup) {
+            html += '<div><div style="font-size:9px;font-weight:600;color:#0073BB;text-transform:uppercase;margin-bottom:2px;"><i class="fa-solid fa-rotate" style="margin-right:2px;"></i>Follow-up</div>';
+            html += '<div style="font-size:11px;color:var(--text);line-height:1.5;">' + escapeHTML(n.followup) + '</div></div>';
+        }
+        html += '</div>';
+    });
+    if (currentWeek) html += '</div>';
+
+    listEl.innerHTML = html;
+}
+
+// --- Collapsible Agenda ---
+function toggleAgenda() {
+    var body = document.getElementById('agendaBody');
+    var arrow = document.getElementById('agendaArrow');
+    if (body.style.maxHeight === '0px' || body.style.maxHeight === '') {
+        body.style.maxHeight = '2000px';
+        arrow.style.transform = 'rotate(180deg)';
+    } else {
+        body.style.maxHeight = '0px';
+        arrow.style.transform = 'rotate(0deg)';
+    }
+}
+
+
+// --- AA ATTENDANCE TRACKING ---
+var aaViewMode = 'week';
+var aaSelectedWeek = 'all';
+// loadAAs() is now defined in the shared data layer above
+
+function initAAView() {
+    // Populate week dropdown
+    var sel = document.getElementById('aaWeekSelect');
+    sel.innerHTML = '';
+    var now = new Date();
+    var currentWk = getWeekNum(now);
+    for (var i = 0; i < 12; i++) {
+        var wk = currentWk - i;
+        if (wk < 1) continue;
+        var opt = document.createElement('option');
+        opt.value = 'Wk ' + wk;
+        opt.textContent = 'Wk ' + wk + (i === 0 ? ' (current)' : '');
+        sel.appendChild(opt);
+    }
+    buildAAWeekBubbles();
+    renderAAView();
+}
+
+function addAA() {
+    var week = document.getElementById('aaWeekSelect').value;
+    var name = document.getElementById('aaNameInput').value.trim();
+    if (!name) { alert('Please enter an AA name or login.'); return; }
+
+    var records = loadAAs();
+    var exists = records.some(function(r) {
+        return r.week === week && r.name.toLowerCase() === name.toLowerCase();
+    });
+    if (exists) {
+        alert(name + ' is already logged for ' + week + '.');
+        return;
+    }
+
+    document.getElementById('aaNameInput').value = '';
+    document.getElementById('aaNameInput').focus();
+
+    postToSheet({ action: 'addAA', week: week, name: name }, function() {
+        buildAAWeekBubbles();
+        renderAAView();
+    });
+}
+
+function removeAA(idx) {
+    var records = loadAAs();
+    var record = records[idx];
+    if (!record) return;
+
+    postToSheet({ action: 'removeAA', week: record.week, name: record.name }, function() {
+        buildAAWeekBubbles();
+        renderAAView();
+    });
+}
+
+function switchAAView(mode) {
+    aaViewMode = mode;
+    document.getElementById('aaViewWeek').className = 'chip' + (mode === 'week' ? ' on' : '');
+    document.getElementById('aaViewAll').className = 'chip' + (mode === 'all' ? ' on' : '');
+    document.getElementById('aaWeekView').style.display = mode === 'week' ? 'block' : 'none';
+    document.getElementById('aaAllView').style.display = mode === 'all' ? 'block' : 'none';
+    renderAAView();
+}
+
+function buildAAWeekBubbles() {
+    var records = loadAAs();
+    var weeks = {};
+    records.forEach(function(r) {
+        if (!weeks[r.week]) weeks[r.week] = 0;
+        weeks[r.week]++;
+    });
+    var currentWk = 'Wk ' + getWeekNum(new Date());
+    if (!weeks[currentWk]) weeks[currentWk] = 0;
+
+    var sorted = Object.keys(weeks).sort(function(a, b) {
+        return parseInt(b.replace('Wk ', '')) - parseInt(a.replace('Wk ', ''));
+    });
+
+    var container = document.getElementById('aaWeekBubbles');
+    container.innerHTML = '';
+
+    var allBubble = document.createElement('div');
+    allBubble.className = 'wk-bubble' + (aaSelectedWeek === 'all' ? ' on' : '');
+    allBubble.textContent = 'All Weeks';
+    allBubble.addEventListener('click', function() {
+        aaSelectedWeek = 'all';
+        buildAAWeekBubbles();
+        renderAAView();
+    });
+    container.appendChild(allBubble);
+
+    sorted.forEach(function(w) {
+        var count = weeks[w];
+        var bubble = document.createElement('div');
+        bubble.className = 'wk-bubble' + (aaSelectedWeek === w ? ' on' : '');
+        bubble.innerHTML = w + ' <span style="opacity:.6;font-size:9px;">(' + count + ')</span>';
+        bubble.addEventListener('click', function() {
+            aaSelectedWeek = w;
+            buildAAWeekBubbles();
+            renderAAView();
+        });
+        container.appendChild(bubble);
+    });
+}
+
+function renderAAView() {
+    if (aaViewMode === 'week') {
+        renderAAWeekView();
+    } else {
+        renderAAAllView();
+    }
+}
+
+function renderAAWeekView() {
+    var records = loadAAs();
+    var filtered = aaSelectedWeek === 'all' ? records : records.filter(function(r) { return r.week === aaSelectedWeek; });
+
+    var content = document.getElementById('aaWeekContent');
+
+    if (!filtered.length) {
+        content.innerHTML = '<div style="text-align:center;padding:30px;color:var(--text-muted);background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);">' +
+            '<i class="fa-solid fa-users" style="font-size:32px;margin-bottom:8px;color:var(--border);display:block;"></i>' +
+            'No attendance logged yet. Add AAs above!</div>';
+        return;
+    }
+
+    // Group by week
+    var byWeek = {};
+    filtered.forEach(function(r) {
+        if (!byWeek[r.week]) byWeek[r.week] = [];
+        byWeek[r.week].push(r);
+    });
+
+    var sortedWeeks = Object.keys(byWeek).sort(function(a, b) {
+        return parseInt(b.replace('Wk ', '')) - parseInt(a.replace('Wk ', ''));
+    });
+
+    var html = '';
+    sortedWeeks.forEach(function(wk) {
+        var aas = byWeek[wk];
+        html += '<div style="background:var(--surface);border-radius:var(--radius);padding:14px;box-shadow:var(--shadow);margin-bottom:12px;">';
+        html += '<div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:8px;border-bottom:2px solid var(--accent);margin-bottom:10px;">';
+        html += '<div style="display:flex;align-items:center;gap:6px;">';
+        html += '<span style="background:var(--accent);color:var(--primary);font-weight:800;font-size:11px;padding:3px 8px;border-radius:4px;">' + wk + '</span>';
+        html += '</div>';
+        html += '<span style="font-size:11px;color:var(--text-muted);"><i class="fa-solid fa-users" style="margin-right:3px;"></i>' + aas.length + ' AA' + (aas.length !== 1 ? 's' : '') + '</span>';
+        html += '</div>';
+
+        aas.forEach(function(r) {
+            var origIdx = records.indexOf(r);
+            html += '<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 10px;margin-bottom:4px;background:var(--bg);border-radius:6px;">';
+            html += '<div style="display:flex;align-items:center;gap:8px;">';
+            html += '<i class="fa-solid fa-user" style="color:var(--accent);font-size:11px;"></i>';
+            html += '<span style="font-size:12px;font-weight:500;">' + escapeHTML(r.name) + '</span>';
+            html += '</div>';
+            html += '<div style="display:flex;align-items:center;gap:6px;">';
+            html += '<button data-engage-login="' + escapeHTML(r.name) + '" class="engage-btn" style="padding:4px 10px;background:var(--accent);color:var(--primary);border:none;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:4px;white-space:nowrap;" title="Copy login & open Engage"><i class="fa-solid fa-star"></i>Engage</button>';
+            html += '<button onclick="removeAA(' + origIdx + ')" style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:10px;" title="Remove"><i class="fa-solid fa-xmark"></i></button>';
+            html += '</div>';
+            html += '</div>';
+        });
+        html += '</div>';
+    });
+
+    content.innerHTML = html;
+}
+
+function renderAAAllView() {
+    var records = loadAAs();
+    var content = document.getElementById('aaAllContent');
+    var countEl = document.getElementById('aaTotalCount');
+
+    if (!records.length) {
+        countEl.textContent = '';
+        content.innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-muted);">No AAs logged yet.</div>';
+        return;
+    }
+
+    // Build roster: unique AAs with count and weeks
+    var roster = {};
+    records.forEach(function(r) {
+        var key = r.name.toLowerCase();
+        if (!roster[key]) roster[key] = { name: r.name, count: 0, weeks: [] };
+        roster[key].count++;
+        if (roster[key].weeks.indexOf(r.week) === -1) roster[key].weeks.push(r.week);
+    });
+
+    var sorted = Object.values(roster).sort(function(a, b) {
+        return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
+    });
+
+    countEl.textContent = sorted.length + ' unique AA' + (sorted.length !== 1 ? 's' : '');
+
+    var html = '<table style="width:100%;border-collapse:collapse;font-size:12px;">';
+    html += '<thead><tr><th style="text-align:left;padding:8px 10px;">AA Name</th><th style="text-align:center;padding:8px 10px;">Sessions</th><th style="text-align:left;padding:8px 10px;">Weeks</th></tr></thead>';
+    html += '<tbody>';
+    sorted.forEach(function(aa) {
+        var weeksSorted = aa.weeks.sort(function(a, b) {
+            return parseInt(a.replace('Wk ', '')) - parseInt(b.replace('Wk ', ''));
+        });
+        var weekChips = weeksSorted.map(function(w) {
+            return '<span style="display:inline-block;padding:2px 6px;background:var(--bg);border-radius:4px;font-size:10px;color:var(--text-sec);margin:1px 2px;">' + w + '</span>';
+        }).join('');
+
+        html += '<tr>';
+        html += '<td style="padding:8px 10px;"><div style="display:flex;align-items:center;gap:6px;"><i class="fa-solid fa-user" style="color:var(--accent);font-size:10px;"></i><span style="font-weight:500;">' + escapeHTML(aa.name) + '</span><button data-engage-login="' + escapeHTML(aa.name) + '" class="engage-btn" style="padding:2px 8px;background:var(--accent);color:var(--primary);border:none;border-radius:4px;font-size:10px;font-weight:700;cursor:pointer;margin-left:4px;" title="Copy login & open Engage"><i class="fa-solid fa-star"></i></button></div></td>';
+        html += '<td style="padding:8px 10px;text-align:center;"><span style="display:inline-block;background:' + (aa.count >= 3 ? 'var(--success-light)' : aa.count >= 2 ? 'var(--warning-light)' : 'var(--error-light)') + ';color:' + (aa.count >= 3 ? 'var(--success)' : aa.count >= 2 ? 'var(--warning)' : 'var(--error)') + ';padding:2px 8px;border-radius:10px;font-weight:700;font-size:11px;">' + aa.count + '</span></td>';
+        html += '<td style="padding:8px 10px;">' + weekChips + '</td>';
+        html += '</tr>';
+    });
+    html += '</tbody></table>';
+
+    content.innerHTML = html;
+}
+
+// Enter key to add AA quickly
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && document.activeElement && document.activeElement.id === 'aaNameInput') {
+        e.preventDefault();
+        addAA();
+    }
+});
+
+
+
+// --- OPEN ENGAGE FOR AA ---
+var engagePresets = [];
+
+function getFormattedDate() {
+    var d = new Date();
+    var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    return months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
+}
+
+function openEngage(login) {
+    var today = getFormattedDate();
+    var weekLabel = aaSelectedWeek === 'all' ? 'Wk ' + getWeekNum(new Date()) : aaSelectedWeek;
+
+    engagePresets = [
+        'Date: ' + today + ' | DPX7 Connections Roundtable | Culture | Participated in the DPX7 Connections Roundtable, shared feedback and provided relevant information that leaders will use to help with future improvements.',
+        'Date: ' + today + ' | DPX7 Connections Roundtable | Culture | Participated in the DPX7 Connections Roundtable, shared feedback and provided relevant information that leaders will use to help with future improvements.',
+        'Thank you for participating in this week\'s DPX7 Connections Roundtable! Your willingness to share honest feedback helps us build a better workplace for everyone. Your voice matters and we appreciate you taking the time.',
+        'Shout-out to you for being part of the DPX7 Connections Roundtable! Your feedback and ideas are a big reason this site continues to grow and improve. By speaking up, you\'re helping shape the future of DPX7 and that makes a real difference. Thank you for helping us build on our success!',
+        'Thank you for your positive energy and engagement during the DPX7 Connections Roundtable! Your thoughtful input and willingness to have open dialogue with leadership shows real ownership of our site culture. We appreciate your positive interaction and look forward to continuing the conversation!'
+    ];
+
+    var el = document.createElement('div');
+    el.id = 'engageMenuContainer';
+
+    var modal = document.createElement('div');
+    modal.className = 'recog-overlay';
+    modal.onclick = function(e) { if (e.target === modal) closeEngageMenu(); };
+
+    var box = document.createElement('div');
+    box.className = 'recog-modal';
+
+    // Header
+    var hdr = document.createElement('div');
+    hdr.style.cssText = 'display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;';
+    var hdrLeft = document.createElement('div');
+    hdrLeft.innerHTML = '<h3 style="font-size:20px;"><i class="fa-solid fa-star" style="color:var(--accent);margin-right:8px;"></i>Recognize: ' + escapeHTML(login) + '</h3><div style="font-size:13px;color:var(--text-muted);margin-top:4px;">' + today + ' \u2022 ' + weekLabel + '</div>';
+    var closeBtn = document.createElement('button');
+    closeBtn.textContent = '\u00D7';
+    closeBtn.style.cssText = 'background:none;border:none;font-size:26px;cursor:pointer;color:var(--text-muted);line-height:1;';
+    closeBtn.onclick = closeEngageMenu;
+    hdr.appendChild(hdrLeft);
+    hdr.appendChild(closeBtn);
+    box.appendChild(hdr);
+
+    // Step 1: Copy & Open Engage
+    var step1 = document.createElement('div');
+    step1.style.marginBottom = '18px';
+    step1.innerHTML = '<div style="font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;margin-bottom:8px;">Step 1: Open Engage & Search</div>';
+    var openBtn = document.createElement('button');
+    openBtn.style.cssText = 'display:flex;align-items:center;gap:8px;padding:12px 18px;background:var(--primary);color:var(--accent);border:none;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;width:100%;justify-content:center;';
+    openBtn.innerHTML = '<i class="fa-solid fa-arrow-up-right-from-square"></i>Copy \u201C' + escapeHTML(login) + '\u201D & Open Engage';
+    openBtn.onclick = function() {
+        navigator.clipboard.writeText(login).then(function() {
+            openBtn.innerHTML = '<i class="fa-solid fa-check"></i> Copied! Opening Engage...';
+            openBtn.style.background = 'var(--success)';
+            setTimeout(function() { window.open('https://atoz.amazon.work/engage', '_blank'); }, 500);
+        });
+    };
+    step1.appendChild(openBtn);
+    box.appendChild(step1);
+
+    // ========== LOG ENGAGEMENT SECTION (Warm/Orange theme) ==========
+    var engSection = document.createElement('div');
+    engSection.style.cssText = 'background:#FFF8F0;border:2px solid #FF9900;border-radius:10px;padding:16px;margin-bottom:16px;';
+
+    var engHeader = document.createElement('div');
+    engHeader.style.cssText = 'display:flex;align-items:center;gap:8px;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #FFD699;';
+    engHeader.innerHTML = '<i class="fa-solid fa-clipboard-list" style="font-size:18px;color:#D4760A;"></i><div><div style="font-size:15px;font-weight:700;color:#D4760A;">Log Engagement</div><div style="font-size:12px;color:#B8621B;">Type: Culture | Category: Recommended Engagement</div></div>';
+    engSection.appendChild(engHeader);
+
+    var engLabels = [
+        ['Roundtable Participation', 'Date: ' + today + ' | DPX7 Connections Roundtable | Culture | Participated in the DPX7 Connections Roundtable, shared feedback and provided relevant information that leaders will use to help with future improvements.'],
+        ['Active Contributor', 'Date: ' + today + ' | DPX7 Connections Roundtable | Culture | Participated in the DPX7 Connections Roundtable, shared feedback and provided relevant information that leaders will use to help with future improvements.']
+    ];
+
+    engLabels.forEach(function(item, idx) {
+        var card = document.createElement('div');
+        card.style.cssText = 'background:white;border:1px solid #FFD699;border-radius:8px;padding:12px 16px;margin-bottom:10px;cursor:pointer;transition:all .15s;';
+        card.onmouseover = function() { if (!card.dataset.copied) card.style.borderColor = '#FF9900'; };
+        card.onmouseout = function() { if (!card.dataset.copied) card.style.borderColor = '#FFD699'; };
+        card.onclick = function() { copyPresetByIndex(idx, card, 'engagement'); };
+        card.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;"><span style="font-size:13px;font-weight:700;color:#D4760A;">\uD83D\uDCCB ' + item[0] + '</span><span class="copy-label" style="font-size:12px;color:var(--text-muted);">click to copy</span></div><div style="font-size:13px;color:var(--text-sec);line-height:1.5;font-style:italic;">' + item[1] + '</div>';
+        engSection.appendChild(card);
+    });
+    box.appendChild(engSection);
+
+    // ========== SHOUT-OUT SECTION (Cool/Blue-Purple theme) ==========
+    var soSection = document.createElement('div');
+    soSection.style.cssText = 'background:#F0F4FF;border:2px solid #0073BB;border-radius:10px;padding:16px;margin-bottom:16px;';
+
+    var soHeader = document.createElement('div');
+    soHeader.style.cssText = 'display:flex;align-items:center;gap:8px;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #B3D4FC;';
+    soHeader.innerHTML = '<i class="fa-solid fa-star" style="font-size:18px;color:#0073BB;"></i><div><div style="font-size:15px;font-weight:700;color:#0073BB;">Send Shout-Out</div><div style="font-size:12px;color:#005C99;">Classify as: Positive Participant</div></div>';
+    soSection.appendChild(soHeader);
+
+    var soLabels = [
+        ['Thank You for Participating', 'Thank you for participating in this week\'s DPX7 Connections Roundtable! Your willingness to share honest feedback helps us build a better workplace.'],
+        ['Helping the Site Succeed', 'Shout-out for being part of the roundtable! Your feedback and ideas are a big reason this site continues to grow and improve.'],
+        ['Positive Interaction', 'Thank you for your positive energy and engagement! Your thoughtful input and willingness to have open dialogue shows real ownership of our site culture.']
+    ];
+
+    soLabels.forEach(function(item, idx) {
+        var card = document.createElement('div');
+        card.style.cssText = 'background:white;border:1px solid #B3D4FC;border-radius:8px;padding:10px 12px;margin-bottom:8px;cursor:pointer;transition:all .15s;';
+        card.onmouseover = function() { if (!card.dataset.copied) card.style.borderColor = '#0073BB'; };
+        card.onmouseout = function() { if (!card.dataset.copied) card.style.borderColor = '#B3D4FC'; };
+        card.onclick = function() { copyPresetByIndex(idx + 2, card, 'shoutout'); };
+        card.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;"><span style="font-size:13px;font-weight:700;color:#0073BB;">\u2B50 ' + item[0] + '</span><span class="copy-label" style="font-size:12px;color:var(--text-muted);">click to copy</span></div><div style="font-size:13px;color:var(--text-sec);line-height:1.5;font-style:italic;">' + item[1] + '</div>';
+        soSection.appendChild(card);
+    });
+    box.appendChild(soSection);
+
+    // Reminder
+    var reminder = document.createElement('div');
+    reminder.style.cssText = 'padding:10px 12px;background:var(--bg);border-radius:8px;font-size:11px;color:var(--text-sec);text-align:center;';
+    reminder.innerHTML = '<strong style="color:var(--warning);">Engagements</strong> \u2192 Type: <strong>Recognition</strong> &nbsp;|&nbsp; <strong style="color:#0073BB;">Shout-Outs</strong> \u2192 Classify: <strong>Positive Participant</strong>';
+    box.appendChild(reminder);
+
+    modal.appendChild(box);
+    el.appendChild(modal);
+
+    var existing = document.getElementById('engageMenuContainer');
+    if (existing) existing.remove();
+    document.body.appendChild(el);
+}
+
+function closeEngageMenu() {
+    var el = document.getElementById('engageMenuContainer');
+    if (el) el.remove();
+}
+
+function copyPresetByIndex(idx, cardEl, type) {
+    var text = engagePresets[idx] || '';
+    text = text.replace(/\\n/g, '\n');
+    navigator.clipboard.writeText(text).then(function() {
+        cardEl.dataset.copied = 'true';
+        if (type === 'engagement') {
+            cardEl.style.borderColor = 'var(--success)';
+            cardEl.style.background = '#E8F5E9';
+        } else {
+            cardEl.style.borderColor = 'var(--success)';
+            cardEl.style.background = '#E8F5E9';
+        }
+        var label = cardEl.querySelector('.copy-label');
+        if (label) {
+            label.innerHTML = '<i class="fa-solid fa-check-circle" style="margin-right:3px;"></i>Copied!';
+            label.style.color = 'var(--success)';
+            label.style.fontWeight = '700';
+        }
+    });
+}
+
+// --- AA RECOGNITION ---
+function openRecognizeModal() {
+    var records = loadAAs();
+    // Filter by selected week if not "all"
+    var filtered = aaSelectedWeek === 'all' ? records : records.filter(function(r) { return r.week === aaSelectedWeek; });
+
+    if (!filtered.length) {
+        alert('No AAs logged for the selected week. Log attendance first!');
+        return;
+    }
+
+    // Get unique logins for the selected period
+    var seen = {};
+    var uniqueAAs = [];
+    filtered.forEach(function(r) {
+        var key = r.name.toLowerCase();
+        if (!seen[key]) {
+            seen[key] = true;
+            uniqueAAs.push(r);
+        }
+    });
+
+    var weekLabel = aaSelectedWeek === 'all' ? 'All Weeks' : aaSelectedWeek;
+
+    // Build modal HTML
+    var html = '<div class="recog-overlay" id="recogOverlay" onclick="if(event.target===this)closeRecognizeModal()">';
+    html += '<div class="recog-modal">';
+    html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">';
+    html += '<h3><i class="fa-solid fa-star" style="color:var(--accent);margin-right:6px;"></i>Recognize AAs</h3>';
+    html += '<button onclick="closeRecognizeModal()" style="background:none;border:none;font-size:18px;cursor:pointer;color:var(--text-muted);">&times;</button>';
+    html += '</div>';
+    html += '<div class="recog-sub">' + uniqueAAs.length + ' AA' + (uniqueAAs.length !== 1 ? 's' : '') + ' from ' + weekLabel + '</div>';
+
+    // Open Engage button
+    html += '<a href="https://atoz.amazon.work/engage" target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:10px 18px;background:var(--primary);color:var(--accent);border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;margin-bottom:16px;"><i class="fa-solid fa-arrow-up-right-from-square"></i>Open Engage in New Tab</a>';
+
+    // AA list
+    uniqueAAs.forEach(function(aa, i) {
+        html += '<div class="recog-aa-row">';
+        html += '<div class="recog-aa-name"><i class="fa-solid fa-user" style="color:var(--accent);font-size:11px;"></i>' + escapeHTML(aa.name) + '</div>';
+        html += '<button class="recog-btn-sm" id="copyLogin' + i + '" onclick="copyToClip(\'' + escapeHTML(aa.name).replace(/'/g, "\\'") + '\', \'copyLogin' + i + '\')"><i class="fa-solid fa-copy" style="margin-right:3px;"></i>Copy Login</button>';
+        html += '</div>';
+    });
+
+    // Shout-out message
+    html += '<div style="margin-top:16px;"><div style="font-size:13px;font-weight:600;color:var(--text-muted);text-transform:uppercase;margin-bottom:6px;">Shout-Out Message (copy & paste into Engage)</div>';
+    html += '<div class="recog-msg-box" id="recogMessage">"Thank you for participating in this week\'s DPX7 Connections Roundtable! Your willingness to share honest feedback helps us build a better workplace for everyone. Your voice matters and we appreciate you taking the time."</div>';
+    html += '</div>';
+
+    // Action buttons
+    html += '<div class="recog-actions">';
+    html += '<button class="recog-btn-sm" id="copyMsgBtn" onclick="copyMessage()" style="padding:8px 14px;"><i class="fa-solid fa-copy" style="margin-right:4px;"></i>Copy Shout-Out Message</button>';
+    html += '<button class="recog-btn-sm" id="copyAllBtn" onclick="copyAllLogins()" style="padding:8px 14px;"><i class="fa-solid fa-list" style="margin-right:4px;"></i>Copy All Logins</button>';
+    html += '</div>';
+
+    html += '</div></div>';
+
+    // Insert into page
+    var container = document.createElement('div');
+    container.id = 'recogContainer';
+    container.innerHTML = html;
+    document.body.appendChild(container);
+}
+
+function closeRecognizeModal() {
+    var el = document.getElementById('recogContainer');
+    if (el) el.remove();
+}
+
+function copyToClip(text, btnId) {
+    navigator.clipboard.writeText(text).then(function() {
+        var btn = document.getElementById(btnId);
+        btn.classList.add('copied');
+        btn.innerHTML = '<i class="fa-solid fa-check" style="margin-right:3px;"></i>Copied!';
+        setTimeout(function() {
+            btn.classList.remove('copied');
+            btn.innerHTML = '<i class="fa-solid fa-copy" style="margin-right:3px;"></i>Copy Login';
+        }, 2000);
+    });
+}
+
+function copyMessage() {
+    var msg = document.getElementById('recogMessage').textContent;
+    navigator.clipboard.writeText(msg).then(function() {
+        var btn = document.getElementById('copyMsgBtn');
+        btn.classList.add('copied');
+        btn.innerHTML = '<i class="fa-solid fa-check" style="margin-right:4px;"></i>Copied!';
+        setTimeout(function() {
+            btn.classList.remove('copied');
+            btn.innerHTML = '<i class="fa-solid fa-copy" style="margin-right:4px;"></i>Copy Shout-Out Message';
+        }, 2000);
+    });
+}
+
+function copyAllLogins() {
+    var records = loadAAs();
+    var filtered = aaSelectedWeek === 'all' ? records : records.filter(function(r) { return r.week === aaSelectedWeek; });
+    var seen = {};
+    var logins = [];
+    filtered.forEach(function(r) {
+        var key = r.name.toLowerCase();
+        if (!seen[key]) { seen[key] = true; logins.push(r.name); }
+    });
+    navigator.clipboard.writeText(logins.join('\n')).then(function() {
+        var btn = document.getElementById('copyAllBtn');
+        btn.classList.add('copied');
+        btn.innerHTML = '<i class="fa-solid fa-check" style="margin-right:4px;"></i>Copied All!';
+        setTimeout(function() {
+            btn.classList.remove('copied');
+            btn.innerHTML = '<i class="fa-solid fa-list" style="margin-right:4px;"></i>Copy All Logins';
+        }, 2000);
+    });
+}
+
+
+// --- Engage button delegation (avoids inline onclick escaping issues) ---
+document.addEventListener('click', function(e) {
+    var btn = e.target.closest('.engage-btn');
+    if (btn) {
+        var login = btn.getAttribute('data-engage-login');
+        if (login) openEngage(login);
+    }
+});
+
+
+// --- BIRTHDAY ROUNDTABLE ---
+var BDAY_TAB = 'BdayAttendance';
+var cachedBdayAAs = [];
+var bdaySelectedFilter = 'all';
+
+function loadBdayAAs() { return cachedBdayAAs; }
+
+function initBdayView() {
+    // Populate month dropdown
+    var monthSel = document.getElementById('bdayMonth');
+    monthSel.innerHTML = '';
+    var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    var now = new Date();
+    var currentMonth = now.getMonth();
+    for (var i = 0; i < 12; i++) {
+        var mIdx = (currentMonth - i + 12) % 12;
+        var opt = document.createElement('option');
+        opt.value = months[mIdx];
+        opt.textContent = months[mIdx] + (i === 0 ? ' (current)' : '');
+        monthSel.appendChild(opt);
+    }
+
+    // Populate week dropdown
+    var weekSel = document.getElementById('bdayWeekSelect');
+    weekSel.innerHTML = '';
+    var currentWk = getWeekNum(now);
+    for (var i = 0; i < 12; i++) {
+        var wk = currentWk - i;
+        if (wk < 1) continue;
+        var opt = document.createElement('option');
+        opt.value = 'Wk ' + wk;
+        opt.textContent = 'Wk ' + wk + (i === 0 ? ' (current)' : '');
+        weekSel.appendChild(opt);
+    }
+
+    // Set today's date
+    document.getElementById('bdayDate').value = now.toISOString().slice(0, 10);
+
+    // Fetch birthday data
+    fetchBdayData(function() {
+        buildBdayBubbles();
+        renderBdayList();
+    });
+}
+
+function fetchBdayData(callback) {
+    fetch(SCRIPT_URL + '?tab=' + BDAY_TAB).then(function(r) { return r.json(); }).then(function(data) {
+        if (data.result === 'ok') {
+            cachedBdayAAs = data.data.map(function(row) {
+                return {
+                    month: row.Month || '',
+                    week: row.Week || '',
+                    date: row.Date || '',
+                    name: row.Name || '',
+                    added: row.Timestamp || ''
+                };
+            });
+        }
+        if (callback) callback();
+    }).catch(function() {
+        if (callback) callback();
+    });
+}
+
+function addBdayAA() {
+    var month = document.getElementById('bdayMonth').value;
+    var week = document.getElementById('bdayWeekSelect').value;
+    var date = document.getElementById('bdayDate').value;
+    var name = document.getElementById('bdayAAInput').value.trim();
+
+    if (!name) { alert('Please enter an AA login.'); return; }
+
+    // Check duplicate
+    var exists = cachedBdayAAs.some(function(r) {
+        return r.month === month && r.week === week && r.name.toLowerCase() === name.toLowerCase();
+    });
+    if (exists) {
+        alert(name + ' is already logged for ' + month + ' ' + week + '.');
+        return;
+    }
+
+    document.getElementById('bdayAAInput').value = '';
+    document.getElementById('bdayAAInput').focus();
+
+    // Post to sheet
+    fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'addBday', month: month, week: week, date: date, name: name })
+    }).then(function() {
+        setTimeout(function() {
+            fetchBdayData(function() { buildBdayBubbles(); renderBdayList(); });
+        }, 1500);
+    }).catch(function() {
+        setTimeout(function() {
+            fetchBdayData(function() { buildBdayBubbles(); renderBdayList(); });
+        }, 1500);
+    });
+}
+
+function removeBdayAA(month, week, name) {
+    fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'removeBday', month: month, week: week, name: name })
+    }).then(function() {
+        setTimeout(function() {
+            fetchBdayData(function() { buildBdayBubbles(); renderBdayList(); });
+        }, 1500);
+    });
+}
+
+function buildBdayBubbles() {
+    var records = loadBdayAAs();
+    var filters = {};
+    records.forEach(function(r) {
+        var key = r.month + ' - ' + r.week;
+        if (!filters[key]) filters[key] = 0;
+        filters[key]++;
+    });
+
+    var container = document.getElementById('bdayWeekBubbles');
+    container.innerHTML = '';
+
+    var allBubble = document.createElement('div');
+    allBubble.className = 'wk-bubble' + (bdaySelectedFilter === 'all' ? ' on' : '');
+    allBubble.textContent = 'All';
+    allBubble.addEventListener('click', function() {
+        bdaySelectedFilter = 'all';
+        buildBdayBubbles();
+        renderBdayList();
+    });
+    container.appendChild(allBubble);
+
+    var sorted = Object.keys(filters).sort().reverse();
+    sorted.forEach(function(key) {
+        var bubble = document.createElement('div');
+        bubble.className = 'wk-bubble' + (bdaySelectedFilter === key ? ' on' : '');
+        bubble.innerHTML = key + ' <span style="opacity:.6;font-size:9px;">(' + filters[key] + ')</span>';
+        bubble.addEventListener('click', function() {
+            bdaySelectedFilter = key;
+            buildBdayBubbles();
+            renderBdayList();
+        });
+        container.appendChild(bubble);
+    });
+}
+
+function renderBdayList() {
+    var records = loadBdayAAs();
+    var filtered = bdaySelectedFilter === 'all' ? records : records.filter(function(r) {
+        return (r.month + ' - ' + r.week) === bdaySelectedFilter;
+    });
+
+    var listEl = document.getElementById('bdayList');
+    var emptyEl = document.getElementById('bdayEmpty');
+
+    if (!filtered.length) {
+        listEl.innerHTML = '';
+        emptyEl.style.display = 'block';
+        return;
+    }
+    emptyEl.style.display = 'none';
+
+    // Group by month + week
+    var groups = {};
+    filtered.forEach(function(r) {
+        var key = r.month + ' - ' + r.week;
+        if (!groups[key]) groups[key] = [];
+        groups[key].push(r);
+    });
+
+    var html = '';
+    var sortedKeys = Object.keys(groups).sort().reverse();
+    sortedKeys.forEach(function(key) {
+        var aas = groups[key];
+        html += '<div style="background:var(--surface);border-radius:var(--radius);padding:14px;box-shadow:var(--shadow);margin-bottom:12px;border-left:4px solid #E91E90;">';
+        html += '<div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:8px;border-bottom:2px solid #F8BBD0;margin-bottom:10px;">';
+        html += '<div style="display:flex;align-items:center;gap:6px;">';
+        html += '<span style="background:#E91E90;color:white;font-weight:800;font-size:11px;padding:3px 8px;border-radius:4px;"><i class="fa-solid fa-cake-candles" style="margin-right:4px;"></i>' + key + '</span>';
+        html += '</div>';
+        html += '<span style="font-size:11px;color:var(--text-muted);">' + aas.length + ' AA' + (aas.length !== 1 ? 's' : '') + '</span>';
+        html += '</div>';
+
+        aas.forEach(function(r) {
+            var dateStr = '';
+            if (r.date) {
+                try { dateStr = new Date(r.date + 'T12:00:00').toLocaleDateString('en-US', {month:'short', day:'numeric'}); }
+                catch(e) { dateStr = r.date; }
+            }
+            html += '<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 10px;margin-bottom:4px;background:var(--bg);border-radius:6px;">';
+            html += '<div style="display:flex;align-items:center;gap:8px;">';
+            html += '<i class="fa-solid fa-user" style="color:#E91E90;font-size:11px;"></i>';
+            html += '<span style="font-size:12px;font-weight:500;">' + escapeHTML(r.name) + '</span>';
+            if (dateStr) html += '<span style="font-size:10px;color:var(--text-muted);">' + dateStr + '</span>';
+            html += '</div>';
+            html += '<div style="display:flex;align-items:center;gap:6px;">';
+            html += '<button data-bday-engage="' + escapeHTML(r.name) + '" class="bday-engage-btn" style="padding:4px 10px;background:#E91E90;color:white;border:none;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:4px;white-space:nowrap;" title="Recognize in Engage"><i class="fa-solid fa-star"></i>Engage</button>';
+            html += '<button onclick="removeBdayAA(\'' + escapeHTML(r.month) + '\',\'' + escapeHTML(r.week) + '\',\'' + escapeHTML(r.name) + '\')" style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:10px;" title="Remove"><i class="fa-solid fa-xmark"></i></button>';
+            html += '</div>';
+            html += '</div>';
+        });
+        html += '</div>';
+    });
+
+    listEl.innerHTML = html;
+}
+
+// Birthday Engage presets
+var bdayEngagePresets = [];
+
+function openBdayEngage(login) {
+    var today = getFormattedDate();
+
+    bdayEngagePresets = [
+        'Date: ' + today + ' | DPX7 Birthday Roundtable | Recognition | Participated in the DPX7 Birthday Roundtable, celebrating team members and building connections through recognition of our associates.',
+        'Happy Birthday! Thank you for being part of our DPX7 Birthday Roundtable celebration! Your presence and positive energy help make DPX7 a great place to work. We appreciate you and hope you had an amazing day!',
+        'Shout-out for joining the DPX7 Birthday Roundtable! Celebrating our team members is what makes our site culture special. Thank you for being a valued part of the DPX7 family — here is to another great year!',
+        'Happy Birthday and thank you for your dedication to DPX7! Your hard work and positive attitude make a real difference every day. We are grateful to have you on the team and look forward to your continued success!'
+    ];
+
+    var el = document.createElement('div');
+    el.id = 'bdayEngageContainer';
+
+    var modal = document.createElement('div');
+    modal.className = 'recog-overlay';
+    modal.onclick = function(e) { if (e.target === modal) closeBdayEngage(); };
+
+    var box = document.createElement('div');
+    box.className = 'recog-modal';
+
+    // Header
+    var hdr = document.createElement('div');
+    hdr.style.cssText = 'display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;';
+    var hdrLeft = document.createElement('div');
+    hdrLeft.innerHTML = '<h3 style="font-size:20px;"><i class="fa-solid fa-cake-candles" style="color:#E91E90;margin-right:8px;"></i>Birthday Recognition: ' + escapeHTML(login) + '</h3><div style="font-size:13px;color:var(--text-muted);margin-top:4px;">' + today + '</div>';
+    var closeBtn = document.createElement('button');
+    closeBtn.textContent = '\u00D7';
+    closeBtn.style.cssText = 'background:none;border:none;font-size:26px;cursor:pointer;color:var(--text-muted);line-height:1;';
+    closeBtn.onclick = closeBdayEngage;
+    hdr.appendChild(hdrLeft);
+    hdr.appendChild(closeBtn);
+    box.appendChild(hdr);
+
+    // Step 1
+    var step1 = document.createElement('div');
+    step1.style.marginBottom = '18px';
+    step1.innerHTML = '<div style="font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;margin-bottom:8px;">Step 1: Open Engage & Search</div>';
+    var openBtn = document.createElement('button');
+    openBtn.style.cssText = 'display:flex;align-items:center;gap:8px;padding:12px 18px;background:#E91E90;color:white;border:none;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;width:100%;justify-content:center;';
+    openBtn.innerHTML = '<i class="fa-solid fa-arrow-up-right-from-square"></i>Copy \u201C' + escapeHTML(login) + '\u201D & Open Engage';
+    openBtn.onclick = function() {
+        navigator.clipboard.writeText(login).then(function() {
+            openBtn.innerHTML = '<i class="fa-solid fa-check"></i> Copied! Opening Engage...';
+            openBtn.style.background = 'var(--success)';
+            setTimeout(function() { window.open('https://atoz.amazon.work/engage', '_blank'); }, 500);
+        });
+    };
+    step1.appendChild(openBtn);
+    box.appendChild(step1);
+
+    // Log Engagement - Pink/Rose theme
+    var engSection = document.createElement('div');
+    engSection.style.cssText = 'background:#FFF0F5;border:2px solid #E91E90;border-radius:10px;padding:16px;margin-bottom:16px;';
+    var engHeader = document.createElement('div');
+    engHeader.style.cssText = 'display:flex;align-items:center;gap:8px;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #F8BBD0;';
+    engHeader.innerHTML = '<i class="fa-solid fa-clipboard-list" style="font-size:18px;color:#C2185B;"></i><div><div style="font-size:15px;font-weight:700;color:#C2185B;">Log Engagement</div><div style="font-size:12px;color:#AD1457;">Type: Recognition</div></div>';
+    engSection.appendChild(engHeader);
+
+    var engCard = document.createElement('div');
+    engCard.style.cssText = 'background:white;border:1px solid #F8BBD0;border-radius:8px;padding:12px 16px;cursor:pointer;transition:all .15s;';
+    engCard.onmouseover = function() { if (!engCard.dataset.copied) engCard.style.borderColor = '#E91E90'; };
+    engCard.onmouseout = function() { if (!engCard.dataset.copied) engCard.style.borderColor = '#F8BBD0'; };
+    engCard.onclick = function() { copyBdayPreset(0, engCard); };
+    engCard.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;"><span style="font-size:13px;font-weight:700;color:#C2185B;">\uD83C\uDF82 Birthday Roundtable Participation</span><span class="copy-label" style="font-size:12px;color:var(--text-muted);">click to copy</span></div><div style="font-size:13px;color:var(--text-sec);line-height:1.5;font-style:italic;">Date: ' + today + ' | DPX7 Birthday Roundtable | Recognition | Participated in the DPX7 Birthday Roundtable celebration.</div>';
+    engSection.appendChild(engCard);
+    box.appendChild(engSection);
+
+    // Shout-Outs - Pink/Purple theme
+    var soSection = document.createElement('div');
+    soSection.style.cssText = 'background:#F3E5F5;border:2px solid #9C27B0;border-radius:10px;padding:16px;margin-bottom:16px;';
+    var soHeader = document.createElement('div');
+    soHeader.style.cssText = 'display:flex;align-items:center;gap:8px;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #CE93D8;';
+    soHeader.innerHTML = '<i class="fa-solid fa-star" style="font-size:18px;color:#9C27B0;"></i><div><div style="font-size:15px;font-weight:700;color:#9C27B0;">Send Shout-Out</div><div style="font-size:12px;color:#7B1FA2;">Birthday Celebration</div></div>';
+    soSection.appendChild(soHeader);
+
+    var soLabels = [
+        ['Happy Birthday Celebration', 'Happy Birthday! Thank you for being part of our Birthday Roundtable celebration! Your presence and positive energy help make DPX7 a great place to work.'],
+        ['Valued Team Member', 'Shout-out for joining the Birthday Roundtable! Celebrating our team members is what makes our site culture special. Thank you for being a valued part of the DPX7 family!'],
+        ['Birthday Appreciation', 'Happy Birthday and thank you for your dedication to DPX7! Your hard work and positive attitude make a real difference every day. We are grateful to have you on the team!']
+    ];
+
+    soLabels.forEach(function(item, idx) {
+        var card = document.createElement('div');
+        card.style.cssText = 'background:white;border:1px solid #CE93D8;border-radius:8px;padding:12px 16px;margin-bottom:10px;cursor:pointer;transition:all .15s;';
+        card.onmouseover = function() { if (!card.dataset.copied) card.style.borderColor = '#9C27B0'; };
+        card.onmouseout = function() { if (!card.dataset.copied) card.style.borderColor = '#CE93D8'; };
+        card.onclick = function() { copyBdayPreset(idx + 1, card); };
+        card.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;"><span style="font-size:13px;font-weight:700;color:#9C27B0;">\uD83C\uDF89 ' + item[0] + '</span><span class="copy-label" style="font-size:12px;color:var(--text-muted);">click to copy</span></div><div style="font-size:13px;color:var(--text-sec);line-height:1.5;font-style:italic;">' + item[1] + '</div>';
+        soSection.appendChild(card);
+    });
+    box.appendChild(soSection);
+
+    // Reminder
+    var reminder = document.createElement('div');
+    reminder.style.cssText = 'padding:10px 12px;background:var(--bg);border-radius:8px;font-size:11px;color:var(--text-sec);text-align:center;';
+    reminder.innerHTML = '<strong style="color:#C2185B;">Engagements</strong> \u2192 Type: <strong>Recognition</strong> &nbsp;|&nbsp; <strong style="color:#9C27B0;">Shout-Outs</strong> \u2192 <strong>Birthday Celebration</strong>';
+    box.appendChild(reminder);
+
+    modal.appendChild(box);
+    el.appendChild(modal);
+
+    var existing = document.getElementById('bdayEngageContainer');
+    if (existing) existing.remove();
+    document.body.appendChild(el);
+}
+
+function closeBdayEngage() {
+    var el = document.getElementById('bdayEngageContainer');
+    if (el) el.remove();
+}
+
+function copyBdayPreset(idx, cardEl) {
+    var text = bdayEngagePresets[idx] || '';
+    navigator.clipboard.writeText(text).then(function() {
+        cardEl.dataset.copied = 'true';
+        cardEl.style.borderColor = 'var(--success)';
+        cardEl.style.background = '#E8F5E9';
+        var label = cardEl.querySelector('.copy-label');
+        if (label) {
+            label.innerHTML = '<i class="fa-solid fa-check-circle" style="margin-right:3px;"></i>Copied!';
+            label.style.color = 'var(--success)';
+            label.style.fontWeight = '700';
+        }
+    });
+}
+
+// Birthday engage button delegation
+document.addEventListener('click', function(e) {
+    var btn = e.target.closest('.bday-engage-btn');
+    if (btn) {
+        var login = btn.getAttribute('data-bday-engage');
+        if (login) openBdayEngage(login);
+    }
+});
+
+// Enter key for birthday AA input
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && document.activeElement && document.activeElement.id === 'bdayAAInput') {
+        e.preventDefault();
+        addBdayAA();
+    }
+});
+
+// --- Init ---
+// Show loading state
+document.getElementById('headerStats').innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Loading shared data...';
+
+fetchAllData(function() {
+    all = cachedResponses;
+    buildChips();
+    render();
+    // Auto-refresh every 30 seconds
+    setInterval(function() {
+        fetchAllData(function() {
+            all = cachedResponses;
+            render();
+        });
+    }, 30000);
+});
+</script>
+
+</body></html>
