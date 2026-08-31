@@ -29,7 +29,7 @@
         .qtab.on.q-3{background:#067D62;color:#fff;border-bottom-color:transparent;}
         .qtab.on.q-4{background:#0073BB;color:#fff;border-bottom-color:transparent;}
         .qtab.on.q-5{background:#8B5CF6;color:#fff;border-bottom-color:transparent;}
-        .qtab.on.q-notes{background:#D4760A;color:#fff;border-bottom-color:transparent;}
+        .qtab.on.q-notes{background:#0073BB;color:#fff;border-bottom-color:transparent;}
         .qtab.on.q-bday{background:#E91E90;color:#fff;border-bottom-color:transparent;}
 
         .selector-row{display:flex;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap;}
@@ -185,7 +185,7 @@
             <div style="max-width:700px;margin:0 auto;">
             <div style="background:var(--surface);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);margin-bottom:14px;">
                 <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
-                    <i class="fa-solid fa-notebook" style="color:#D4760A;font-size:16px;"></i>
+                    <i class="fa-solid fa-notebook" style="color:#0073BB;font-size:16px;"></i>
                     <h3 style="font-size:14px;font-weight:700;">Leader Notes</h3>
                 </div>
                 <div style="font-size:11px;color:var(--text-muted);margin-bottom:10px;">Select a week to view or add notes:</div>
@@ -194,7 +194,7 @@
 
             <!-- Add Note Form -->
             <div style="background:var(--surface);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);margin-bottom:14px;">
-                <h4 style="font-size:13px;font-weight:600;margin-bottom:12px;"><i class="fa-solid fa-plus-circle" style="color:var(--accent);margin-right:4px;"></i>Add Note</h4>
+                <h4 style="font-size:13px;font-weight:600;margin-bottom:12px;"><i class="fa-solid fa-plus-circle" style="color:#0073BB;margin-right:4px;"></i>Add Note</h4>
                 <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
                     <div style="flex:1;min-width:140px;">
                         <label style="font-size:10px;font-weight:600;color:var(--text-muted);display:block;margin-bottom:3px;">WEEK</label>
@@ -221,7 +221,7 @@
                     <label style="font-size:10px;font-weight:600;color:var(--text-muted);display:block;margin-bottom:3px;">FOLLOW-UP STATUS</label>
                     <textarea id="noteFollowup" rows="2" placeholder="Status of previous action items" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:6px;font-size:12px;font-family:inherit;color:var(--text);resize:vertical;"></textarea>
                 </div>
-                <button onclick="addNote()" style="background:var(--accent);color:var(--primary);border:none;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;">
+                <button onclick="addNote()" style="background:#0073BB;color:#fff;border:none;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;">
                     <i class="fa-solid fa-plus" style="margin-right:4px;"></i>Save Note
                 </button>
             </div>
@@ -1010,8 +1010,8 @@ function renderNotes() {
             if (currentWeek) html += '</div>';
             currentWeek = n.week;
             html += '<div style="margin-bottom:14px;background:var(--surface);border-radius:var(--radius);padding:14px;box-shadow:var(--shadow);">';
-            html += '<div style="display:flex;align-items:center;gap:6px;padding-bottom:6px;border-bottom:2px solid var(--accent);margin-bottom:8px;">';
-            html += '<span style="background:var(--accent);color:var(--primary);font-weight:800;font-size:11px;padding:3px 8px;border-radius:4px;">' + escapeHTML(n.week) + '</span>';
+            html += '<div style="display:flex;align-items:center;gap:6px;padding-bottom:6px;border-bottom:2px solid #0073BB;margin-bottom:8px;">';
+            html += '<span style="background:#0073BB;color:#fff;font-weight:800;font-size:11px;padding:3px 8px;border-radius:4px;">' + escapeHTML(n.week) + '</span>';
             html += '</div>';
         }
 
@@ -1021,7 +1021,7 @@ function renderNotes() {
             catch(e) { dateStr = n.date; }
         }
 
-        html += '<div style="background:var(--bg);border-radius:8px;padding:12px;margin-bottom:6px;border-left:3px solid #D4760A;">';
+        html += '<div style="background:var(--bg);border-radius:8px;padding:12px;margin-bottom:6px;border-left:3px solid #0073BB;">';
         html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">';
         html += '<div style="display:flex;gap:8px;align-items:center;">';
         html += '<span style="font-size:11px;font-weight:600;color:var(--primary);">' + escapeHTML(n.leader) + '</span>';
