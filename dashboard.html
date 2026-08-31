@@ -601,6 +601,13 @@ document.getElementById('timeTabs').addEventListener('click', function(e) {
     document.getElementById('aas-view').style.display = t === 'aas' ? 'block' : 'none';
     document.getElementById('howto-view').style.display = t === 'howto' ? 'block' : 'none';
 
+    // Reset question sub-tabs to "All Questions" when switching to QR/AAs/HowTo
+    if (t === 'qr' || t === 'aas' || t === 'howto') {
+        document.querySelectorAll('#qTabs .qtab').forEach(function(el) { el.classList.remove('on'); });
+        document.querySelector('#qTabs .qtab[data-q="all"]').classList.add('on');
+        qTab = 'all';
+    }
+
     if (t === 'aas') { initAAView(); }
     if (t !== 'qr' && t !== 'howto' && t !== 'aas') {
         selectedPeriods = [];
