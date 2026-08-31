@@ -386,23 +386,79 @@
 // DPX7 CONNECTIONS ROUNDTABLE DASHBOARD - CLEAN REBUILD
 // ============================================================
 
-var STORAGE_KEY = 'dpx7_survey_responses';
-var NOTES_KEY = 'dpx7_leader_notes2';
+var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbybtGx13qfnGSYO38WMFYNmBG3F2pywR3Y3TgCL0ZUeUjSZGofP1JvAdore8SrqwguFtg/exec";
 
-// --- Data Access ---
-function loadResponses() {
-    try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }
-    catch(e) { return []; }
+// --- Shared Data (Google Sheets) ---
+var cachedResponses = [];
+var cachedNotes = [];
+var cachedAAs = [];
+var dataLoaded = false;
+
+function loadResponses() { return cachedResponses; }
+function loadNotes() { return cachedNotes; }
+function loadAAs() { return cachedAAs; }
+
+function fetchAllData(callback) {
+    var done = 0;
+    var total = 3;
+    function check() { done++; if (done >= total) { dataLoaded = true; if (callback) callback(); } }
+
+    fetch(SCRIPT_URL + '?tab=Responses').then(function(r) { return r.json(); }).then(function(data) {
+        if (data.result === 'ok') {
+            cachedResponses = data.data.map(function(row) {
+                return {
+                    ts: row.Timestamp ? new Date(row.Timestamp).toISOString().slice(0,10) : new Date().toISOString().slice(0,10),
+                    q1: parseInt(row.Q1) || 0,
+                    q2: parseInt(row.Q2) || 0,
+                    q3: parseInt(row.Q3) || 0,
+                    q4: parseInt(row.Q4) || 0,
+                    q5: row.Q5 || ''
+                };
+            });
+        }
+        check();
+    }).catch(function() { check(); });
+
+    fetch(SCRIPT_URL + '?tab=Attendance').then(function(r) { return r.json(); }).then(function(data) {
+        if (data.result === 'ok') {
+            cachedAAs = data.data.map(function(row) {
+                return { week: row.Week || '', name: row.Name || '', added: row.Timestamp || '' };
+            });
+        }
+        check();
+    }).catch(function() { check(); });
+
+    fetch(SCRIPT_URL + '?tab=Notes').then(function(r) { return r.json(); }).then(function(data) {
+        if (data.result === 'ok') {
+            cachedNotes = data.data.map(function(row) {
+                return {
+                    week: row.Week || '',
+                    date: row.Date || '',
+                    leader: row.Leader || '',
+                    themes: row.Themes || '',
+                    actions: row.Actions || '',
+                    followup: row.Followup || '',
+                    created: row.Timestamp || ''
+                };
+            });
+        }
+        check();
+    }).catch(function() { check(); });
 }
-function saveResponses(data) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-}
-function loadNotes() {
-    try { return JSON.parse(localStorage.getItem(NOTES_KEY) || '[]'); }
-    catch(e) { return []; }
-}
-function saveNotesData(data) {
-    localStorage.setItem(NOTES_KEY, JSON.stringify(data));
+
+function postToSheet(payload, callback) {
+    fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+    }).then(function() {
+        // With no-cors we can not read the response, but the request goes through
+        // Refresh data after a short delay to let the Sheet update
+        setTimeout(function() { fetchAllData(callback); }, 1500);
+    }).catch(function() {
+        setTimeout(function() { fetchAllData(callback); }, 1500);
+    });
 }
 
 // --- State ---
@@ -820,34 +876,34 @@ function addNote() {
         return;
     }
 
-    var notes = loadNotes();
-    notes.unshift({
+    document.getElementById('noteThemes').value = '';
+    document.getElementById('noteActions').value = '';
+    document.getElementById('noteFollowup').value = '';
+
+    postToSheet({
+        action: 'addNote',
         week: week,
         date: date,
         leader: leader || 'Leader',
         themes: themes,
         actions: actions,
-        followup: followup,
-        created: new Date().toISOString()
+        followup: followup
+    }, function() {
+        buildNoteBubbles();
+        renderNotes();
     });
-    saveNotesData(notes);
-
-    // Clear content fields (keep week and leader)
-    document.getElementById('noteThemes').value = '';
-    document.getElementById('noteActions').value = '';
-    document.getElementById('noteFollowup').value = '';
-
-    buildNoteBubbles();
-    renderNotes();
 }
 
 function deleteNote(idx) {
     if (!confirm('Delete this note?')) return;
     var notes = loadNotes();
-    notes.splice(idx, 1);
-    saveNotesData(notes);
-    buildNoteBubbles();
-    renderNotes();
+    var note = notes[idx];
+    if (!note) return;
+
+    postToSheet({ action: 'deleteNote', timestamp: note.created }, function() {
+        buildNoteBubbles();
+        renderNotes();
+    });
 }
 
 function renderNotes() {
@@ -928,54 +984,18 @@ function toggleAgenda() {
 
 // --- Demo Data ---
 function loadDemo() {
-    var feedback = ['', 'Scheduling flexibility would help', 'More cross-training opportunities', '', 'Great session, felt heard', '', 'Would like more recognition', '', 'Need better communication from leadership', ''];
-    var responses = [];
-    var now = new Date();
-    for (var w = 4; w >= 0; w--) {
-        var weekDate = new Date(now.getTime() - w * 7 * 86400000);
-        var num = 5 + Math.floor(Math.random() * 4);
-        for (var i = 0; i < num; i++) {
-            var d = new Date(weekDate.getTime() + Math.floor(Math.random() * 2) * 86400000);
-            responses.push({
-                ts: d.toISOString().slice(0, 10),
-                q1: Math.floor(Math.random() * 3) + 2,
-                q2: Math.floor(Math.random() * 3) + 2,
-                q3: Math.floor(Math.random() * 4) + 1,
-                q4: Math.floor(Math.random() * 3) + 2,
-                q5: feedback[Math.floor(Math.random() * feedback.length)]
-            });
-        }
-    }
-    saveResponses(responses);
-    all = responses;
-    selectedPeriods = [];
-    buildChips();
-    render();
-    alert('Loaded ' + responses.length + ' sample responses!');
+    alert('Demo mode is not available with shared data.\n\nTo test, submit a response through the survey:\nhttps://joshsalado.github.io/dpx7-roundtable-survey/');
 }
 
 function clearDemo() {
-    if (!confirm('Clear ALL survey responses? This cannot be undone.')) return;
-    saveResponses([]);
-    all = [];
-    selectedPeriods = [];
-    buildChips();
-    render();
+    alert('To clear data, delete rows directly in the Google Sheet.');
 }
 
 
 // --- AA ATTENDANCE TRACKING ---
-var AA_KEY = 'dpx7_aa_attendance';
 var aaViewMode = 'week';
 var aaSelectedWeek = 'all';
-
-function loadAAs() {
-    try { return JSON.parse(localStorage.getItem(AA_KEY) || '[]'); }
-    catch(e) { return []; }
-}
-function saveAAs(data) {
-    localStorage.setItem(AA_KEY, JSON.stringify(data));
-}
+// loadAAs() is now defined in the shared data layer above
 
 function initAAView() {
     // Populate week dropdown
@@ -1001,7 +1021,6 @@ function addAA() {
     if (!name) { alert('Please enter an AA name or login.'); return; }
 
     var records = loadAAs();
-    // Check for duplicate in same week
     var exists = records.some(function(r) {
         return r.week === week && r.name.toLowerCase() === name.toLowerCase();
     });
@@ -1010,20 +1029,24 @@ function addAA() {
         return;
     }
 
-    records.push({ week: week, name: name, added: new Date().toISOString() });
-    saveAAs(records);
     document.getElementById('aaNameInput').value = '';
     document.getElementById('aaNameInput').focus();
-    buildAAWeekBubbles();
-    renderAAView();
+
+    postToSheet({ action: 'addAA', week: week, name: name }, function() {
+        buildAAWeekBubbles();
+        renderAAView();
+    });
 }
 
 function removeAA(idx) {
     var records = loadAAs();
-    records.splice(idx, 1);
-    saveAAs(records);
-    buildAAWeekBubbles();
-    renderAAView();
+    var record = records[idx];
+    if (!record) return;
+
+    postToSheet({ action: 'removeAA', week: record.week, name: record.name }, function() {
+        buildAAWeekBubbles();
+        renderAAView();
+    });
 }
 
 function switchAAView(mode) {
@@ -1192,8 +1215,21 @@ document.addEventListener('keydown', function(e) {
 });
 
 // --- Init ---
-buildChips();
-render();
+// Show loading state
+document.getElementById('headerStats').innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Loading shared data...';
+
+fetchAllData(function() {
+    all = cachedResponses;
+    buildChips();
+    render();
+    // Auto-refresh every 30 seconds
+    setInterval(function() {
+        fetchAllData(function() {
+            all = cachedResponses;
+            render();
+        });
+    }, 30000);
+});
 </script>
 </body>
 </html>
