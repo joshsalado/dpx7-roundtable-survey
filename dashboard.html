@@ -612,6 +612,16 @@ document.getElementById('qTabs').addEventListener('click', function(e) {
     tab.classList.add('on');
     qTab = q;
 
+    // Ensure dash-view is visible and other views are hidden when a question tab is clicked
+    document.getElementById('dash-view').style.display = 'block';
+    document.getElementById('qr-view').style.display = 'none';
+    document.getElementById('aas-view').style.display = 'none';
+    document.getElementById('howto-view').style.display = 'none';
+    // Re-highlight the last active time tab (Week/Month/Quarter/Year)
+    if (timeTab === 'qr' || timeTab === 'aas' || timeTab === 'howto') { timeTab = 'week'; }
+    document.querySelectorAll('#timeTabs .tab').forEach(function(el) { el.classList.remove('on'); });
+    document.querySelector('#timeTabs .tab[data-tab="' + timeTab + '"]').classList.add('on');
+
     if (q === 'notes') {
         document.getElementById('selectorRow').style.display = 'none';
         document.getElementById('kpiGrid').style.display = 'none';
