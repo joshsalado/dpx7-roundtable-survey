@@ -109,6 +109,7 @@
         <div class="tab" data-tab="quarter"><i class="fa-solid fa-chart-pie" style="margin-right:4px;"></i>Quarter</div>
         <div class="tab" data-tab="year"><i class="fa-solid fa-calendar" style="margin-right:4px;"></i>Year</div>
         <div class="tab" data-tab="qr" style="border-left:1px solid var(--border);"><i class="fa-solid fa-qrcode" style="margin-right:4px;"></i>QR Code</div>
+        <div class="tab" data-tab="aas"><i class="fa-solid fa-users" style="margin-right:4px;"></i>AAs</div>
         <div class="tab" data-tab="howto"><i class="fa-solid fa-circle-question" style="margin-right:4px;"></i>How To</div>
     </div>
 
@@ -229,6 +230,58 @@
             </div>
             <p style="font-size:13px;color:var(--success);font-weight:500;"><i class="fa-solid fa-shield-halved" style="margin-right:4px;"></i>100% Anonymous &mdash; Takes 30 seconds</p>
             <div style="margin-top:16px;padding:8px 14px;background:var(--bg);border-radius:6px;font-size:11px;color:var(--text-muted);font-family:monospace;word-break:break-all;">https://joshsalado.github.io/dpx7-roundtable-survey/</div>
+        </div>
+    </div>
+
+    
+    <!-- AAs Attendance View -->
+    <div id="aas-view" style="display:none;">
+        <div style="max-width:700px;margin:0 auto;">
+
+            <!-- Add Attendance -->
+            <div style="background:var(--surface);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);margin-bottom:16px;">
+                <h3 style="font-size:14px;font-weight:700;margin-bottom:12px;"><i class="fa-solid fa-user-plus" style="color:var(--accent);margin-right:6px;"></i>Log AA Attendance</h3>
+                <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
+                    <div style="flex:1;min-width:140px;">
+                        <label style="font-size:10px;font-weight:600;color:var(--text-muted);display:block;margin-bottom:3px;">WEEK</label>
+                        <select id="aaWeekSelect" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:6px;font-size:12px;font-family:inherit;background:white;color:var(--text);"></select>
+                    </div>
+                    <div style="flex:2;min-width:200px;">
+                        <label style="font-size:10px;font-weight:600;color:var(--text-muted);display:block;margin-bottom:3px;">AA NAME OR LOGIN</label>
+                        <input type="text" id="aaNameInput" placeholder="e.g. John Smith or jsmith" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:6px;font-size:12px;font-family:inherit;color:var(--text);">
+                    </div>
+                </div>
+                <div style="display:flex;gap:8px;align-items:center;">
+                    <button onclick="addAA()" style="background:var(--accent);color:var(--primary);border:none;padding:10px 18px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;">
+                        <i class="fa-solid fa-plus" style="margin-right:4px;"></i>Add
+                    </button>
+                    <span style="font-size:11px;color:var(--text-muted);">Tip: press Enter to add quickly</span>
+                </div>
+            </div>
+
+            <!-- View Toggle -->
+            <div style="display:flex;gap:6px;margin-bottom:14px;">
+                <div class="chip on" id="aaViewWeek" onclick="switchAAView('week')">By Week</div>
+                <div class="chip" id="aaViewAll" onclick="switchAAView('all')">All AAs</div>
+            </div>
+
+            <!-- Week View -->
+            <div id="aaWeekView">
+                <div id="aaWeekBubbles" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;"></div>
+                <div id="aaWeekContent"></div>
+            </div>
+
+            <!-- All AAs View -->
+            <div id="aaAllView" style="display:none;">
+                <div style="background:var(--surface);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                        <h3 style="font-size:14px;font-weight:700;"><i class="fa-solid fa-list" style="color:var(--accent);margin-right:6px;"></i>All AAs Roster</h3>
+                        <span id="aaTotalCount" style="font-size:12px;color:var(--text-muted);"></span>
+                    </div>
+                    <div id="aaAllContent"></div>
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -427,11 +480,13 @@ document.getElementById('timeTabs').addEventListener('click', function(e) {
     timeTab = t;
 
     // Show/hide views
-    document.getElementById('dash-view').style.display = (t === 'qr' || t === 'howto') ? 'none' : 'block';
+    document.getElementById('dash-view').style.display = (t === 'qr' || t === 'howto' || t === 'aas') ? 'none' : 'block';
     document.getElementById('qr-view').style.display = t === 'qr' ? 'block' : 'none';
+    document.getElementById('aas-view').style.display = t === 'aas' ? 'block' : 'none';
     document.getElementById('howto-view').style.display = t === 'howto' ? 'block' : 'none';
 
-    if (t !== 'qr' && t !== 'howto') {
+    if (t === 'aas') { initAAView(); }
+    if (t !== 'qr' && t !== 'howto' && t !== 'aas') {
         selectedPeriods = [];
         buildChips();
         render();
@@ -907,6 +962,234 @@ function clearDemo() {
     buildChips();
     render();
 }
+
+
+// --- AA ATTENDANCE TRACKING ---
+var AA_KEY = 'dpx7_aa_attendance';
+var aaViewMode = 'week';
+var aaSelectedWeek = 'all';
+
+function loadAAs() {
+    try { return JSON.parse(localStorage.getItem(AA_KEY) || '[]'); }
+    catch(e) { return []; }
+}
+function saveAAs(data) {
+    localStorage.setItem(AA_KEY, JSON.stringify(data));
+}
+
+function initAAView() {
+    // Populate week dropdown
+    var sel = document.getElementById('aaWeekSelect');
+    sel.innerHTML = '';
+    var now = new Date();
+    var currentWk = getWeekNum(now);
+    for (var i = 0; i < 12; i++) {
+        var wk = currentWk - i;
+        if (wk < 1) continue;
+        var opt = document.createElement('option');
+        opt.value = 'Wk ' + wk;
+        opt.textContent = 'Wk ' + wk + (i === 0 ? ' (current)' : '');
+        sel.appendChild(opt);
+    }
+    buildAAWeekBubbles();
+    renderAAView();
+}
+
+function addAA() {
+    var week = document.getElementById('aaWeekSelect').value;
+    var name = document.getElementById('aaNameInput').value.trim();
+    if (!name) { alert('Please enter an AA name or login.'); return; }
+
+    var records = loadAAs();
+    // Check for duplicate in same week
+    var exists = records.some(function(r) {
+        return r.week === week && r.name.toLowerCase() === name.toLowerCase();
+    });
+    if (exists) {
+        alert(name + ' is already logged for ' + week + '.');
+        return;
+    }
+
+    records.push({ week: week, name: name, added: new Date().toISOString() });
+    saveAAs(records);
+    document.getElementById('aaNameInput').value = '';
+    document.getElementById('aaNameInput').focus();
+    buildAAWeekBubbles();
+    renderAAView();
+}
+
+function removeAA(idx) {
+    var records = loadAAs();
+    records.splice(idx, 1);
+    saveAAs(records);
+    buildAAWeekBubbles();
+    renderAAView();
+}
+
+function switchAAView(mode) {
+    aaViewMode = mode;
+    document.getElementById('aaViewWeek').className = 'chip' + (mode === 'week' ? ' on' : '');
+    document.getElementById('aaViewAll').className = 'chip' + (mode === 'all' ? ' on' : '');
+    document.getElementById('aaWeekView').style.display = mode === 'week' ? 'block' : 'none';
+    document.getElementById('aaAllView').style.display = mode === 'all' ? 'block' : 'none';
+    renderAAView();
+}
+
+function buildAAWeekBubbles() {
+    var records = loadAAs();
+    var weeks = {};
+    records.forEach(function(r) {
+        if (!weeks[r.week]) weeks[r.week] = 0;
+        weeks[r.week]++;
+    });
+    var currentWk = 'Wk ' + getWeekNum(new Date());
+    if (!weeks[currentWk]) weeks[currentWk] = 0;
+
+    var sorted = Object.keys(weeks).sort(function(a, b) {
+        return parseInt(b.replace('Wk ', '')) - parseInt(a.replace('Wk ', ''));
+    });
+
+    var container = document.getElementById('aaWeekBubbles');
+    container.innerHTML = '';
+
+    var allBubble = document.createElement('div');
+    allBubble.className = 'wk-bubble' + (aaSelectedWeek === 'all' ? ' on' : '');
+    allBubble.textContent = 'All Weeks';
+    allBubble.addEventListener('click', function() {
+        aaSelectedWeek = 'all';
+        buildAAWeekBubbles();
+        renderAAView();
+    });
+    container.appendChild(allBubble);
+
+    sorted.forEach(function(w) {
+        var count = weeks[w];
+        var bubble = document.createElement('div');
+        bubble.className = 'wk-bubble' + (aaSelectedWeek === w ? ' on' : '');
+        bubble.innerHTML = w + ' <span style="opacity:.6;font-size:9px;">(' + count + ')</span>';
+        bubble.addEventListener('click', function() {
+            aaSelectedWeek = w;
+            buildAAWeekBubbles();
+            renderAAView();
+        });
+        container.appendChild(bubble);
+    });
+}
+
+function renderAAView() {
+    if (aaViewMode === 'week') {
+        renderAAWeekView();
+    } else {
+        renderAAAllView();
+    }
+}
+
+function renderAAWeekView() {
+    var records = loadAAs();
+    var filtered = aaSelectedWeek === 'all' ? records : records.filter(function(r) { return r.week === aaSelectedWeek; });
+
+    var content = document.getElementById('aaWeekContent');
+
+    if (!filtered.length) {
+        content.innerHTML = '<div style="text-align:center;padding:30px;color:var(--text-muted);background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);">' +
+            '<i class="fa-solid fa-users" style="font-size:32px;margin-bottom:8px;color:var(--border);display:block;"></i>' +
+            'No attendance logged yet. Add AAs above!</div>';
+        return;
+    }
+
+    // Group by week
+    var byWeek = {};
+    filtered.forEach(function(r) {
+        if (!byWeek[r.week]) byWeek[r.week] = [];
+        byWeek[r.week].push(r);
+    });
+
+    var sortedWeeks = Object.keys(byWeek).sort(function(a, b) {
+        return parseInt(b.replace('Wk ', '')) - parseInt(a.replace('Wk ', ''));
+    });
+
+    var html = '';
+    sortedWeeks.forEach(function(wk) {
+        var aas = byWeek[wk];
+        html += '<div style="background:var(--surface);border-radius:var(--radius);padding:14px;box-shadow:var(--shadow);margin-bottom:12px;">';
+        html += '<div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:8px;border-bottom:2px solid var(--accent);margin-bottom:10px;">';
+        html += '<div style="display:flex;align-items:center;gap:6px;">';
+        html += '<span style="background:var(--accent);color:var(--primary);font-weight:800;font-size:11px;padding:3px 8px;border-radius:4px;">' + wk + '</span>';
+        html += '</div>';
+        html += '<span style="font-size:11px;color:var(--text-muted);"><i class="fa-solid fa-users" style="margin-right:3px;"></i>' + aas.length + ' AA' + (aas.length !== 1 ? 's' : '') + '</span>';
+        html += '</div>';
+
+        aas.forEach(function(r) {
+            var origIdx = records.indexOf(r);
+            html += '<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 10px;margin-bottom:4px;background:var(--bg);border-radius:6px;">';
+            html += '<div style="display:flex;align-items:center;gap:8px;">';
+            html += '<i class="fa-solid fa-user" style="color:var(--accent);font-size:11px;"></i>';
+            html += '<span style="font-size:12px;font-weight:500;">' + escapeHTML(r.name) + '</span>';
+            html += '</div>';
+            html += '<button onclick="removeAA(' + origIdx + ')" style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:10px;" title="Remove"><i class="fa-solid fa-xmark"></i></button>';
+            html += '</div>';
+        });
+        html += '</div>';
+    });
+
+    content.innerHTML = html;
+}
+
+function renderAAAllView() {
+    var records = loadAAs();
+    var content = document.getElementById('aaAllContent');
+    var countEl = document.getElementById('aaTotalCount');
+
+    if (!records.length) {
+        countEl.textContent = '';
+        content.innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-muted);">No AAs logged yet.</div>';
+        return;
+    }
+
+    // Build roster: unique AAs with count and weeks
+    var roster = {};
+    records.forEach(function(r) {
+        var key = r.name.toLowerCase();
+        if (!roster[key]) roster[key] = { name: r.name, count: 0, weeks: [] };
+        roster[key].count++;
+        if (roster[key].weeks.indexOf(r.week) === -1) roster[key].weeks.push(r.week);
+    });
+
+    var sorted = Object.values(roster).sort(function(a, b) {
+        return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
+    });
+
+    countEl.textContent = sorted.length + ' unique AA' + (sorted.length !== 1 ? 's' : '');
+
+    var html = '<table style="width:100%;border-collapse:collapse;font-size:12px;">';
+    html += '<thead><tr><th style="text-align:left;padding:8px 10px;">AA Name</th><th style="text-align:center;padding:8px 10px;">Sessions</th><th style="text-align:left;padding:8px 10px;">Weeks</th></tr></thead>';
+    html += '<tbody>';
+    sorted.forEach(function(aa) {
+        var weeksSorted = aa.weeks.sort(function(a, b) {
+            return parseInt(a.replace('Wk ', '')) - parseInt(b.replace('Wk ', ''));
+        });
+        var weekChips = weeksSorted.map(function(w) {
+            return '<span style="display:inline-block;padding:2px 6px;background:var(--bg);border-radius:4px;font-size:10px;color:var(--text-sec);margin:1px 2px;">' + w + '</span>';
+        }).join('');
+
+        html += '<tr>';
+        html += '<td style="padding:8px 10px;"><div style="display:flex;align-items:center;gap:6px;"><i class="fa-solid fa-user" style="color:var(--accent);font-size:10px;"></i><span style="font-weight:500;">' + escapeHTML(aa.name) + '</span></div></td>';
+        html += '<td style="padding:8px 10px;text-align:center;"><span style="display:inline-block;background:' + (aa.count >= 3 ? 'var(--success-light)' : aa.count >= 2 ? 'var(--warning-light)' : 'var(--error-light)') + ';color:' + (aa.count >= 3 ? 'var(--success)' : aa.count >= 2 ? 'var(--warning)' : 'var(--error)') + ';padding:2px 8px;border-radius:10px;font-weight:700;font-size:11px;">' + aa.count + '</span></td>';
+        html += '<td style="padding:8px 10px;">' + weekChips + '</td>';
+        html += '</tr>';
+    });
+    html += '</tbody></table>';
+
+    content.innerHTML = html;
+}
+
+// Enter key to add AA quickly
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && document.activeElement && document.activeElement.id === 'aaNameInput') {
+        e.preventDefault();
+        addAA();
+    }
+});
 
 // --- Init ---
 buildChips();
