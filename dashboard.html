@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en"><head><style id="qw-theme">:root {
+  --color-bg: #faf9fc;
+  --color-text: #131920;
+  --color-navbar-bg: #f9f9fb;
+  --color-bg-chat-view: #fcfcfd;
+  --color-bg-secondary: #fff;
+  --color-bg-tertiary: #f9fafb;
+  --color-bg-hover: #f3f4f6;
+  --color-surface: #f9fafb;
+  --color-surface-hover: #f3f4f6;
+  --color-surface-active: #e5e7eb;
+  --color-border: #0000001f;
+  --color-border-light: #0000000f;
+  --color-border-strong: #d1d5db;
+  --color-primary: #4200db;
+  --color-primary-dark: #35009e;
+  --color-primary-light: #8575ff;
+  --color-primary-bg: #e8e6ff;
+  --color-primary-hover-border: #35009e;
+  --color-nav-icon-active: #4200db;
+  --color-nav-hover-border: #4200db;
+  --color-primary-alpha-3: color-mix(in srgb, #4200db 3%, transparent);
+  --color-primary-alpha-5: color-mix(in srgb, #4200db 5%, transparent);
+  --color-primary-alpha-8: color-mix(in srgb, #4200db 8%, transparent);
+  --color-primary-alpha-12: color-mix(in srgb, #4200db 12%, transparent);
+  --color-primary-alpha-15: color-mix(in srgb, #4200db 15%, transparent);
+  --color-primary-alpha-20: color-mix(in srgb, #4200db 20%, transparent);
+  --color-primary-alpha-25: color-mix(in srgb, #4200db 25%, transparent);
+  --color-primary-alpha-30: color-mix(in srgb, #4200db 30%, transparent);
+  --color-primary-alpha-40: color-mix(in srgb, #4200db 40%, transparent);
+  --color-primary-alpha-50: color-mix(in srgb, #4200db 50%, transparent);
+  --color-primary-alpha-60: color-mix(in srgb, #4200db 60%, transparent);
+  --color-primary-subtle: color-mix(in srgb, #4200db 12%, transparent);
+  --color-primary-border: color-mix(in srgb, #4200db 30%, transparent);
+  --color-focus-ring: color-mix(in srgb, #4200db 50%, transparent);
+  --color-sidebar-hover: color-mix(in srgb, #4200db 12%, transparent);
+  --block-hover-outline: 1px dashed color-mix(in srgb, #4200db 50%, transparent);
+  --block-selected-outline: 1px solid #8575ff;
+  --block-selection-outline-offset: 2px;
+  --block-selected-halo: 0 0 8px color-mix(in srgb, #4200db 40%, transparent);
+  --color-accent: #4200db;
+  --color-accent-foreground: #4200db;
+  --color-accent-dark: #35009e;
+  --color-accent-light: #e8e6ff;
+  --color-accent-inverse: #fff;
+  --color-link: #4200db;
+  --color-primary-gradient-end: #e8e6ff;
+  --color-primary-bg-solid: #e8e6ff;
+  --color-user-bubble: #f3f3f7;
+  --color-user-bubble-text: #131920;
+  --color-text-secondary: #5e5e5e;
+  --color-text-tertiary: #656871;
+  --color-text-muted: #9ca3af;
+  --color-text-on-primary: #fff;
+  --color-success: #00802f;
+  --color-success-dark: #00471e;
+  --color-success-light: #d9ffd6;
+  --color-success-hover: #005c26;
+  --color-success-bg: #e6f5eb;
+  --color-success-border: #b3d9bf;
+  --color-success-foreground: #00802f;
+  --color-success-dark-foreground: #00471e;
+  --color-success-text: #00471e;
+  --color-error: #db0000;
+  --color-error-dark: #700000;
+  --color-error-light: #ffe0e0;
+  --color-error-hover: #ffe0e0;
+  --color-error-bg: #fceaea;
+  --color-error-border: #f2cccc;
+  --color-error-active-border: #db0000;
+  --color-error-foreground: #db0000;
+  --color-error-dark-foreground: #700000;
+  --color-error-inverse: #fff;
+  --color-error-text: #700000;
+  --color-warning: #f2b100;
+  --color-warning-dark: #573a00;
+  --color-warning-light: #fffbbd;
+  --color-warning-hover: #db9200;
+  --color-warning-bg: #fef7e6;
+  --color-warning-border: #f9dfa3;
+  --color-warning-foreground: #f2b100;
+  --color-warning-dark-foreground: #573a00;
+  --color-warning-inverse: #573a00;
+  --color-surface-warning: #fffbbd;
+  --color-text-warning: #573a00;
+  --color-info: #006ce0;
+  --color-info-dark: #002a66;
+  --color-info-light: #d1f1ff;
+  --color-info-hover: #003b8f;
+  --color-info-bg: #ebf3fc;
+  --color-info-border: #b3d1f0;
+  --color-info-foreground: #006ce0;
+  --color-info-dark-foreground: #002a66;
+  --color-info-inverse: #fff;
+  --color-overlay: #00000080;
+  --color-shadow: #00000014;
+  --color-hover: #0000000d;
+  --color-tooltip-bg: #000000d9;
+  --color-tooltip-text: #fff;
+  --color-voice-purple: #8575ff;
+  --color-voice-purple-dark: #4200db;
+  --color-voice-purple-light: #8575ff;
+  --color-voice-red: #db0000;
+  --color-voice-red-dark: #700000;
+  --color-voice-amber: #f2b100;
+  --color-voice-purple-glow: #4200db66;
+  --color-voice-red-glow: #db000066;
+  --font-sans: "Amazon Ember", "Helvetica Neue", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: "SF Mono", "Monaco", "Menlo", "Consolas", monospace;
+  --text-2xs: .5625rem;
+  --text-xs: .625rem;
+  --text-sm: .6875rem;
+  --text-base: .75rem;
+  --text-md: .8125rem;
+  --text-lg: .875rem;
+  --text-xl: 1rem;
+  --text-2xl: 1.125rem;
+  --text-3xl: 1.25rem;
+  --text-4xl: 1.5rem;
+  --text-5xl: 2rem;
+  --spacing-1: calc(.25rem * 1);
+  --spacing-1-5: calc(.25rem * 1.5);
+  --spacing-2: calc(.25rem * 2);
+  --spacing-3: calc(.25rem * 3);
+  --spacing-4: calc(.25rem * 4);
+  --spacing-5: calc(.25rem * 5);
+  --spacing-6: calc(.25rem * 6);
+  --spacing-7: calc(.25rem * 7);
+  --spacing-8: calc(.25rem * 8);
+  --spacing-9: calc(.25rem * 9);
+  --spacing-10: calc(.25rem * 10);
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-card: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 8px;
+  --shadow-sm: 0 1px 2px #0000000d;
+  --shadow-md: 0 4px 12px #00000014;
+  --color-success-bg-solid: #d9ffd6;
+  --color-error-bg-solid: #ffe0e0;
+  --color-error-border-solid: #ffe0e0;
+  --color-warning-bg-solid: #fffbbd;
+  --color-warning-text: #573a00;
+  --color-info-bg-solid: #d1f1ff;
+  --color-info-bg-solid-alt: #d1f1ff;
+  --color-info-text: #002a66;
+  --color-info-text-alt: #002a66;
+  --color-emerald: #10b981;
+  --color-teal: #4ecdc4;
+  --color-code-bg: #f3f3f7;
+  --color-code-header-bg: #f1f3f5;
+  --color-code-text: #24292e;
+  --color-code-border: #e1e4e8;
+  --color-code-muted: #6a737d;
+  --color-inline-code-bg: #f3f3f7;
+  --color-inline-code-text: #24292e;
+  --color-inline-code-border: #e1e4e8;
+  --color-scrollbar-thumb: #d1d5db;
+  --color-scrollbar-track: transparent;
+  --color-graph-node-text: #333;
+  --color-graph-node-text-dim: #7f8c8d;
+  --color-graph-edge-default: #95a5a6;
+  --color-graph-edge-cross: #e67e22;
+  --color-graph-edge-text: #666;
+  --color-graph-edge-stroke: #fff;
+  --color-graph-highlight-bg: #ff6b6b;
+  --color-graph-highlight-border: #e74c3c;
+  --color-graph-search-bg: gold;
+  --color-graph-search-border: orange;
+  --color-graph-focus-border: #c0392b;
+  --color-graph-external-border: #95a5a6;
+  --color-graph-cat-file: #3498db;
+  --color-graph-cat-folder: #7f8c8d;
+  --color-graph-cat-file-aggregate: #2980b9;
+  --color-graph-cat-class: #9b59b6;
+  --color-graph-cat-function: #2ecc71;
+  --color-graph-cat-method: #1abc9c;
+  --color-graph-cat-variable: #f39c12;
+  --color-graph-cat-import: #d35400;
+  --color-graph-cat-module: #5b6abf;
+  --color-graph-cat-concept: #e74c3c;
+  --color-graph-cat-person: #ff6b6b;
+  --color-graph-cat-org: #4ecdc4;
+  --color-graph-cat-organization: #4ecdc4;
+  --color-graph-cat-product: #a29bfe;
+  --color-graph-cat-metric: #fd79a8;
+  --color-graph-cat-location: #34495e;
+  --color-graph-cat-date: #e056a0;
+  --color-graph-cat-code: #3498db;
+  --color-graph-cat-doc: #7f8c8d;
+  --color-graph-cat-url: #00b894;
+  --color-graph-cat-email: #6c5ce7;
+  --color-graph-cat-unknown: #bdc3c7;
+  --color-graph-rel-contains: #bdc3c7;
+  --color-graph-rel-extends: #9b59b6;
+  --color-graph-rel-implements: #3498db;
+  --color-graph-rel-imports: #e67e22;
+  --color-graph-rel-uses: #2ecc71;
+  --color-graph-rel-calls: #27ae60;
+  --color-graph-rel-references: #f39c12;
+  --color-graph-rel-related-to: #95a5a6;
+  --color-graph-rel-works-on: #e74c3c;
+  --color-graph-rel-owns: #1abc9c;
+  --color-graph-rel-depends-on: #e67e22;
+  --color-graph-rel-parent-of: #bdc3c7;
+  --qs-content: #fff;
+  --qs-main: #fff;
+  --qs-primary-foreground: #131920;
+  --qs-secondary-foreground: #656871;
+  --qs-tertiary-foreground: #9ca3af;
+  --qs-placeholder-foreground: #8c8c94;
+  --qs-divider: #dedee3;
+  --qs-default-border: #8c8c94;
+  --qs-neutral-soft: #b4b4bb;
+  --qs-neutral-gray-50: #f9fafb;
+  --qs-tertiary-background: #f9fafb;
+  --qs-action-hover: #f3f3f7;
+  --qs-primary-default: #4200db;
+  --qs-primary-dark: #35009e;
+  --qs-primary-light: #e8e6ff;
+  --qs-success-default: #00802f;
+  --qs-error-default: #db0000;
+  --qs-font-sans: "Amazon Ember", "Helvetica Neue", "Segoe UI", Helvetica, Arial, sans-serif;
+  --safe-top: 0px;
+  --safe-bottom: 0px;
+  --safe-left: 0px;
+  --safe-right: 0px;
+  --qs-font-family: "Amazon Ember", "Helvetica Neue", "Segoe UI", Helvetica, Arial, sans-serif;
+  --qs-font-base-letter-spacing: .15px;
+  --qs-shadow-sm: 0 0 2px 0 #00000029, 0 0 4px 0 #00000029;
+  --qs-shadow-md: 0 0 2px 0 #00000029, 0 2px 8px 1px #00000029;
+  --qs-shadow-lg: 0 4px 16px 4px #00000029, 0 2px 6px 1px #00000029;
+  --qs-shadow-xl: 0 4px 8px 2px #00000029, 0 6px 20px 4px #00000029;
+  --qs-width-modal-sm: 384px;
+  --qs-width-modal-md: 600px;
+  --qs-width-modal-lg: 1136px;
+  --qs-grid-gap: 16px;
+  --qs-grid-gap-xl: 24px;
+  --qs-primary-medium: #8575ff;
+  --qs-primary-inverse: #fff;
+  --qs-neutral-lightest: #f9f9fb;
+  --qs-neutral-light: #f3f3f7;
+  --qs-neutral-default: #dedee3;
+  --qs-neutral-medium: #8c8c94;
+  --qs-neutral-deep: #656871;
+  --qs-neutral-dark: #333843;
+  --qs-neutral-strong: #131920;
+  --qs-neutral-white: #fff;
+  --qs-neutral-black: #000;
+  --qs-success-medium: #005c26;
+  --qs-success-dark: #00471e;
+  --qs-success-light: #d9ffd6;
+  --qs-success-inverse: #fff;
+  --qs-info-default: #006ce0;
+  --qs-info-medium: #003b8f;
+  --qs-info-dark: #002a66;
+  --qs-info-light: #d1f1ff;
+  --qs-info-inverse: #fff;
+  --qs-warning-default: #f2b100;
+  --qs-warning-medium: #db9200;
+  --qs-warning-dark: #573a00;
+  --qs-warning-light: #fffbbd;
+  --qs-warning-inverse: #573a00;
+  --qs-warning-experimental: #f2b100;
+  --qs-warning-experimental-light: #fffbbd;
+  --qs-warning-experimental-light-foreground: #fffbbd;
+  --qs-error-medium: #900;
+  --qs-error-dark: #700000;
+  --qs-error-light: #ffe0e0;
+  --qs-error-inverse: #fff;
+  --qs-connection-default: #db3300;
+  --qs-connection-soft: #ff997a;
+  --qs-connection-light: #ffe0d6;
+  --qs-connection-dark: #661800;
+  --qs-automation-default: #b3008f;
+  --qs-automation-medium: #d600ba;
+  --qs-automation-soft: #ff94f1;
+  --qs-automation-light: #ffe0fb;
+  --qs-automation-dark: #660052;
+  --qs-insight-default: #a000b8;
+  --qs-insight-soft: #f299ff;
+  --qs-insight-light: #fce6ff;
+  --qs-insight-dark: #590066;
+  --qs-visualization-default: #7300e5;
+  --qs-visualization-soft: #d4a8ff;
+  --qs-visualization-light: #f2e5ff;
+  --qs-visualization-dark: #45008a;
+  --qs-spice: #ff9800;
+  --qs-coachmark: #006ce0;
+  --qs-brand: #fff;
+  --qs-brand-foreground: #131920;
+  --qs-brand-navbar: #131920;
+  --qs-brand-navbar-foreground: #fff;
+  --qs-brand-navbar-light: #dedee3;
+  --qs-brand-navbar-dark: #000;
+  --qs-application-navbar: #4200db;
+  --qs-application-navbar-foreground: #fff;
+  --qs-application-navbar-light: #e8e6ff;
+  --qs-application-navbar-dark: #35009e;
+  --qs-dimension: #4200db;
+  --qs-dimension-foreground: #fff;
+  --qs-dimension-experimental: #4200db;
+  --qs-dimension-experimental-foreground: #4200db;
+  --qs-measure: #00802f;
+  --qs-measure-foreground: #fff;
+  --qs-measure-experimental: #f2b100;
+  --qs-measure-experimental-foreground: #f2b100;
+  --qs-content-inverse: #333843;
+  --qs-content-inverse-active: #131920;
+  --qs-secondary: #dedee3;
+  --qs-disabled: #8c8c94;
+  --qs-divider-light: #f3f3f7;
+  --qs-hover-border: #333843;
+  --qs-active-border: #4200db;
+  --qs-disabled-border: #dedee3;
+  --qs-error-border: #ffe0e0;
+  --qs-error-active-border: #db0000;
+  --qs-disabled-foreground: #b4b4bb;
+  --qs-primary-inverse-foreground: #fff;
+  --qs-error-foreground: #db0000;
+  --qs-contrast-foreground: #131920;
+  --qs-main-foreground: #131920;
+  --qs-main-secondary-foreground: #656871;
+  --qs-action-disabled: #f3f3f7;
+  --qs-action-active: #e8e6ff;
+  --qs-default-badge: #dedee3;
+  --qs-tag-default: #dedee3;
+  --qs-tag-soft-border: #b4b4bb;
+  --qs-focus-offset: 1px;
+  --qs-toggle-tile-sm: calc(.25rem * 8);
+  --qs-toggle-tile-md: calc(.25rem * 12);
+  --qs-toggle-tile-lg: calc(.25rem * 15);
+  --qs-shadow-pin-right: inset 4px 0 4px -4px #00000029;
+  --qs-shadow-pin-left: inset -4px 0 4px -4px #00000029;
+  --react-pdf-text-layer: 1;
+  --highlight-bg-color: #b400aa;
+  --highlight-selected-bg-color: #006400;
+  --react-pdf-annotation-layer: 1;
+  --annotation-unfocused-field-background: url("data:image/svg+xml;charset=UTF-8,<svg width='1px' height='1px' xmlns='http://www.w3.org/2000/svg'><rect width='100%' height='100%' style='fill:rgba(0, 54, 255, 0.13);'/></svg>");
+  --input-focus-border-color: Highlight;
+  --input-focus-outline: 1px solid Canvas;
+  --input-unfocused-border-color: transparent;
+  --input-disabled-border-color: transparent;
+  --input-hover-border-color: black;
+  --link-outline: none;
+  color-scheme: light;
+}
+body { background: var(--color-bg); color: var(--color-text); }
+a { color: var(--color-link, var(--color-primary)); }</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DPX7 Connections Roundtable - Leadership Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root { --primary:#232F3E; --accent:#FF9900; --success:#067D62; --success-light:#E8F5E9; --warning:#D4760A; --warning-light:#FFF8E1; --error:#D13212; --error-light:#FFEBEE; --bg:#F5F7FA; --surface:#FFF; --text:#1D2129; --text-sec:#5F6B7A; --text-muted:#8C96A4; --border:#E2E6EB; --radius:12px; --shadow:0 2px 12px rgba(0,0,0,.06); }
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);padding:24px;min-height:100vh;}
+        .hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:16px;}
+        .hdr-left{display:flex;align-items:center;gap:12px;}
+        .badge{background:var(--primary);color:var(--accent);font-weight:800;font-size:14px;padding:4px 10px;border-radius:6px;}
+        .hdr h1{font-size:20px;font-weight:700;}
+        .hdr .sub{font-size:12px;color:var(--text-muted);}
+
+        /* Tab Bars */
+        .tab-bar{display:flex;background:var(--surface);border-radius:10px;box-shadow:var(--shadow);margin-bottom:12px;overflow:hidden;}
+        .tab{flex:1;text-align:center;padding:11px 10px;font-size:12px;font-weight:600;color:var(--text-sec);cursor:pointer;border-bottom:3px solid transparent;transition:all .2s;}
+        .tab:hover{background:#F8F9FA;color:var(--text);}
+        .tab.on{color:var(--accent);border-bottom-color:var(--accent);background:#FFF8F0;}
+
+        .q-tab-bar{display:flex;background:var(--surface);border-radius:10px;box-shadow:var(--shadow);margin-bottom:12px;overflow:hidden;}
+        .qtab{flex:1;text-align:center;padding:10px 8px;font-size:11px;font-weight:600;color:var(--text-sec);cursor:pointer;border-bottom:3px solid transparent;transition:all .2s;position:relative;}
+        .qtab:hover{background:#F8F9FA;color:var(--text);}
+        .qtab.on{color:#fff;border-bottom-color:transparent;}
+        .qtab.on.q-all{background:var(--primary);color:var(--accent);}
+        .qtab.on.q-1{background:#FF9900;color:var(--primary);}
+        .qtab.on.q-2{background:#232F3E;color:#fff;}
+        .qtab.on.q-3{background:#067D62;color:#fff;}
+        .qtab.on.q-4{background:#0073BB;color:#fff;}
+        .qtab.on.q-5{background:#8B5CF6;color:#fff;}
+
+        /* Selector row */
+        .selector-row{display:flex;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap;}
+        .selector-row label{font-size:12px;font-weight:600;color:var(--text-sec);}
+        .multi-sel{display:flex;gap:6px;flex-wrap:wrap;}
+        .chip{padding:5px 10px;border:1px solid var(--border);border-radius:16px;font-size:11px;font-weight:500;color:var(--text-sec);cursor:pointer;transition:all .15s;}
+        .chip:hover{border-color:var(--accent);color:var(--text);}
+        .chip.on{background:var(--accent);border-color:var(--accent);color:var(--primary);font-weight:600;}
+
+        .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:14px;margin-bottom:20px;}
+        .kpi{background:var(--surface);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);text-align:center;}
+        .kpi .lbl{font-size:10px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:5px;}
+        .kpi .val{font-size:26px;font-weight:800;}
+        .kpi .tr{font-size:11px;font-weight:600;margin-top:3px;}
+        .kpi .tr.up{color:var(--success);} .kpi .tr.down{color:var(--error);} .kpi .tr.neu{color:var(--text-muted);}
+
+        .panels{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;}
+        .panel{background:var(--surface);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);}
+        .panel.wide{grid-column:1/-1;}
+        .panel h3{font-size:13px;font-weight:600;margin-bottom:2px;}
+        .panel .ps{font-size:11px;color:var(--text-muted);margin-bottom:12px;}
+
+        .bar-chart{display:flex;flex-direction:column;gap:10px;}
+        .bar-row{display:flex;align-items:center;gap:10px;}
+        .bar-label{font-size:11px;font-weight:500;color:var(--text-sec);width:100px;text-align:right;}
+        .bar-track{flex:1;height:22px;background:#F0F2F5;border-radius:6px;overflow:hidden;position:relative;}
+        .bar-fill{height:100%;border-radius:6px;transition:width .4s;}
+        .bar-val{position:absolute;right:8px;top:3px;font-size:11px;font-weight:700;color:var(--text);}
+        .goal-line{position:absolute;left:80%;top:0;height:100%;width:2px;background:var(--success);opacity:.6;}
+
+        .dist-bars{display:flex;align-items:flex-end;gap:8px;height:130px;padding-top:10px;}
+        .dist-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;}
+        .dist-bar{width:100%;border-radius:4px 4px 0 0;transition:height .4s;}
+        .dist-num{font-size:11px;font-weight:600;color:var(--text-sec);}
+        .dist-lbl{font-size:10px;color:var(--text-muted);}
+
+        .trend-row{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--border);}
+        .trend-row:last-child{border-bottom:none;}
+        .trend-period{font-size:11px;font-weight:500;color:var(--text-sec);width:100px;}
+        .trend-dots{display:flex;gap:6px;flex:1;}
+        .dot{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;}
+        .dot-single{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;}
+        .trend-n{font-size:10px;color:var(--text-muted);width:40px;text-align:right;}
+
+        .tbl-sec{background:var(--surface);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);}
+        .tbl-sec h3{font-size:13px;font-weight:600;margin-bottom:12px;}
+        table{width:100%;border-collapse:collapse;font-size:12px;}
+        th{text-align:left;padding:8px 10px;background:var(--bg);color:var(--text-sec);font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.4px;}
+        td{padding:8px 10px;border-bottom:1px solid #F0F2F5;}
+        tr:last-child td{border-bottom:none;}
+        .sb{display:inline-block;padding:2px 7px;border-radius:10px;font-weight:600;font-size:11px;}
+        .sb.h{background:var(--success-light);color:var(--success);} .sb.m{background:var(--warning-light);color:var(--warning);} .sb.l{background:var(--error-light);color:var(--error);}
+        .wf{font-style:italic;color:var(--text-sec);max-width:300px;font-size:11px;}
+        .empty{text-align:center;padding:30px;color:var(--text-muted);}
+        .legend{display:flex;gap:12px;margin-top:8px;font-size:10px;color:var(--text-muted);}
+        .legend b{margin-right:2px;}
+        .written-list{display:flex;flex-direction:column;gap:8px;}
+        .written-item{padding:10px 14px;background:var(--bg);border-radius:8px;border-left:3px solid #8B5CF6;}
+        .written-item .wi-date{font-size:10px;color:var(--text-muted);margin-bottom:3px;}
+        .written-item .wi-text{font-size:12px;color:var(--text);font-style:italic;}
+        
+        .sr-btn{flex:1;text-align:center;padding:9px 4px;border:2px solid #E2E6EB;border-radius:8px;cursor:pointer;font-size:13px;font-weight:500;color:#5F6B7A;transition:all .15s;}
+        .sr-btn:hover{border-color:#FF9900;background:#FFF8F0;}
+        .sr-btn.picked{border-color:#FF9900;background:#FF9900;color:#232F3E;font-weight:700;}
+        @media(max-width:768px){.panels{grid-template-columns:1fr;}.kpis{grid-template-columns:repeat(2,1fr);}}
+    </style>
+</head>
+<body>
+    <div class="hdr">
+        <div class="hdr-left"><span class="badge">DPX7</span><div><h1>Connections Roundtable Results</h1><div class="sub">Leadership Dashboard</div></div></div>
+    </div>
+
+    <!-- Time Period Tabs -->
+    <div class="tab-bar">
+        <div class="tab on" onclick="switchTimeTab('week',this)"><i class="fa-solid fa-calendar-week" style="margin-right:4px;"></i>Week</div>
+        <div class="tab" onclick="switchTimeTab('month',this)"><i class="fa-solid fa-calendar-days" style="margin-right:4px;"></i>Month</div>
+        <div class="tab" onclick="switchTimeTab('quarter',this)"><i class="fa-solid fa-chart-pie" style="margin-right:4px;"></i>Quarter</div>
+        <div class="tab" onclick="switchTimeTab('year',this)"><i class="fa-solid fa-calendar" style="margin-right:4px;"></i>Year</div>
+        <div class="tab" onclick="switchTimeTab('qr',this)" style="border-left:1px solid var(--border);"><i class="fa-solid fa-qrcode" style="margin-right:4px;"></i>QR Code</div>
+        <div class="tab" onclick="switchTimeTab('survey',this)" style="background:#FF9900;color:#232F3E;font-weight:700;border-bottom-color:#FF9900;"><i class="fa-solid fa-clipboard-check" style="margin-right:4px;"></i>Take Survey</div>
+    </div>
+    <!-- QR Code Full View (shown when QR tab selected) -->
+    <div id="qr-view" style="display:none;">
+        <div style="background:var(--surface);border-radius:var(--radius);padding:48px 32px;box-shadow:var(--shadow);text-align:center;max-width:500px;margin:0 auto;">
+            <div style="margin-bottom:20px;">
+                <span class="badge" style="font-size:16px;padding:6px 14px;">DPX7</span>
+            </div>
+            <h2 style="font-size:22px;font-weight:700;margin-bottom:6px;">Connections Roundtable</h2>
+            <p style="font-size:14px;color:var(--text-sec);margin-bottom:24px;">Your feedback helps us build a better workplace</p>
+            <div style="border:2px solid var(--border);border-radius:12px;padding:16px;display:inline-block;background:#fff;margin-bottom:20px;">
+                <div style="width:280px;height:280px;display:flex;align-items:center;justify-content:center;"><svg xmlns="http://www.w3.org/2000/svg" width="287" height="287" viewBox="0 0 287 287"><rect width="287" height="287" fill="white"></rect><path d="M28,28h7v7h-7zM35,28h7v7h-7zM42,28h7v7h-7zM49,28h7v7h-7zM56,28h7v7h-7zM63,28h7v7h-7zM70,28h7v7h-7zM105,28h7v7h-7zM112,28h7v7h-7zM119,28h7v7h-7zM126,28h7v7h-7zM133,28h7v7h-7zM147,28h7v7h-7zM161,28h7v7h-7zM175,28h7v7h-7zM182,28h7v7h-7zM189,28h7v7h-7zM210,28h7v7h-7zM217,28h7v7h-7zM224,28h7v7h-7zM231,28h7v7h-7zM238,28h7v7h-7zM245,28h7v7h-7zM252,28h7v7h-7zM28,35h7v7h-7zM70,35h7v7h-7zM84,35h7v7h-7zM112,35h7v7h-7zM126,35h7v7h-7zM133,35h7v7h-7zM140,35h7v7h-7zM154,35h7v7h-7zM161,35h7v7h-7zM168,35h7v7h-7zM175,35h7v7h-7zM182,35h7v7h-7zM189,35h7v7h-7zM196,35h7v7h-7zM210,35h7v7h-7zM252,35h7v7h-7zM28,42h7v7h-7zM42,42h7v7h-7zM49,42h7v7h-7zM56,42h7v7h-7zM70,42h7v7h-7zM91,42h7v7h-7zM105,42h7v7h-7zM119,42h7v7h-7zM126,42h7v7h-7zM133,42h7v7h-7zM147,42h7v7h-7zM154,42h7v7h-7zM168,42h7v7h-7zM189,42h7v7h-7zM196,42h7v7h-7zM210,42h7v7h-7zM224,42h7v7h-7zM231,42h7v7h-7zM238,42h7v7h-7zM252,42h7v7h-7zM28,49h7v7h-7zM42,49h7v7h-7zM49,49h7v7h-7zM56,49h7v7h-7zM70,49h7v7h-7zM105,49h7v7h-7zM119,49h7v7h-7zM126,49h7v7h-7zM140,49h7v7h-7zM147,49h7v7h-7zM154,49h7v7h-7zM182,49h7v7h-7zM189,49h7v7h-7zM210,49h7v7h-7zM224,49h7v7h-7zM231,49h7v7h-7zM238,49h7v7h-7zM252,49h7v7h-7zM28,56h7v7h-7zM42,56h7v7h-7zM49,56h7v7h-7zM56,56h7v7h-7zM70,56h7v7h-7zM84,56h7v7h-7zM105,56h7v7h-7zM112,56h7v7h-7zM126,56h7v7h-7zM140,56h7v7h-7zM154,56h7v7h-7zM168,56h7v7h-7zM189,56h7v7h-7zM196,56h7v7h-7zM210,56h7v7h-7zM224,56h7v7h-7zM231,56h7v7h-7zM238,56h7v7h-7zM252,56h7v7h-7zM28,63h7v7h-7zM70,63h7v7h-7zM98,63h7v7h-7zM105,63h7v7h-7zM112,63h7v7h-7zM119,63h7v7h-7zM126,63h7v7h-7zM133,63h7v7h-7zM140,63h7v7h-7zM147,63h7v7h-7zM154,63h7v7h-7zM161,63h7v7h-7zM168,63h7v7h-7zM175,63h7v7h-7zM189,63h7v7h-7zM196,63h7v7h-7zM210,63h7v7h-7zM252,63h7v7h-7zM28,70h7v7h-7zM35,70h7v7h-7zM42,70h7v7h-7zM49,70h7v7h-7zM56,70h7v7h-7zM63,70h7v7h-7zM70,70h7v7h-7zM84,70h7v7h-7zM98,70h7v7h-7zM112,70h7v7h-7zM126,70h7v7h-7zM140,70h7v7h-7zM154,70h7v7h-7zM168,70h7v7h-7zM182,70h7v7h-7zM196,70h7v7h-7zM210,70h7v7h-7zM217,70h7v7h-7zM224,70h7v7h-7zM231,70h7v7h-7zM238,70h7v7h-7zM245,70h7v7h-7zM252,70h7v7h-7zM91,77h7v7h-7zM105,77h7v7h-7zM112,77h7v7h-7zM119,77h7v7h-7zM133,77h7v7h-7zM147,77h7v7h-7zM168,77h7v7h-7zM175,77h7v7h-7zM182,77h7v7h-7zM189,77h7v7h-7zM196,77h7v7h-7zM28,84h7v7h-7zM42,84h7v7h-7zM56,84h7v7h-7zM70,84h7v7h-7zM91,84h7v7h-7zM98,84h7v7h-7zM105,84h7v7h-7zM119,84h7v7h-7zM140,84h7v7h-7zM147,84h7v7h-7zM161,84h7v7h-7zM168,84h7v7h-7zM175,84h7v7h-7zM224,84h7v7h-7zM245,84h7v7h-7zM28,91h7v7h-7zM42,91h7v7h-7zM63,91h7v7h-7zM77,91h7v7h-7zM84,91h7v7h-7zM91,91h7v7h-7zM112,91h7v7h-7zM119,91h7v7h-7zM126,91h7v7h-7zM147,91h7v7h-7zM168,91h7v7h-7zM175,91h7v7h-7zM196,91h7v7h-7zM203,91h7v7h-7zM210,91h7v7h-7zM217,91h7v7h-7zM245,91h7v7h-7zM252,91h7v7h-7zM42,98h7v7h-7zM49,98h7v7h-7zM56,98h7v7h-7zM63,98h7v7h-7zM70,98h7v7h-7zM91,98h7v7h-7zM98,98h7v7h-7zM105,98h7v7h-7zM126,98h7v7h-7zM154,98h7v7h-7zM175,98h7v7h-7zM182,98h7v7h-7zM196,98h7v7h-7zM203,98h7v7h-7zM210,98h7v7h-7zM217,98h7v7h-7zM238,98h7v7h-7zM252,98h7v7h-7zM35,105h7v7h-7zM42,105h7v7h-7zM77,105h7v7h-7zM84,105h7v7h-7zM91,105h7v7h-7zM98,105h7v7h-7zM112,105h7v7h-7zM119,105h7v7h-7zM126,105h7v7h-7zM140,105h7v7h-7zM147,105h7v7h-7zM154,105h7v7h-7zM168,105h7v7h-7zM175,105h7v7h-7zM182,105h7v7h-7zM189,105h7v7h-7zM203,105h7v7h-7zM224,105h7v7h-7zM252,105h7v7h-7zM28,112h7v7h-7zM35,112h7v7h-7zM42,112h7v7h-7zM56,112h7v7h-7zM70,112h7v7h-7zM84,112h7v7h-7zM126,112h7v7h-7zM133,112h7v7h-7zM140,112h7v7h-7zM154,112h7v7h-7zM168,112h7v7h-7zM175,112h7v7h-7zM189,112h7v7h-7zM196,112h7v7h-7zM203,112h7v7h-7zM210,112h7v7h-7zM231,112h7v7h-7zM245,112h7v7h-7zM252,112h7v7h-7zM28,119h7v7h-7zM42,119h7v7h-7zM49,119h7v7h-7zM91,119h7v7h-7zM112,119h7v7h-7zM126,119h7v7h-7zM133,119h7v7h-7zM140,119h7v7h-7zM154,119h7v7h-7zM182,119h7v7h-7zM196,119h7v7h-7zM210,119h7v7h-7zM238,119h7v7h-7zM252,119h7v7h-7zM28,126h7v7h-7zM70,126h7v7h-7zM84,126h7v7h-7zM105,126h7v7h-7zM112,126h7v7h-7zM119,126h7v7h-7zM126,126h7v7h-7zM133,126h7v7h-7zM140,126h7v7h-7zM154,126h7v7h-7zM196,126h7v7h-7zM203,126h7v7h-7zM231,126h7v7h-7zM238,126h7v7h-7zM245,126h7v7h-7zM252,126h7v7h-7zM35,133h7v7h-7zM56,133h7v7h-7zM63,133h7v7h-7zM77,133h7v7h-7zM84,133h7v7h-7zM105,133h7v7h-7zM112,133h7v7h-7zM119,133h7v7h-7zM126,133h7v7h-7zM140,133h7v7h-7zM147,133h7v7h-7zM161,133h7v7h-7zM175,133h7v7h-7zM189,133h7v7h-7zM196,133h7v7h-7zM210,133h7v7h-7zM224,133h7v7h-7zM245,133h7v7h-7zM56,140h7v7h-7zM70,140h7v7h-7zM84,140h7v7h-7zM119,140h7v7h-7zM133,140h7v7h-7zM140,140h7v7h-7zM147,140h7v7h-7zM161,140h7v7h-7zM168,140h7v7h-7zM175,140h7v7h-7zM189,140h7v7h-7zM196,140h7v7h-7zM203,140h7v7h-7zM210,140h7v7h-7zM231,140h7v7h-7zM28,147h7v7h-7zM42,147h7v7h-7zM49,147h7v7h-7zM63,147h7v7h-7zM91,147h7v7h-7zM98,147h7v7h-7zM105,147h7v7h-7zM119,147h7v7h-7zM140,147h7v7h-7zM154,147h7v7h-7zM168,147h7v7h-7zM175,147h7v7h-7zM196,147h7v7h-7zM203,147h7v7h-7zM210,147h7v7h-7zM217,147h7v7h-7zM252,147h7v7h-7zM28,154h7v7h-7zM56,154h7v7h-7zM70,154h7v7h-7zM77,154h7v7h-7zM91,154h7v7h-7zM126,154h7v7h-7zM147,154h7v7h-7zM168,154h7v7h-7zM203,154h7v7h-7zM210,154h7v7h-7zM238,154h7v7h-7zM252,154h7v7h-7zM28,161h7v7h-7zM42,161h7v7h-7zM77,161h7v7h-7zM91,161h7v7h-7zM98,161h7v7h-7zM112,161h7v7h-7zM119,161h7v7h-7zM133,161h7v7h-7zM168,161h7v7h-7zM175,161h7v7h-7zM182,161h7v7h-7zM203,161h7v7h-7zM217,161h7v7h-7zM224,161h7v7h-7zM245,161h7v7h-7zM28,168h7v7h-7zM35,168h7v7h-7zM42,168h7v7h-7zM56,168h7v7h-7zM70,168h7v7h-7zM77,168h7v7h-7zM84,168h7v7h-7zM98,168h7v7h-7zM105,168h7v7h-7zM119,168h7v7h-7zM126,168h7v7h-7zM133,168h7v7h-7zM161,168h7v7h-7zM175,168h7v7h-7zM196,168h7v7h-7zM203,168h7v7h-7zM210,168h7v7h-7zM231,168h7v7h-7zM35,175h7v7h-7zM42,175h7v7h-7zM49,175h7v7h-7zM56,175h7v7h-7zM63,175h7v7h-7zM77,175h7v7h-7zM84,175h7v7h-7zM91,175h7v7h-7zM98,175h7v7h-7zM105,175h7v7h-7zM112,175h7v7h-7zM119,175h7v7h-7zM126,175h7v7h-7zM133,175h7v7h-7zM147,175h7v7h-7zM168,175h7v7h-7zM175,175h7v7h-7zM182,175h7v7h-7zM196,175h7v7h-7zM203,175h7v7h-7zM210,175h7v7h-7zM231,175h7v7h-7zM245,175h7v7h-7zM252,175h7v7h-7zM28,182h7v7h-7zM49,182h7v7h-7zM70,182h7v7h-7zM77,182h7v7h-7zM112,182h7v7h-7zM119,182h7v7h-7zM126,182h7v7h-7zM182,182h7v7h-7zM196,182h7v7h-7zM217,182h7v7h-7zM224,182h7v7h-7zM245,182h7v7h-7zM252,182h7v7h-7zM35,189h7v7h-7zM42,189h7v7h-7zM49,189h7v7h-7zM84,189h7v7h-7zM105,189h7v7h-7zM119,189h7v7h-7zM133,189h7v7h-7zM147,189h7v7h-7zM154,189h7v7h-7zM161,189h7v7h-7zM168,189h7v7h-7zM175,189h7v7h-7zM182,189h7v7h-7zM203,189h7v7h-7zM210,189h7v7h-7zM245,189h7v7h-7zM28,196h7v7h-7zM49,196h7v7h-7zM63,196h7v7h-7zM70,196h7v7h-7zM84,196h7v7h-7zM105,196h7v7h-7zM112,196h7v7h-7zM119,196h7v7h-7zM140,196h7v7h-7zM147,196h7v7h-7zM168,196h7v7h-7zM175,196h7v7h-7zM196,196h7v7h-7zM203,196h7v7h-7zM210,196h7v7h-7zM217,196h7v7h-7zM224,196h7v7h-7zM245,196h7v7h-7zM252,196h7v7h-7zM84,203h7v7h-7zM98,203h7v7h-7zM105,203h7v7h-7zM126,203h7v7h-7zM140,203h7v7h-7zM147,203h7v7h-7zM175,203h7v7h-7zM196,203h7v7h-7zM224,203h7v7h-7zM231,203h7v7h-7zM252,203h7v7h-7zM28,210h7v7h-7zM35,210h7v7h-7zM42,210h7v7h-7zM49,210h7v7h-7zM56,210h7v7h-7zM63,210h7v7h-7zM70,210h7v7h-7zM91,210h7v7h-7zM105,210h7v7h-7zM119,210h7v7h-7zM126,210h7v7h-7zM140,210h7v7h-7zM154,210h7v7h-7zM175,210h7v7h-7zM182,210h7v7h-7zM189,210h7v7h-7zM196,210h7v7h-7zM210,210h7v7h-7zM224,210h7v7h-7zM238,210h7v7h-7zM245,210h7v7h-7zM252,210h7v7h-7zM28,217h7v7h-7zM70,217h7v7h-7zM126,217h7v7h-7zM140,217h7v7h-7zM147,217h7v7h-7zM154,217h7v7h-7zM168,217h7v7h-7zM175,217h7v7h-7zM196,217h7v7h-7zM224,217h7v7h-7zM245,217h7v7h-7zM28,224h7v7h-7zM42,224h7v7h-7zM49,224h7v7h-7zM56,224h7v7h-7zM70,224h7v7h-7zM84,224h7v7h-7zM98,224h7v7h-7zM112,224h7v7h-7zM133,224h7v7h-7zM140,224h7v7h-7zM154,224h7v7h-7zM161,224h7v7h-7zM168,224h7v7h-7zM175,224h7v7h-7zM196,224h7v7h-7zM203,224h7v7h-7zM210,224h7v7h-7zM217,224h7v7h-7zM224,224h7v7h-7zM231,224h7v7h-7zM252,224h7v7h-7zM28,231h7v7h-7zM42,231h7v7h-7zM49,231h7v7h-7zM56,231h7v7h-7zM70,231h7v7h-7zM91,231h7v7h-7zM105,231h7v7h-7zM112,231h7v7h-7zM133,231h7v7h-7zM140,231h7v7h-7zM147,231h7v7h-7zM154,231h7v7h-7zM168,231h7v7h-7zM175,231h7v7h-7zM182,231h7v7h-7zM196,231h7v7h-7zM224,231h7v7h-7zM238,231h7v7h-7zM252,231h7v7h-7zM28,238h7v7h-7zM42,238h7v7h-7zM49,238h7v7h-7zM56,238h7v7h-7zM70,238h7v7h-7zM84,238h7v7h-7zM105,238h7v7h-7zM126,238h7v7h-7zM133,238h7v7h-7zM140,238h7v7h-7zM147,238h7v7h-7zM154,238h7v7h-7zM168,238h7v7h-7zM189,238h7v7h-7zM224,238h7v7h-7zM231,238h7v7h-7zM252,238h7v7h-7zM28,245h7v7h-7zM70,245h7v7h-7zM98,245h7v7h-7zM105,245h7v7h-7zM112,245h7v7h-7zM126,245h7v7h-7zM140,245h7v7h-7zM147,245h7v7h-7zM168,245h7v7h-7zM175,245h7v7h-7zM189,245h7v7h-7zM196,245h7v7h-7zM203,245h7v7h-7zM224,245h7v7h-7zM245,245h7v7h-7zM28,252h7v7h-7zM35,252h7v7h-7zM42,252h7v7h-7zM49,252h7v7h-7zM56,252h7v7h-7zM63,252h7v7h-7zM70,252h7v7h-7zM84,252h7v7h-7zM98,252h7v7h-7zM105,252h7v7h-7zM112,252h7v7h-7zM133,252h7v7h-7zM140,252h7v7h-7zM147,252h7v7h-7zM154,252h7v7h-7zM168,252h7v7h-7zM175,252h7v7h-7zM189,252h7v7h-7zM196,252h7v7h-7zM203,252h7v7h-7zM210,252h7v7h-7zM224,252h7v7h-7zM231,252h7v7h-7zM245,252h7v7h-7zM252,252h7v7h-7z" fill="black"></path></svg></div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:center;gap:8px;font-size:16px;font-weight:600;color:var(--primary);margin-bottom:8px;">
+                <i class="fa-solid fa-camera" style="color:var(--accent);"></i>
+                Scan with your phone camera
+            </div>
+            <p style="font-size:13px;color:var(--success);font-weight:500;"><i class="fa-solid fa-shield-halved" style="margin-right:4px;"></i>100% Anonymous — Takes 30 seconds</p>
+            <div style="margin-top:16px;padding:8px 14px;background:var(--bg);border-radius:6px;font-size:11px;color:var(--text-muted);font-family:monospace;word-break:break-all;">https://joshsalado.github.io/dpx7-roundtable-survey/</div>
+        </div>
+    </div>
+
+
+
+    <!-- Survey Form View -->
+    <div id="survey-view" style="display:none;">
+        <div style="max-width:600px;margin:0 auto;">
+            <div style="text-align:center;padding:28px 24px;background:linear-gradient(135deg,#232F3E 0%,#37475A 100%);border-radius:12px 12px 0 0;color:white;">
+                <div style="font-size:32px;margin-bottom:10px;color:#FF9900;"><i class="fa-solid fa-comments"></i></div>
+                <h2 style="font-size:20px;font-weight:700;margin-bottom:6px;">DPX7 Connections Roundtable</h2>
+                <p style="font-size:13px;opacity:.85;">Post-Meeting Feedback Survey</p>
+                <div style="display:inline-flex;align-items:center;gap:5px;background:rgba(6,125,98,.3);color:#A7F3D0;font-size:11px;font-weight:600;padding:3px 9px;border-radius:16px;margin-top:10px;"><i class="fa-solid fa-shield-halved"></i> 100% Anonymous</div>
+            </div>
+            <div id="survey-form" style="background:white;border-radius:0 0 12px 12px;padding:28px 24px;box-shadow:0 4px 24px rgba(0,0,0,.1);">
+                <div class="sq" style="margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid #E2E6EB;">
+                    <div style="display:inline-block;background:#FF9900;color:#232F3E;font-weight:700;font-size:11px;width:22px;height:22px;line-height:22px;text-align:center;border-radius:50%;margin-bottom:6px;">1</div>
+                    <div style="font-size:14px;font-weight:600;margin-bottom:10px;">Did you find today's roundtable discussion valuable and worth your time?</div>
+                    <div class="sr" data-q="sq1" style="display:flex;gap:6px;"></div>
+                    <div style="display:flex;justify-content:space-between;font-size:10px;color:#8C96A4;margin-top:4px;"><span>Not at all</span><span>Extremely valuable</span></div>
+                </div>
+                <div class="sq" style="margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid #E2E6EB;">
+                    <div style="display:inline-block;background:#FF9900;color:#232F3E;font-weight:700;font-size:11px;width:22px;height:22px;line-height:22px;text-align:center;border-radius:50%;margin-bottom:6px;">2</div>
+                    <div style="font-size:14px;font-weight:600;margin-bottom:10px;">Do you feel confident that the site is heading in a positive direction?</div>
+                    <div class="sr" data-q="sq2" style="display:flex;gap:6px;"></div>
+                    <div style="display:flex;justify-content:space-between;font-size:10px;color:#8C96A4;margin-top:4px;"><span>Not confident</span><span>Very confident</span></div>
+                </div>
+                <div class="sq" style="margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid #E2E6EB;">
+                    <div style="display:inline-block;background:#FF9900;color:#232F3E;font-weight:700;font-size:11px;width:22px;height:22px;line-height:22px;text-align:center;border-radius:50%;margin-bottom:6px;">3</div>
+                    <div style="font-size:14px;font-weight:600;margin-bottom:10px;">How did you feel about the small-group roundtable format?</div>
+                    <div class="sr" data-q="sq3" style="display:flex;gap:6px;"></div>
+                    <div style="display:flex;justify-content:space-between;font-size:10px;color:#8C96A4;margin-top:4px;"><span>Didn't enjoy it</span><span>Loved this format</span></div>
+                </div>
+                <div class="sq" style="margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid #E2E6EB;">
+                    <div style="display:inline-block;background:#FF9900;color:#232F3E;font-weight:700;font-size:11px;width:22px;height:22px;line-height:22px;text-align:center;border-radius:50%;margin-bottom:6px;">4</div>
+                    <div style="font-size:14px;font-weight:600;margin-bottom:10px;">Do you feel your voice was heard and that your feedback will lead to real change?</div>
+                    <div class="sr" data-q="sq4" style="display:flex;gap:6px;"></div>
+                    <div style="display:flex;justify-content:space-between;font-size:10px;color:#8C96A4;margin-top:4px;"><span>Not at all</span><span>Absolutely</span></div>
+                </div>
+                <div class="sq" style="margin-bottom:20px;">
+                    <div style="display:inline-block;background:#FF9900;color:#232F3E;font-weight:700;font-size:11px;width:22px;height:22px;line-height:22px;text-align:center;border-radius:50%;margin-bottom:6px;">5</div>
+                    <div style="font-size:14px;font-weight:600;margin-bottom:10px;">Is there anything else you'd like leadership to know? (Optional)</div>
+                    <textarea id="sq5" placeholder="Share any thoughts, suggestions, or ideas..." style="width:100%;padding:10px;border:2px solid #E2E6EB;border-radius:8px;font-family:inherit;font-size:13px;resize:vertical;min-height:70px;"></textarea>
+                </div>
+                <button onclick="submitSurvey()" style="width:100%;padding:13px;background:#FF9900;color:#232F3E;border:none;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;">Submit Feedback</button>
+            </div>
+            <div id="survey-success" style="display:none;text-align:center;padding:50px 24px;background:white;border-radius:12px;box-shadow:0 4px 24px rgba(0,0,0,.1);">
+                <div style="font-size:48px;color:#067D62;margin-bottom:14px;"><i class="fa-solid fa-circle-check"></i></div>
+                <h2 style="font-size:20px;margin-bottom:6px;">Thank You!</h2>
+                <p style="color:#5F6B7A;font-size:14px;">Your anonymous feedback has been recorded.</p>
+                <button onclick="resetSurvey()" style="margin-top:16px;padding:10px 20px;background:#232F3E;color:white;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;">Submit Another Response</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="main-content">
+    <!-- Question Tabs -->
+    <div class="q-tab-bar">
+        <div class="qtab on q-all" onclick="switchQTab('all',this)"><i class="fa-solid fa-layer-group" style="margin-right:3px;"></i>All Questions</div>
+        <div class="qtab q-1" onclick="switchQTab('q1',this)"><i class="fa-solid fa-star" style="margin-right:3px;"></i>Q1: Value Added</div>
+        <div class="qtab q-2" onclick="switchQTab('q2',this)"><i class="fa-solid fa-compass" style="margin-right:3px;"></i>Q2: Site Direction</div>
+        <div class="qtab q-3" onclick="switchQTab('q3',this)"><i class="fa-solid fa-users" style="margin-right:3px;"></i>Q3: Format</div>
+        <div class="qtab q-4" onclick="switchQTab('q4',this)"><i class="fa-solid fa-bullhorn" style="margin-right:3px;"></i>Q4: Voice Heard</div>
+        <div class="qtab q-5" onclick="switchQTab('q5',this)"><i class="fa-solid fa-pen" style="margin-right:3px;"></i>Q5: Written</div>
+    </div>
+
+    <!-- Period Selector -->
+    <div class="selector-row">
+        <label id="sel-label">Select Week(s):</label>
+        <div class="multi-sel" id="period-chips"></div>
+    </div>
+
+    <!-- KPIs -->
+    <div class="kpis" id="kpi-section">
+        <div class="kpi"><div class="lbl">Responses</div><div class="val" id="kr">0</div><div class="tr neu" id="krt">--</div></div>
+        <div class="kpi"><div class="lbl" id="k1l">Value Added</div><div class="val" id="k1">--</div><div class="tr neu" id="k1t">Q1</div></div>
+        <div class="kpi"><div class="lbl" id="k2l">Site Direction</div><div class="val" id="k2">--</div><div class="tr neu" id="k2t">Q2</div></div>
+        <div class="kpi"><div class="lbl" id="k3l">Format Rating</div><div class="val" id="k3">--</div><div class="tr neu" id="k3t">Q3</div></div>
+        <div class="kpi"><div class="lbl" id="k4l">Voice Heard</div><div class="val" id="k4">--</div><div class="tr neu" id="k4t">Q4</div></div>
+    </div>
+
+    <!-- Charts -->
+    <div class="panels">
+        <div class="panel wide"><h3 id="trend-title">Score Trend by Week</h3><div class="ps" id="trend-sub">Averages per selected period</div><div id="trend"></div></div>
+        <div class="panel"><h3 id="comp-title">Question Comparison</h3><div class="ps" id="comp-sub">Average per question vs. 4.0 goal</div><div id="comp"></div></div>
+        <div class="panel"><h3 id="dist-title">Score Distribution</h3><div class="ps" id="dist-sub">All responses by rating (1-5)</div><div id="dist"></div></div>
+    </div>
+
+    <!-- Table / Written Feedback -->
+    <div class="tbl-sec">
+        <h3 id="tbl-title"><i class="fa-solid fa-comments" style="color:var(--accent);margin-right:6px;"></i>Individual Responses</h3>
+        <div id="tbl-container">
+            <table><thead><tr id="tbl-head"><th>Date</th><th>Q1</th><th>Q2</th><th>Q3</th><th>Q4</th><th>Written Feedback</th></tr></thead><tbody id="tbl"></tbody></table>
+        </div>
+        <div id="written-container" style="display:none;"></div>
+        <div class="empty" id="empty" style="display:none;"><i class="fa-solid fa-clipboard-list" style="font-size:28px;display:block;margin-bottom:8px;"></i>No responses for selected period</div>
+    </div>
+
+
+
+    </div>
+    <script>
+    // === DATA ===
+    var DATA=[
+        {ts:"2026-01-15T09:10:00Z",r:{q1:3,q2:3,q3:4,q4:3,q5:"Need more transparency."}},
+        {ts:"2026-01-15T09:12:00Z",r:{q1:4,q2:3,q3:4,q4:4,q5:""}},
+        {ts:"2026-02-12T09:10:00Z",r:{q1:4,q2:4,q3:4,q4:3,q5:"Getting better each week."}},
+        {ts:"2026-02-12T09:12:00Z",r:{q1:3,q2:3,q3:4,q4:3,q5:""}},
+        {ts:"2026-02-19T10:00:00Z",r:{q1:4,q2:4,q3:5,q4:4,q5:"Love the small group format."}},
+        {ts:"2026-02-19T10:02:00Z",r:{q1:4,q2:3,q3:4,q4:4,q5:""}},
+        {ts:"2026-03-05T09:10:00Z",r:{q1:4,q2:4,q3:5,q4:4,q5:"Scheduling concern still top of mind."}},
+        {ts:"2026-03-05T09:12:00Z",r:{q1:5,q2:4,q3:5,q4:5,q5:""}},
+        {ts:"2026-05-14T14:30:00Z",r:{q1:4,q2:4,q3:5,q4:4,q5:"Good progress on last month's commitment."}},
+        {ts:"2026-05-14T14:32:00Z",r:{q1:5,q2:5,q3:5,q4:5,q5:""}},
+        {ts:"2026-06-11T09:10:00Z",r:{q1:4,q2:4,q3:4,q4:4,q5:"Consistent improvement."}},
+        {ts:"2026-06-11T09:12:00Z",r:{q1:5,q2:4,q3:5,q4:4,q5:""}},
+        {ts:"2026-07-09T14:30:00Z",r:{q1:4,q2:3,q3:5,q4:3,q5:"Still waiting on schedule changes."}},
+        {ts:"2026-07-09T14:32:00Z",r:{q1:4,q2:4,q3:4,q4:4,q5:""}},
+        {ts:"2026-08-14T09:10:00Z",r:{q1:3,q2:3,q3:4,q4:3,q5:"Need more transparency from leadership."}},
+        {ts:"2026-08-14T09:12:00Z",r:{q1:4,q2:3,q3:4,q4:4,q5:""}},
+        {ts:"2026-08-14T09:14:00Z",r:{q1:4,q2:4,q3:5,q4:4,q5:"This format is way better than town halls."}},
+        {ts:"2026-08-14T09:15:00Z",r:{q1:3,q2:3,q3:4,q4:3,q5:""}},
+        {ts:"2026-08-14T09:17:00Z",r:{q1:4,q2:4,q3:4,q4:3,q5:"Would like to see schedule flexibility addressed."}},
+        {ts:"2026-08-21T14:30:00Z",r:{q1:4,q2:4,q3:5,q4:3,q5:"Would love more of these. Makes me feel heard."}},
+        {ts:"2026-08-21T14:32:00Z",r:{q1:5,q2:4,q3:5,q4:5,q5:""}},
+        {ts:"2026-08-21T14:34:00Z",r:{q1:4,q2:3,q3:4,q4:4,q5:"Schedule flexibility is still my #1 concern."}},
+        {ts:"2026-08-21T14:35:00Z",r:{q1:3,q2:3,q3:4,q4:3,q5:""}},
+        {ts:"2026-08-21T14:37:00Z",r:{q1:5,q2:5,q3:5,q4:5,q5:"Best meeting I've been to at this site."}},
+        {ts:"2026-08-21T14:38:00Z",r:{q1:4,q2:4,q3:4,q4:4,q5:""}},
+        {ts:"2026-08-28T10:15:00Z",r:{q1:4,q2:4,q3:5,q4:4,q5:"Please keep doing these every week."}},
+        {ts:"2026-08-28T10:17:00Z",r:{q1:5,q2:5,q3:5,q4:5,q5:""}},
+        {ts:"2026-08-28T10:19:00Z",r:{q1:4,q2:3,q3:4,q4:4,q5:"When will we see action on the scheduling issue?"}},
+        {ts:"2026-08-28T10:20:00Z",r:{q1:3,q2:4,q3:5,q4:3,q5:""}},
+        {ts:"2026-08-28T10:22:00Z",r:{q1:5,q2:4,q3:5,q4:4,q5:"I appreciate leadership being transparent."}},
+        {ts:"2026-08-28T10:23:00Z",r:{q1:4,q2:4,q3:4,q4:4,q5:""}},
+        {ts:"2026-08-28T10:25:00Z",r:{q1:5,q2:5,q3:5,q4:5,q5:"More skill-building opportunities please!"}}
+    ];
+
+    function load(){try{var s=localStorage.getItem('dpx7_roundtable_responses');if(s){var p=JSON.parse(s);if(p.length)return p.map(function(x){return{ts:x.timestamp,r:x.responses};});}}catch(e){}return DATA;}
+    var all=load();
+
+    // === STATE ===
+    var timeTab='week';
+    var qTab='all';
+    var selectedPeriods=[];
+
+    // === HELPERS ===
+    function avg(a){return a.length?a.reduce(function(x,y){return x+y;},0)/a.length:0;}
+    function badge(v){return v>=4?'<span class="sb h">'+v+'/5</span>':v>=3?'<span class="sb m">'+v+'/5</span>':'<span class="sb l">'+v+'/5</span>';}
+    function dotColor(v){return v>=4?'#067D62':v>=3?'#D4760A':'#D13212';}
+    function tl(v){return v>=4?{t:'Strong',c:'up'}:v>=3?{t:'Moderate',c:'neu'}:{t:'Needs Work',c:'down'};}
+    function getWeekNum(ts){var d=new Date(ts),s=new Date(d.getFullYear(),0,1),diff=(d-s+(s.getTimezoneOffset()-d.getTimezoneOffset())*6e4)/864e5;return Math.ceil((diff+s.getDay()+1)/7);}
+    function getQuarter(ts){return Math.ceil((new Date(ts).getMonth()+1)/3);}
+    function getPeriodKey(ts){var dt=new Date(ts);if(timeTab==='week')return 'Wk '+getWeekNum(ts);if(timeTab==='month')return dt.toLocaleDateString('en-US',{month:'long'});if(timeTab==='quarter')return 'Q'+getQuarter(ts);return ''+dt.getFullYear();}
+    function getPeriodSort(ts){var dt=new Date(ts);if(timeTab==='week')return getWeekNum(ts);if(timeTab==='month')return dt.getMonth();if(timeTab==='quarter')return getQuarter(ts);return dt.getFullYear();}
+    var QNAMES={q1:'Value Added',q2:'Site Direction',q3:'Format Rating',q4:'Voice Heard',q5:'Written Feedback'};
+    var QCOLORS={q1:'#FF9900',q2:'#232F3E',q3:'#067D62',q4:'#0073BB',q5:'#8B5CF6'};
+
+    // === TAB SWITCHING ===
+    function switchTimeTab(tab,el){
+        document.querySelectorAll('.tab-bar .tab').forEach(function(t){t.classList.remove('on');});
+        el.classList.add('on');
+        document.getElementById('main-content').style.display='none';
+        document.getElementById('qr-view').style.display='none';
+        document.getElementById('survey-view').style.display='none';
+        if(tab==='qr'){
+            document.getElementById('qr-view').style.display='block';
+            return;
+        }
+        if(tab==='survey'){
+            document.getElementById('survey-view').style.display='block';
+            return;
+        }
+        document.getElementById('main-content').style.display='block';
+        timeTab=tab;
+        buildChips();
+    }
+    function switchQTab(tab,el){qTab=tab;document.querySelectorAll('.qtab').forEach(function(t){t.classList.remove('on');});el.classList.add('on');render();}
+
+    function buildChips(){
+        var periods={};
+        all.forEach(function(d){var key=getPeriodKey(d.ts),sort=getPeriodSort(d.ts);if(!periods[key])periods[key]={key:key,sort:sort,count:0};periods[key].count++;});
+        var sorted=Object.values(periods).sort(function(a,b){return a.sort-b.sort;});
+        var labels={week:'Select Week(s):',month:'Select Month(s):',quarter:'Select Quarter(s):',year:'Select Year(s):'};
+        document.getElementById('sel-label').textContent=labels[timeTab]||'Select:';
+        var container=document.getElementById('period-chips');
+        var html='';
+        sorted.forEach(function(p,i){var isOn=(i===sorted.length-1)?'on':'';html+='<div class="chip '+isOn+'" onclick="toggleChip(this)" data-key="'+p.key+'">'+p.key+' <span style="opacity:.6;font-size:10px;">('+p.count+')</span></div>';});
+        container.innerHTML=html;
+        selectedPeriods=sorted.length?[sorted[sorted.length-1].key]:[];
+        render();
+    }
+
+    function toggleChip(el){el.classList.toggle('on');selectedPeriods=[];document.querySelectorAll('.chip.on').forEach(function(c){selectedPeriods.push(c.getAttribute('data-key'));});render();}
+
+    // === RENDER ===
+    function render(){
+        var filtered=all.filter(function(d){return selectedPeriods.indexOf(getPeriodKey(d.ts))>=0;});
+        document.getElementById('kr').textContent=filtered.length;
+
+        if(!filtered.length){
+            ['k1','k2','k3','k4'].forEach(function(id){document.getElementById(id).textContent='--';});
+            ['k1t','k2t','k3t','k4t'].forEach(function(id){var e=document.getElementById(id);e.textContent='--';e.className='tr neu';});
+            document.getElementById('krt').textContent='No data';document.getElementById('krt').className='tr neu';
+            document.getElementById('tbl').innerHTML='';document.getElementById('empty').style.display='block';
+            document.getElementById('trend').innerHTML='';document.getElementById('comp').innerHTML='';document.getElementById('dist').innerHTML='';
+            document.getElementById('written-container').style.display='none';document.getElementById('tbl-container').style.display='block';
+            return;
+        }
+        document.getElementById('empty').style.display='none';
+
+        var a1=avg(filtered.map(function(x){return x.r.q1;})),a2=avg(filtered.map(function(x){return x.r.q2;})),a3=avg(filtered.map(function(x){return x.r.q3;})),a4=avg(filtered.map(function(x){return x.r.q4;}));
+
+        // KPIs - adapt based on question tab
+        if(qTab==='all'||qTab==='q5'){
+            document.getElementById('k1l').textContent='Value Added';document.getElementById('k2l').textContent='Site Direction';
+            document.getElementById('k3l').textContent='Format Rating';document.getElementById('k4l').textContent='Voice Heard';
+            document.getElementById('k1').textContent=a1.toFixed(1);document.getElementById('k2').textContent=a2.toFixed(1);
+            document.getElementById('k3').textContent=a3.toFixed(1);document.getElementById('k4').textContent=a4.toFixed(1);
+            [[document.getElementById('k1t'),a1],[document.getElementById('k2t'),a2],[document.getElementById('k3t'),a3],[document.getElementById('k4t'),a4]].forEach(function(p){var t=tl(p[1]);p[0].textContent=t.t;p[0].className='tr '+t.c;});
+        } else {
+            // Single question focus - show breakdown stats
+            var qKey=qTab;
+            var vals=filtered.map(function(x){return x.r[qKey];});
+            var qAvg=avg(vals);
+            var count5=vals.filter(function(v){return v===5;}).length;
+            var count4=vals.filter(function(v){return v===4;}).length;
+            var count3=vals.filter(function(v){return v>=1&&v<=3;}).length;
+            document.getElementById('k1l').textContent='Average Score';document.getElementById('k1').textContent=qAvg.toFixed(1);
+            var t1=tl(qAvg);document.getElementById('k1t').textContent=t1.t;document.getElementById('k1t').className='tr '+t1.c;
+            document.getElementById('k2l').textContent='Scored 5';document.getElementById('k2').textContent=count5;
+            document.getElementById('k2t').textContent=Math.round(count5/vals.length*100)+'%';document.getElementById('k2t').className='tr up';
+            document.getElementById('k3l').textContent='Scored 4';document.getElementById('k3').textContent=count4;
+            document.getElementById('k3t').textContent=Math.round(count4/vals.length*100)+'%';document.getElementById('k3t').className='tr neu';
+            document.getElementById('k4l').textContent='Scored 1-3';document.getElementById('k4').textContent=count3;
+            document.getElementById('k4t').textContent=Math.round(count3/vals.length*100)+'%';document.getElementById('k4t').className='tr down';
+        }
+        document.getElementById('krt').textContent=filtered.length+' associates';document.getElementById('krt').className='tr up';
+
+        // Trend
+        var tTitles={week:'Score Trend by Week',month:'Score Trend by Month',quarter:'Score Trend by Quarter',year:'Score Trend by Year'};
+        document.getElementById('trend-title').textContent=tTitles[timeTab];
+        var groups={};
+        filtered.forEach(function(x){var key=getPeriodKey(x.ts);if(!groups[key])groups[key]={q1:[],q2:[],q3:[],q4:[],sort:getPeriodSort(x.ts)};groups[key].q1.push(x.r.q1);groups[key].q2.push(x.r.q2);groups[key].q3.push(x.r.q3);groups[key].q4.push(x.r.q4);});
+        var gkeys=Object.keys(groups).sort(function(a,b){return groups[a].sort-groups[b].sort;});
+
+        var thtml='';
+        if(qTab==='all'||qTab==='q5'){
+            document.getElementById('trend-sub').textContent='All questions - colored by score (green=4+, yellow=3-3.9, red=<3)';
+            gkeys.forEach(function(k){var g=groups[k];var v1=avg(g.q1),v2=avg(g.q2),v3=avg(g.q3),v4=avg(g.q4);
+                thtml+='<div class="trend-row"><span class="trend-period">'+k+'</span><div class="trend-dots">';
+                thtml+='<div class="dot" style="background:'+dotColor(v1)+'" title="Value Added: '+v1.toFixed(1)+'">'+v1.toFixed(1)+'</div>';
+                thtml+='<div class="dot" style="background:'+dotColor(v2)+'" title="Direction: '+v2.toFixed(1)+'">'+v2.toFixed(1)+'</div>';
+                thtml+='<div class="dot" style="background:'+dotColor(v3)+'" title="Format: '+v3.toFixed(1)+'">'+v3.toFixed(1)+'</div>';
+                thtml+='<div class="dot" style="background:'+dotColor(v4)+'" title="Voice: '+v4.toFixed(1)+'">'+v4.toFixed(1)+'</div>';
+                thtml+='</div><span class="trend-n">n='+g.q1.length+'</span></div>';
+            });
+            thtml+='<div class="legend"><span><b style="color:#FF9900">1st</b> Value</span><span><b style="color:#232F3E">2nd</b> Direction</span><span><b style="color:#067D62">3rd</b> Format</span><span><b style="color:#0073BB">4th</b> Voice</span></div>';
+        } else {
+            document.getElementById('trend-sub').textContent=QNAMES[qTab]+' - score over time';
+            var qColor=QCOLORS[qTab];
+            gkeys.forEach(function(k){var g=groups[k];var v=avg(g[qTab]);
+                thtml+='<div class="trend-row"><span class="trend-period">'+k+'</span><div class="trend-dots">';
+                thtml+='<div class="dot-single" style="background:'+dotColor(v)+'" title="'+QNAMES[qTab]+': '+v.toFixed(1)+'">'+v.toFixed(1)+'</div>';
+                thtml+='</div><span class="trend-n">n='+g[qTab].length+'</span></div>';
+            });
+        }
+        document.getElementById('trend').innerHTML=thtml;
+
+        // Comparison & Distribution
+        if(qTab==='all'||qTab==='q5'){
+            document.getElementById('comp-title').textContent='Question Comparison';
+            document.getElementById('comp-sub').textContent='Average per question vs. 4.0 goal';
+            var bars=[{l:'Value Added',v:a1,c:'#FF9900'},{l:'Site Direction',v:a2,c:'#232F3E'},{l:'Format Rating',v:a3,c:'#067D62'},{l:'Voice Heard',v:a4,c:'#0073BB'}];
+            var bhtml='<div class="bar-chart">';
+            bars.forEach(function(b){var pct=(b.v/5*100).toFixed(0);bhtml+='<div class="bar-row"><span class="bar-label">'+b.l+'</span><div class="bar-track"><div class="bar-fill" style="width:'+pct+'%;background:'+b.c+';"></div><div class="bar-val">'+b.v.toFixed(1)+'</div><div class="goal-line"></div></div></div>';});
+            bhtml+='<div style="text-align:right;font-size:10px;color:var(--success);margin-top:6px;">| Goal: 4.0</div></div>';
+            document.getElementById('comp').innerHTML=bhtml;
+
+            document.getElementById('dist-title').textContent='Score Distribution';
+            document.getElementById('dist-sub').textContent='All questions combined (1-5)';
+            var dist=[0,0,0,0,0];
+            filtered.forEach(function(x){[x.r.q1,x.r.q2,x.r.q3,x.r.q4].forEach(function(v){dist[v-1]++;});});
+            renderDistBars(dist);
+        } else {
+            document.getElementById('comp-title').textContent=QNAMES[qTab]+' by Period';
+            document.getElementById('comp-sub').textContent='Score per period vs. 4.0 goal';
+            var bhtml='<div class="bar-chart">';
+            gkeys.forEach(function(k){var g=groups[k];var v=avg(g[qTab]);var pct=(v/5*100).toFixed(0);
+                bhtml+='<div class="bar-row"><span class="bar-label">'+k+'</span><div class="bar-track"><div class="bar-fill" style="width:'+pct+'%;background:'+QCOLORS[qTab]+';"></div><div class="bar-val">'+v.toFixed(1)+'</div><div class="goal-line"></div></div></div>';
+            });
+            bhtml+='<div style="text-align:right;font-size:10px;color:var(--success);margin-top:6px;">| Goal: 4.0</div></div>';
+            document.getElementById('comp').innerHTML=bhtml;
+
+            document.getElementById('dist-title').textContent=QNAMES[qTab]+' Distribution';
+            document.getElementById('dist-sub').textContent='This question only (1-5)';
+            var dist=[0,0,0,0,0];
+            filtered.forEach(function(x){dist[x.r[qTab]-1]++;});
+            renderDistBars(dist);
+        }
+
+        // Table / Written
+        if(qTab==='q5'){
+            document.getElementById('tbl-container').style.display='none';
+            document.getElementById('written-container').style.display='block';
+            document.getElementById('tbl-title').innerHTML='<i class="fa-solid fa-pen" style="color:#8B5CF6;margin-right:6px;"></i>Written Feedback Responses';
+            var whtml='<div class="written-list">';
+            var written=filtered.filter(function(x){return x.r.q5;}).sort(function(a,b){return new Date(b.ts)-new Date(a.ts);});
+            if(!written.length){whtml+='<div class="empty" style="display:block;">No written feedback for this period</div>';}
+            written.forEach(function(x){
+                var dt=new Date(x.ts);var ds=dt.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+                whtml+='<div class="written-item"><div class="wi-date">'+ds+'</div><div class="wi-text">"'+x.r.q5+'"</div></div>';
+            });
+            whtml+='</div>';
+            document.getElementById('written-container').innerHTML=whtml;
+        } else {
+            document.getElementById('tbl-container').style.display='block';
+            document.getElementById('written-container').style.display='none';
+            document.getElementById('tbl-title').innerHTML='<i class="fa-solid fa-comments" style="color:var(--accent);margin-right:6px;"></i>Individual Responses';
+            var html='';
+            filtered.slice().sort(function(a,b){return new Date(b.ts)-new Date(a.ts);}).forEach(function(x){
+                var dt=new Date(x.ts);var ds=dt.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});var ts=dt.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
+                var fb=x.r.q5?'<span class="wf">"'+x.r.q5+'"</span>':'<span style="color:var(--text-muted)">--</span>';
+                if(qTab==='all'){
+                    html+='<tr><td>'+ds+'<br><span style="font-size:10px;color:var(--text-muted)">'+ts+'</span></td><td>'+badge(x.r.q1)+'</td><td>'+badge(x.r.q2)+'</td><td>'+badge(x.r.q3)+'</td><td>'+badge(x.r.q4)+'</td><td>'+fb+'</td></tr>';
+                } else {
+                    html+='<tr><td>'+ds+'<br><span style="font-size:10px;color:var(--text-muted)">'+ts+'</span></td><td>'+badge(x.r[qTab])+'</td><td colspan="4">'+fb+'</td></tr>';
+                }
+            });
+            // Update table headers based on qTab
+            if(qTab==='all'){
+                document.getElementById('tbl-head').innerHTML='<th>Date</th><th>Q1</th><th>Q2</th><th>Q3</th><th>Q4</th><th>Written Feedback</th>';
+            } else {
+                document.getElementById('tbl-head').innerHTML='<th>Date</th><th>'+QNAMES[qTab]+'</th><th colspan="4">Written Feedback</th>';
+            }
+            document.getElementById('tbl').innerHTML=html;
+        }
+    }
+
+    function renderDistBars(dist){
+        var maxD=Math.max.apply(null,dist)||1;
+        var colors=['#D13212','#D4760A','#8C96A4','#0073BB','#067D62'];
+        var dhtml='<div class="dist-bars">';
+        dist.forEach(function(v,i){var h=Math.round(v/maxD*120);dhtml+='<div class="dist-col"><div class="dist-num">'+v+'</div><div class="dist-bar" style="height:'+h+'px;background:'+colors[i]+';"></div><div class="dist-lbl">'+(i+1)+'</div></div>';});
+        dhtml+='</div>';
+        document.getElementById('dist').innerHTML=dhtml;
+    }
+
+    // === INIT ===
+    buildChips();
+
+
+    // === SURVEY LOGIC ===
+    var surveyResp={};
+    function initSurveyBtns(){
+        document.querySelectorAll('.sr').forEach(function(row){
+            var q=row.getAttribute('data-q');
+            for(var i=1;i<=5;i++){
+                var btn=document.createElement('div');
+                btn.className='sr-btn';
+                btn.textContent=i;
+                btn.setAttribute('data-val',i);
+                btn.onclick=(function(qq,val,el){return function(){
+                    surveyResp[qq]=val;
+                    el.parentElement.querySelectorAll('.sr-btn').forEach(function(b){b.classList.remove('picked');});
+                    el.classList.add('picked');
+                };})(q,i,btn);
+                row.appendChild(btn);
+            }
+        });
+    }
+    function submitSurvey(){
+        if(!surveyResp.sq1||!surveyResp.sq2||!surveyResp.sq3||!surveyResp.sq4){alert('Please answer questions 1-4 before submitting.');return;}
+        var entry={timestamp:new Date().toISOString(),responses:{q1:surveyResp.sq1,q2:surveyResp.sq2,q3:surveyResp.sq3,q4:surveyResp.sq4,q5:document.getElementById('sq5').value||''}};
+        try{var existing=JSON.parse(localStorage.getItem('dpx7_roundtable_responses')||'[]');existing.push(entry);localStorage.setItem('dpx7_roundtable_responses',JSON.stringify(existing));}catch(e){}
+        // Also add to current in-memory data
+        all.push({ts:entry.timestamp,r:entry.responses});
+        document.getElementById('survey-form').style.display='none';
+        document.getElementById('survey-success').style.display='block';
+    }
+    function resetSurvey(){
+        surveyResp={};
+        document.querySelectorAll('.sr-btn').forEach(function(b){b.classList.remove('picked');});
+        document.getElementById('sq5').value='';
+        document.getElementById('survey-form').style.display='block';
+        document.getElementById('survey-success').style.display='none';
+    }
+    initSurveyBtns();
+    </script>
+
+
+</body></html>
