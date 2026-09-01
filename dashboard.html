@@ -519,7 +519,7 @@ function fetchAllData(callback) {
     fetch(SCRIPT_URL + '?tab=Attendance').then(function(r) { return r.json(); }).then(function(data) {
         if (data.result === 'ok') {
             cachedAAs = data.data.map(function(row) {
-                var aa = { week: row.Week || '', name: row.Name || '', engaged: row.Engaged || 'No', added: row.Timestamp || '' };
+                var aa = { week: row.Week || '', name: row.Name || '', engaged: (row.Engaged === 'Yes' ? 'Yes' : 'No'), added: row.Timestamp || '' };
                 var key = 'connections:' + aa.name + ':' + aa.week;
                 if (localEngagedMap[key] !== undefined) {
                     if (aa.engaged === localEngagedMap[key]) {
@@ -556,7 +556,7 @@ function fetchAllData(callback) {
     fetch(SCRIPT_URL + '?tab=BdayAttendance').then(function(r) { return r.json(); }).then(function(data) {
         if (data.result === 'ok') {
             cachedBdayAAs = data.data.map(function(row) {
-                var aa = { month: row.Month || '', week: row.Week || '', date: row.Date || '', name: row.Name || '', engaged: row.Engaged || 'No', added: row.Timestamp || '' };
+                var aa = { month: row.Month || '', week: row.Week || '', date: row.Date || '', name: row.Name || '', engaged: (row.Engaged === 'Yes' ? 'Yes' : 'No'), added: row.Timestamp || '' };
                 var key = 'birthday:' + aa.name + ':' + aa.week + ':' + aa.month;
                 if (localEngagedMap[key] !== undefined) {
                     if (aa.engaged === localEngagedMap[key]) {
@@ -574,7 +574,7 @@ function fetchAllData(callback) {
 
     fetch(SCRIPT_URL + '?tab=Highlights').then(function(r) { return r.json(); }).then(function(data) {
         if (data.result === 'ok') {
-            cachedHighlights = data.data.map(function(row) {
+            var sheetHighlights = data.data.map(function(row) {
                 return {
                     topic: row.Topic || '',
                     week: row.Week || '',
@@ -584,6 +584,11 @@ function fetchAllData(callback) {
                     created: row.Timestamp || ''
                 };
             });
+            // Keep whichever has more items (local may have items sheet hasn't saved yet)
+            if (sheetHighlights.length >= cachedHighlights.length) {
+                cachedHighlights = sheetHighlights;
+            }
+            saveHighlightsToLocal();
         }
         check();
     }).catch(function() { check(); });
@@ -1774,25 +1779,38 @@ function addHighlight() {
     var goal = document.getElementById('winGoal').value.trim();
     if (!topic) { alert('Enter a topic'); return; }
 
-    postToSheet({ action: 'addHighlight', topic: topic, week: week, description: desc, stat: stat, goal: goal }, function() {
-        cachedHighlights.push({ topic: topic, week: week, description: desc, stat: stat, goal: goal, created: new Date().toISOString() });
-        document.getElementById('winTopic').value = '';
-        document.getElementById('winDescription').value = '';
-        document.getElementById('winStat').value = '';
-        document.getElementById('winGoal').value = '';
-        buildWinsBubbles();
-        renderHighlights();
-    });
-    // Optimistic render
-    cachedHighlights.push({ topic: topic, week: week, description: desc, stat: stat, goal: goal, created: new Date().toISOString() });
+    var newItem = { topic: topic, week: week, description: desc, stat: stat, goal: goal, created: new Date().toISOString() };
+    
+    // Optimistic: add to cache + localStorage immediately
+    cachedHighlights.push(newItem);
+    saveHighlightsToLocal();
+    
     document.getElementById('winTopic').value = '';
     document.getElementById('winDescription').value = '';
     document.getElementById('winStat').value = '';
     document.getElementById('winGoal').value = '';
     buildWinsBubbles();
     renderHighlights();
-    // Focus back to topic for quick entry
     document.getElementById('winTopic').focus();
+
+    // Post to sheet (fetchAllData will run after 1.5s)
+    postToSheet({ action: 'addHighlight', topic: topic, week: week, description: desc, stat: stat, goal: goal }, function() {});
+}
+
+function saveHighlightsToLocal() {
+    try { localStorage.setItem('dpx7_highlights', JSON.stringify(cachedHighlights)); } catch(e) {}
+}
+
+function loadHighlightsFromLocal() {
+    try {
+        var saved = localStorage.getItem('dpx7_highlights');
+        if (saved) {
+            var parsed = JSON.parse(saved);
+            if (Array.isArray(parsed) && parsed.length > 0) {
+                cachedHighlights = parsed;
+            }
+        }
+    } catch(e) {}
 }
 
 function deleteHighlight(idx) {
@@ -1886,6 +1904,7 @@ document.addEventListener('click', function(e) {
         if (item) {
             postToSheet({ action: 'removeHighlight', topic: item.topic, created: item.created }, function() {});
             cachedHighlights.splice(idx, 1);
+            saveHighlightsToLocal();
             buildWinsBubbles();
             renderHighlights();
         }
@@ -1967,6 +1986,7 @@ document.addEventListener('click', function(e) {
 // PAGE INITIALIZATION
 // ============================================================
 loadEngagedFromLocal();
+loadHighlightsFromLocal();
 fetchAllData(function() {
     buildChips();
     render();
