@@ -1898,19 +1898,19 @@ function renderHighlights() {
             html += '<span style="font-size:13px;font-weight:700;color:var(--text);white-space:nowrap;">' + escapeHTML(h.topic) + '</span>';
             html += '</div>';
 
-            // Description preview (truncated with ellipsis)
-            if (descPreview) {
-                html += '<div style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px;color:var(--text-sec);border-left:1px solid var(--border);padding-left:10px;">' + escapeHTML(descPreview) + '</div>';
-            } else {
-                html += '<div style="flex:1;"></div>';
-            }
-
-            // Stat + Goal badges
+            // Stat + Goal badges (MOVED HERE - before description)
             if (h.stat || h.goal) {
                 html += '<div style="display:flex;gap:6px;flex-shrink:0;">';
                 if (h.stat) html += '<span style="background:var(--success-light);color:var(--success);padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700;white-space:nowrap;">Stat: ' + escapeHTML(h.stat) + '</span>';
                 if (h.goal) html += '<span style="background:#E3F2FD;color:#0073BB;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700;white-space:nowrap;">Goal: ' + escapeHTML(h.goal) + '</span>';
                 html += '</div>';
+            }
+
+            // Description preview (truncated with ellipsis) - MOVED HERE - after badges
+            if (descPreview) {
+                html += '<div style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px;color:var(--text-sec);border-left:1px solid var(--border);padding-left:10px;">' + escapeHTML(descPreview) + '</div>';
+            } else {
+                html += '<div style="flex:1;"></div>';
             }
 
             // Delete button
