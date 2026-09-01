@@ -464,10 +464,6 @@
     </div>
 
 <script>
-window.onerror = function(msg, url, line, col, error) {
-    console.log('Caught error:', msg);
-    return true; // Suppress
-};
 // ============================================================
 // DPX7 CONNECTIONS ROUNDTABLE DASHBOARD - CLEAN REBUILD
 // ============================================================
@@ -1736,6 +1732,24 @@ function renderHighlights() {
     });
     listEl.innerHTML = html;
 }
+
+// ============================================================
+// PAGE INITIALIZATION
+// ============================================================
+fetchAllData(function() {
+    buildChips();
+    render();
+});
+
+// Auto-refresh every 30 seconds
+setInterval(function() {
+    fetchAllData(function() {
+        if (qTab !== 'notes' && qTab !== 'wins') {
+            buildChips();
+            render();
+        }
+    });
+}, 30000);
 
 </script>
 </body>
