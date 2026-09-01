@@ -557,7 +557,7 @@ function fetchAllData(callback) {
         if (data.result === 'ok') {
             cachedBdayAAs = data.data.map(function(row) {
                 var aa = { month: row.Month || '', week: row.Week || '', date: row.Date || '', name: row.Name || '', engaged: row.Engaged || 'No', added: row.Timestamp || '' };
-                var key = 'birthday:' + aa.name + ':' + aa.week;
+                var key = 'birthday:' + aa.name + ':' + aa.week + ':' + aa.month;
                 if (localEngagedMap[key] !== undefined) {
                     if (aa.engaged === localEngagedMap[key]) {
                         delete localEngagedMap[key];
@@ -1573,14 +1573,14 @@ function renderNoteAAList() {
     var container = document.getElementById('noteAAList');
     if (!container) return;
     var week = document.getElementById('noteWeekSelect').value;
-    var list, type, color;
+    var list, type, color, month = '';
 
     if (currentRTType === 'connections') {
         list = cachedAAs.filter(function(a) { return a.week === week; });
         type = 'connections';
         color = '#0073BB';
     } else {
-        var month = document.getElementById('bdayMonth') ? document.getElementById('bdayMonth').value : '';
+        month = document.getElementById('bdayMonth') ? document.getElementById('bdayMonth').value : '';
         list = cachedBdayAAs.filter(function(a) { return a.week === week && (!month || a.month === month); });
         type = 'birthday';
         color = '#E91E90';
@@ -1597,6 +1597,7 @@ function renderNoteAAList() {
         var checkColor = isEngaged ? '#067D62' : '#bbb';
         var checkIcon = isEngaged ? 'fa-solid fa-square-check' : 'fa-regular fa-square';
         var engBtnBg = type === 'birthday' ? '#E91E90' : '#FF9900';
+        var aaMonth = aa.month || '';
 
         html += '<div style="display:flex;align-items:center;gap:6px;background:var(--bg);border-radius:8px;padding:6px 10px;margin-bottom:5px;border-left:3px solid ' + color + ';">';
 
@@ -1604,9 +1605,9 @@ function renderNoteAAList() {
         html += '<span style="font-size:12px;font-weight:600;flex:1;">' + escapeHTML(aa.name) + '</span>';
 
         // Checkbox
-        html += '<button data-toggle-engaged="' + escapeHTML(aa.name) + '" data-engaged-week="' + escapeHTML(week) + '" data-engaged-type="' + type + '" style="background:none;border:none;color:' + checkColor + ';cursor:pointer;font-size:14px;padding:2px 3px;flex-shrink:0;" title="' + (isEngaged ? 'Engaged' : 'Mark as Engaged') + '"><i class="' + checkIcon + '"></i></button>';
+        html += '<button data-toggle-engaged="' + escapeHTML(aa.name) + '" data-engaged-week="' + escapeHTML(week) + '" data-engaged-type="' + type + '" data-engaged-month="' + escapeHTML(aaMonth) + '" style="background:none;border:none;color:' + checkColor + ';cursor:pointer;font-size:14px;padding:2px 3px;flex-shrink:0;" title="' + (isEngaged ? 'Engaged' : 'Mark as Engaged') + '"><i class="' + checkIcon + '"></i></button>';
 
-        // Small orange Engage button
+        // Small orange/pink Engage button
         html += '<button data-engage-login="' + escapeHTML(aa.name) + '" data-engage-type="' + type + '" style="background:' + engBtnBg + ';color:#fff;border:none;border-radius:4px;padding:3px 8px;font-size:10px;font-weight:700;cursor:pointer;flex-shrink:0;"><i class="fa-solid fa-star" style="margin-right:2px;font-size:9px;"></i>Engage</button>';
 
         // Remove button
@@ -1900,21 +1901,26 @@ document.addEventListener('click', function(e) {
         var name = btn.getAttribute('data-toggle-engaged');
         var week = btn.getAttribute('data-engaged-week');
         var type = btn.getAttribute('data-engaged-type');
-        toggleEngaged(name, week, type);
+        var month = btn.getAttribute('data-engaged-month') || '';
+        toggleEngaged(name, week, type, month);
     }
 });
 
-function toggleEngaged(name, week, type) {
+function toggleEngaged(name, week, type, month) {
     var list = type === 'connections' ? cachedAAs : cachedBdayAAs;
     var aa = null;
     for (var i = 0; i < list.length; i++) {
-        if (list[i].name === name && list[i].week === week) { aa = list[i]; break; }
+        if (type === 'birthday') {
+            if (list[i].name === name && list[i].week === week && list[i].month === month) { aa = list[i]; break; }
+        } else {
+            if (list[i].name === name && list[i].week === week) { aa = list[i]; break; }
+        }
     }
     if (!aa) return;
     var newVal = (aa.engaged === 'Yes') ? 'No' : 'Yes';
     aa.engaged = newVal;
-    // Save locally so it survives refetches
-    var key = type + ':' + name + ':' + week;
+    // Save locally so it survives refetches — include month for birthday
+    var key = type === 'birthday' ? type + ':' + name + ':' + week + ':' + month : type + ':' + name + ':' + week;
     localEngagedMap[key] = newVal;
     // Also persist to localStorage as backup
     saveEngagedToLocal();
