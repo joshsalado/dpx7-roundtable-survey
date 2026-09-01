@@ -1175,11 +1175,11 @@ function openEngage(login) {
     var weekLabel = aaSelectedWeek === 'all' ? 'Wk ' + getWeekNum(new Date()) : aaSelectedWeek;
 
     engagePresets = [
-        'Date: ' + today + ' | DPX7 Connections Roundtable | Culture | Participated in the DPX7 Connections Roundtable, shared feedback and provided relevant information that leaders will use to help with future improvements.',
-        'Date: ' + today + ' | DPX7 Connections Roundtable | Culture | Participated in the DPX7 Connections Roundtable, shared feedback and provided relevant information that leaders will use to help with future improvements.',
-        'Thank you for participating in this week\'s DPX7 Connections Roundtable! Your willingness to share honest feedback helps us build a better workplace for everyone. Your voice matters and we appreciate you taking the time.',
-        'Shout-out to you for being part of the DPX7 Connections Roundtable! Your feedback and ideas are a big reason this site continues to grow and improve. By speaking up, you\'re helping shape the future of DPX7 and that makes a real difference. Thank you for helping us build on our success!',
-        'Thank you for your positive energy and engagement during the DPX7 Connections Roundtable! Your thoughtful input and willingness to have open dialogue with leadership shows real ownership of our site culture. We appreciate your positive interaction and look forward to continuing the conversation!'
+        'Date: ' + today + ' | DPX7 Connections Roundtable | Culture | Participated in DPX7 Connections Roundtable, shared feedback to help improve the workplace.',
+        'Date: ' + today + ' | DPX7 Connections Roundtable | Culture | Participated in DPX7 Connections Roundtable, shared feedback to help improve the workplace.',
+        'Thank you for participating in the DPX7 Connections Roundtable! Your honest feedback helps us build a better workplace. Your voice matters!',
+        'Shout-out for being part of the DPX7 Connections Roundtable! Your feedback and ideas help this site grow and improve. Thank you!',
+        'Thank you for your positive energy at the DPX7 Connections Roundtable! Your thoughtful input and open dialogue show real ownership of our culture.'
     ];
 
     var el = document.createElement('div');
@@ -1232,8 +1232,8 @@ function openEngage(login) {
     engSection.appendChild(engHeader);
 
     var engLabels = [
-        ['Roundtable Participation', 'Date: ' + today + ' | DPX7 Connections Roundtable | Culture | Participated in the DPX7 Connections Roundtable, shared feedback and provided relevant information that leaders will use to help with future improvements.'],
-        ['Active Contributor', 'Date: ' + today + ' | DPX7 Connections Roundtable | Culture | Participated in the DPX7 Connections Roundtable, shared feedback and provided relevant information that leaders will use to help with future improvements.']
+        ['Roundtable Participation', 'Date: ' + today + ' | DPX7 Connections Roundtable | Culture | Participated in DPX7 Connections Roundtable, shared feedback to help improve the workplace.'],
+        ['Active Contributor', 'Date: ' + today + ' | DPX7 Connections Roundtable | Culture | Participated in DPX7 Connections Roundtable, shared feedback to help improve the workplace.']
     ];
 
     engLabels.forEach(function(item, idx) {
@@ -1257,9 +1257,9 @@ function openEngage(login) {
     soSection.appendChild(soHeader);
 
     var soLabels = [
-        ['Thank You for Participating', 'Thank you for participating in this week\'s DPX7 Connections Roundtable! Your willingness to share honest feedback helps us build a better workplace.'],
-        ['Helping the Site Succeed', 'Shout-out for being part of the roundtable! Your feedback and ideas are a big reason this site continues to grow and improve.'],
-        ['Positive Interaction', 'Thank you for your positive energy and engagement! Your thoughtful input and willingness to have open dialogue shows real ownership of our site culture.']
+        ['Thank You for Participating', 'Thank you for participating in the DPX7 Connections Roundtable! Your honest feedback helps us build a better workplace. Your voice matters!'],
+        ['Helping the Site Succeed', 'Shout-out for being part of the DPX7 Connections Roundtable! Your feedback and ideas help this site grow and improve. Thank you!'],
+        ['Positive Interaction', 'Thank you for your positive energy at the DPX7 Connections Roundtable! Your thoughtful input and open dialogue show real ownership of our culture.']
     ];
 
     soLabels.forEach(function(item, idx) {
