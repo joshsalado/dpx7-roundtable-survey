@@ -30,7 +30,7 @@
         .qtab.on.q-4{background:#0073BB;color:#fff;border-bottom-color:transparent;}
         .qtab.on.q-5{background:#8B5CF6;color:#fff;border-bottom-color:transparent;}
         .qtab.on.q-notes{background:#0073BB;color:#fff;border-bottom-color:transparent;}
-        .qtab.on.q-bday{background:#E91E90;color:#fff;border-bottom-color:transparent;}
+        .qtab.on.q-wins{background:#067D62;color:#fff;border-bottom-color:transparent;}
 
         .selector-row{display:flex;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap;}
         .selector-row label{font-size:12px;font-weight:600;color:var(--text-sec);}
@@ -139,7 +139,7 @@
             <div class="qtab q-4" data-q="q4">Q4: Voice Heard</div>
             <div class="qtab q-5" data-q="q5">Q5: Written</div>
             <div class="qtab q-notes" data-q="notes"><i class="fa-solid fa-notebook" style="margin-right:3px;"></i>Leader Notes</div>
-            <div class="qtab q-bday" data-q="bday"><i class="fa-solid fa-cake-candles" style="margin-right:3px;"></i>Birthday RT</div>
+            <div class="qtab q-wins" data-q="wins"><i class="fa-solid fa-trophy" style="margin-right:3px;"></i>Highlights/Wins</div>
         </div>
 
         <!-- Dashboard Content (hideable) -->
@@ -180,21 +180,36 @@
             <div id="tblContent"></div>
         </div>
 
-        <!-- Leader Notes Section (hidden by default, shown when Notes tab clicked) -->
+        <!-- Leader Notes Section (Combined Connections & Birthday RT) -->
         <div id="notesSection" style="display:none;">
             <div style="max-width:700px;margin:0 auto;">
-            <div style="background:var(--surface);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);margin-bottom:14px;">
-                <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+
+            <!-- RT Type Toggle -->
+            <div style="background:var(--surface);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);margin-bottom:14px;">
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
                     <i class="fa-solid fa-notebook" style="color:#0073BB;font-size:16px;"></i>
                     <h3 style="font-size:14px;font-weight:700;">Leader Notes</h3>
                 </div>
-                <div style="font-size:11px;color:var(--text-muted);margin-bottom:10px;">Select a week to view or add notes:</div>
+                <div style="font-size:11px;color:var(--text-muted);margin-bottom:10px;">Select which roundtable you are conducting:</div>
+                <div style="display:flex;gap:8px;margin-bottom:12px;">
+                    <div class="chip on" id="rtTypeConn" onclick="switchRTType('connections')" style="padding:8px 16px;font-size:13px;font-weight:700;background:#0073BB;color:#fff;border-color:#0073BB;"><i class="fa-solid fa-comments" style="margin-right:4px;"></i>Connections RT</div>
+                    <div class="chip" id="rtTypeBday" onclick="switchRTType('birthday')" style="padding:8px 16px;font-size:13px;font-weight:700;"><i class="fa-solid fa-cake-candles" style="margin-right:4px;"></i>Birthday RT</div>
+                </div>
                 <div id="noteWeekBubbles" style="display:flex;gap:6px;flex-wrap:wrap;"></div>
             </div>
 
             <!-- Add Note Form -->
-            <div style="background:var(--surface);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);margin-bottom:14px;">
-                <h4 style="font-size:13px;font-weight:600;margin-bottom:12px;"><i class="fa-solid fa-plus-circle" style="color:#0073BB;margin-right:4px;"></i>Add Note</h4>
+            <div id="noteFormCard" style="background:var(--surface);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);margin-bottom:14px;">
+                <h4 id="noteFormTitle" style="font-size:13px;font-weight:600;margin-bottom:12px;"><i class="fa-solid fa-plus-circle" style="color:#0073BB;margin-right:4px;"></i>Add Connections RT Note</h4>
+                
+                <!-- Birthday RT extra fields (Month) -->
+                <div id="bdayExtraFields" style="display:none;margin-bottom:10px;">
+                    <div style="flex:1;min-width:120px;">
+                        <label style="font-size:10px;font-weight:600;color:var(--text-muted);display:block;margin-bottom:3px;">MONTH</label>
+                        <select id="bdayMonth" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:6px;font-size:12px;font-family:inherit;background:white;color:var(--text);"></select>
+                    </div>
+                </div>
+
                 <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
                     <div style="flex:1;min-width:140px;">
                         <label style="font-size:10px;font-weight:600;color:var(--text-muted);display:block;margin-bottom:3px;">WEEK</label>
@@ -221,9 +236,27 @@
                     <label style="font-size:10px;font-weight:600;color:var(--text-muted);display:block;margin-bottom:3px;">FOLLOW-UP STATUS</label>
                     <textarea id="noteFollowup" rows="2" placeholder="Status of previous action items" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:6px;font-size:12px;font-family:inherit;color:var(--text);resize:vertical;"></textarea>
                 </div>
-                <button onclick="addNote()" style="background:#0073BB;color:#fff;border:none;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;">
+                <button id="saveNoteBtn" onclick="addNote()" style="background:#0073BB;color:#fff;border:none;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;">
                     <i class="fa-solid fa-plus" style="margin-right:4px;"></i>Save Note
                 </button>
+            </div>
+
+            <!-- AA Attendance for this RT -->
+            <div id="noteAttendanceCard" style="background:var(--surface);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);margin-bottom:14px;">
+                <h4 id="attendanceTitle" style="font-size:13px;font-weight:600;margin-bottom:12px;"><i class="fa-solid fa-user-plus" style="color:#0073BB;margin-right:4px;"></i>Log AA Attendance</h4>
+                <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
+                    <div style="flex:2;min-width:200px;">
+                        <label style="font-size:10px;font-weight:600;color:var(--text-muted);display:block;margin-bottom:3px;">AA LOGIN</label>
+                        <input type="text" id="noteAAInput" placeholder="e.g. jsmith" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:6px;font-size:12px;font-family:inherit;color:var(--text);">
+                    </div>
+                </div>
+                <div style="display:flex;gap:8px;align-items:center;">
+                    <button id="addAABtn" onclick="addNoteAA()" style="background:#0073BB;color:#fff;border:none;padding:10px 18px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;">
+                        <i class="fa-solid fa-plus" style="margin-right:4px;"></i>Add
+                    </button>
+                    <span style="font-size:11px;color:var(--text-muted);">Tip: press Enter to add quickly</span>
+                </div>
+                <div id="noteAAList" style="margin-top:12px;"></div>
             </div>
 
             <!-- Saved Notes -->
@@ -232,59 +265,59 @@
                 <div style="font-size:13px;">No notes yet. Add your first note above!</div>
             </div>
             <div id="notesList"></div>
+
             </div>
         </div>
 
-        <!-- Birthday Roundtables Section -->
-        <div id="bdaySection" style="display:none;">
+        <!-- DPX7 Highlights/Wins Section -->
+        <div id="winsSection" style="display:none;">
             <div style="max-width:700px;margin:0 auto;">
-            <div style="background:var(--surface);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);margin-bottom:14px;">
+
+            <div style="background:var(--surface);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);margin-bottom:14px;">
                 <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
-                    <i class="fa-solid fa-cake-candles" style="color:#E91E90;font-size:16px;"></i>
-                    <h3 style="font-size:14px;font-weight:700;">Birthday Roundtables</h3>
+                    <i class="fa-solid fa-trophy" style="color:#067D62;font-size:16px;"></i>
+                    <h3 style="font-size:14px;font-weight:700;">DPX7 Highlights & Wins</h3>
                 </div>
-                <div style="font-size:11px;color:var(--text-muted);margin-bottom:10px;">Log AAs who attended birthday roundtable sessions</div>
-                <div id="bdayWeekBubbles" style="display:flex;gap:6px;flex-wrap:wrap;"></div>
+                <div style="font-size:11px;color:var(--text-muted);margin-bottom:12px;">Track site achievements, milestones, and wins</div>
             </div>
 
-            <!-- Add Birthday RT Entry -->
+            <!-- Add Highlight Form -->
             <div style="background:var(--surface);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);margin-bottom:14px;">
-                <h4 style="font-size:13px;font-weight:600;margin-bottom:12px;"><i class="fa-solid fa-plus-circle" style="color:#E91E90;margin-right:4px;"></i>Log Birthday Roundtable Attendance</h4>
-                <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
-                    <div style="flex:1;min-width:120px;">
-                        <label style="font-size:10px;font-weight:600;color:var(--text-muted);display:block;margin-bottom:3px;">MONTH</label>
-                        <select id="bdayMonth" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:6px;font-size:12px;font-family:inherit;background:white;color:var(--text);"></select>
-                    </div>
-                    <div style="flex:1;min-width:120px;">
-                        <label style="font-size:10px;font-weight:600;color:var(--text-muted);display:block;margin-bottom:3px;">WEEK</label>
-                        <select id="bdayWeekSelect" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:6px;font-size:12px;font-family:inherit;background:white;color:var(--text);"></select>
-                    </div>
-                    <div style="flex:1;min-width:120px;">
-                        <label style="font-size:10px;font-weight:600;color:var(--text-muted);display:block;margin-bottom:3px;">DATE</label>
-                        <input type="date" id="bdayDate" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:6px;font-size:12px;font-family:inherit;color:var(--text);">
-                    </div>
+                <h4 style="font-size:13px;font-weight:600;margin-bottom:12px;"><i class="fa-solid fa-plus-circle" style="color:#067D62;margin-right:4px;"></i>Add Highlight/Win</h4>
+                <div style="margin-bottom:8px;">
+                    <label style="font-size:10px;font-weight:600;color:var(--text-muted);display:block;margin-bottom:3px;">WIN / HIGHLIGHT TOPIC</label>
+                    <input type="text" id="winTopic" placeholder="e.g. PSE Goal Achievement" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:6px;font-size:12px;font-family:inherit;color:var(--text);">
+                </div>
+                <div style="margin-bottom:8px;">
+                    <label style="font-size:10px;font-weight:600;color:var(--text-muted);display:block;margin-bottom:3px;">DESCRIPTION</label>
+                    <textarea id="winDescription" rows="2" placeholder="Describe the win or highlight" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:6px;font-size:12px;font-family:inherit;color:var(--text);resize:vertical;"></textarea>
                 </div>
                 <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
-                    <div style="flex:2;min-width:200px;">
-                        <label style="font-size:10px;font-weight:600;color:var(--text-muted);display:block;margin-bottom:3px;">AA LOGIN</label>
-                        <input type="text" id="bdayAAInput" placeholder="e.g. jsmith" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:6px;font-size:12px;font-family:inherit;color:var(--text);">
+                    <div style="flex:1;min-width:140px;">
+                        <label style="font-size:10px;font-weight:600;color:var(--text-muted);display:block;margin-bottom:3px;">STATISTIC</label>
+                        <input type="text" id="winStat" placeholder="e.g. 92%" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:6px;font-size:12px;font-family:inherit;color:var(--text);">
+                    </div>
+                    <div style="flex:1;min-width:140px;">
+                        <label style="font-size:10px;font-weight:600;color:var(--text-muted);display:block;margin-bottom:3px;">GOAL</label>
+                        <input type="text" id="winGoal" placeholder="e.g. 90%" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:6px;font-size:12px;font-family:inherit;color:var(--text);">
                     </div>
                 </div>
-                <button onclick="addBdayAA()" style="background:#E91E90;color:white;border:none;padding:10px 18px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;">
-                    <i class="fa-solid fa-plus" style="margin-right:4px;"></i>Add
+                <button onclick="addHighlight()" style="background:#067D62;color:#fff;border:none;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;">
+                    <i class="fa-solid fa-plus" style="margin-right:4px;"></i>Add Highlight
                 </button>
             </div>
 
-            <!-- Birthday RT List -->
-            <div id="bdayList"></div>
-            <div id="bdayEmpty" style="text-align:center;padding:30px;color:var(--text-muted);background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);display:none;">
-                <i class="fa-solid fa-cake-candles" style="font-size:32px;margin-bottom:8px;color:var(--border);display:block;"></i>
-                <div style="font-size:13px;">No birthday roundtable attendance logged yet.</div>
+            <!-- Saved Highlights -->
+            <div id="winsEmpty" style="text-align:center;padding:30px;color:var(--text-muted);background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);display:none;">
+                <i class="fa-solid fa-trophy" style="font-size:32px;margin-bottom:8px;color:var(--border);"></i>
+                <div style="font-size:13px;">No highlights yet. Add your first win above!</div>
             </div>
+            <div id="winsList"></div>
+
             </div>
         </div>
 
-        </div><!-- /dash-content -->
+<!-- /dash-content -->
     </div>
 
     <!-- QR View -->
@@ -305,53 +338,42 @@
     </div>
 
     
-    <!-- AAs Attendance View -->
+    <!-- AAs Attendance View (Read-Only Overview) -->
     <div id="aas-view" style="display:none;">
         <div style="max-width:700px;margin:0 auto;">
 
-            <!-- Add Attendance -->
-            <div style="background:var(--surface);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);margin-bottom:16px;">
-                <h3 style="font-size:14px;font-weight:700;margin-bottom:12px;"><i class="fa-solid fa-user-plus" style="color:var(--accent);margin-right:6px;"></i>Log AA Attendance</h3>
-                <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
-                    <div style="flex:1;min-width:140px;">
-                        <label style="font-size:10px;font-weight:600;color:var(--text-muted);display:block;margin-bottom:3px;">WEEK</label>
-                        <select id="aaWeekSelect" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:6px;font-size:12px;font-family:inherit;background:white;color:var(--text);"></select>
-                    </div>
-                    <div style="flex:2;min-width:200px;">
-                        <label style="font-size:10px;font-weight:600;color:var(--text-muted);display:block;margin-bottom:3px;">AA NAME OR LOGIN</label>
-                        <input type="text" id="aaNameInput" placeholder="e.g. John Smith or jsmith" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:6px;font-size:12px;font-family:inherit;color:var(--text);">
-                    </div>
+            <!-- Section Header -->
+            <div style="background:var(--surface);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);margin-bottom:14px;">
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+                    <i class="fa-solid fa-users" style="color:var(--accent);font-size:16px;"></i>
+                    <h3 style="font-size:14px;font-weight:700;">AA Attendance Overview</h3>
                 </div>
-                <div style="display:flex;gap:8px;align-items:center;">
-                    <button onclick="addAA()" style="background:var(--accent);color:var(--primary);border:none;padding:10px 18px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;">
-                        <i class="fa-solid fa-plus" style="margin-right:4px;"></i>Add
-                    </button>
-                    <span style="font-size:11px;color:var(--text-muted);">Tip: press Enter to add quickly</span>
-                </div>
+                <div style="font-size:11px;color:var(--text-muted);">Auto-populated from Leader Notes. Add attendance in the Leader Notes tab.</div>
             </div>
 
-            <!-- View Toggle -->
+            <!-- Toggle: Connections vs Birthday -->
             <div style="display:flex;gap:6px;margin-bottom:14px;align-items:center;">
-                <div class="chip on" id="aaViewWeek" onclick="switchAAView('week')">By Week</div>
-                <div class="chip" id="aaViewAll" onclick="switchAAView('all')">All AAs</div>
-                <div style="flex:1;"></div>
-                <button onclick="openRecognizeModal()" style="padding:8px 14px;background:var(--accent);color:var(--primary);border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:5px;white-space:nowrap;"><i class="fa-solid fa-star"></i> Recognize AAs</button>
+                <div class="chip on" id="aaOverviewConn" onclick="switchAAOverview('connections')" style="padding:8px 14px;font-size:12px;font-weight:700;background:#0073BB;color:#fff;border-color:#0073BB;"><i class="fa-solid fa-comments" style="margin-right:4px;"></i>Connections RT</div>
+                <div class="chip" id="aaOverviewBday" onclick="switchAAOverview('birthday')" style="padding:8px 14px;font-size:12px;font-weight:700;"><i class="fa-solid fa-cake-candles" style="margin-right:4px;"></i>Birthday RT</div>
             </div>
 
-            <!-- Week View -->
-            <div id="aaWeekView">
-                <div id="aaWeekBubbles" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;"></div>
-                <div id="aaWeekContent"></div>
+            <!-- Connections AA Overview -->
+            <div id="aaConnOverview">
+                <div id="aaConnContent"></div>
+                <div id="aaConnEmpty" style="text-align:center;padding:30px;color:var(--text-muted);background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);display:none;">
+                    <i class="fa-solid fa-users" style="font-size:32px;margin-bottom:8px;color:var(--border);display:block;"></i>
+                    <div style="font-size:13px;">No Connections RT attendance logged yet.</div>
+                    <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Go to Leader Notes > Connections RT to log attendance.</div>
+                </div>
             </div>
 
-            <!-- All AAs View -->
-            <div id="aaAllView" style="display:none;">
-                <div style="background:var(--surface);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);">
-                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-                        <h3 style="font-size:14px;font-weight:700;"><i class="fa-solid fa-list" style="color:var(--accent);margin-right:6px;"></i>All AAs Roster</h3>
-                        <span id="aaTotalCount" style="font-size:12px;color:var(--text-muted);"></span>
-                    </div>
-                    <div id="aaAllContent"></div>
+            <!-- Birthday AA Overview -->
+            <div id="aaBdayOverview" style="display:none;">
+                <div id="aaBdayContent"></div>
+                <div id="aaBdayEmpty" style="text-align:center;padding:30px;color:var(--text-muted);background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);display:none;">
+                    <i class="fa-solid fa-cake-candles" style="font-size:32px;margin-bottom:8px;color:var(--border);display:block;"></i>
+                    <div style="font-size:13px;">No Birthday RT attendance logged yet.</div>
+                    <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Go to Leader Notes > Birthday RT to log attendance.</div>
                 </div>
             </div>
 
@@ -386,8 +408,8 @@
             <div style="background:var(--surface);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);margin-bottom:16px;">
                 <h3 style="font-size:14px;font-weight:700;margin-bottom:10px;"><i class="fa-solid fa-lightbulb" style="color:var(--accent);margin-right:6px;"></i>Tips for Leaders</h3>
                 <ul style="font-size:12px;color:var(--text-sec);padding-left:18px;line-height:2;">
-                    <li>Keep it casual — this is a conversation, not a lecture</li>
-                    <li>Don't defend or explain decisions — just listen and take notes</li>
+                    <li>Keep it casual -- this is a conversation, not a lecture</li>
+                    <li>Don't defend or explain decisions -- just listen and take notes</li>
                     <li>Follow up on action items before starting new topics</li>
                     <li>Target 6-12 month tenure group first (biggest gap: 15% below benchmark)</li>
                     <li>Aim for groups of 6-10 AAs for best participation</li>
@@ -410,29 +432,29 @@
                 <div id="agendaBody" style="max-height:0;overflow:hidden;transition:max-height .3s ease;">
                     <div style="padding:0 20px 20px;">
                         <div style="border-left:3px solid var(--accent);padding:10px 0 10px 14px;margin-bottom:14px;">
-                            <div style="font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;">0-3 min — Welcome</div>
+                            <div style="font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;">0-3 min -- Welcome</div>
                             <div style="font-size:13px;font-weight:600;margin:2px 0;">Set the Tone</div>
-                            <div style="font-size:11px;color:var(--text-sec);font-style:italic;">"Thanks for being here. This is your time — everything said here stays here. No wrong answers. We want to make DPX7 a better place to work."</div>
+                            <div style="font-size:11px;color:var(--text-sec);font-style:italic;">"Thanks for being here. This is your time -- everything said here stays here. No wrong answers. We want to make DPX7 a better place to work."</div>
                         </div>
                         <div style="border-left:3px solid var(--accent);padding:10px 0 10px 14px;margin-bottom:14px;">
-                            <div style="font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;">3-8 min — Open Check-In</div>
+                            <div style="font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;">3-8 min -- Open Check-In</div>
                             <div style="font-size:13px;font-weight:600;margin:2px 0;">How Are Things Going?</div>
                             <div style="font-size:11px;color:var(--text-sec);font-style:italic;">"On a scale of 1-4, how would you rate your experience at DPX7 this past week? What went well? What could be better?"</div>
                         </div>
                         <div style="border-left:3px solid var(--accent);padding:10px 0 10px 14px;margin-bottom:14px;">
-                            <div style="font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;">8-15 min — Deep Dive</div>
+                            <div style="font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;">8-15 min -- Deep Dive</div>
                             <div style="font-size:13px;font-weight:600;margin:2px 0;">Focus on Key Themes</div>
                             <div style="font-size:11px;color:var(--text-sec);font-style:italic;">"What's one new skill you'd like to learn here?" / "How's your schedule flexibility?" / "Do you feel leaders are approachable?"</div>
                         </div>
                         <div style="border-left:3px solid var(--accent);padding:10px 0 10px 14px;margin-bottom:14px;">
-                            <div style="font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;">15-18 min — Action Commitment</div>
+                            <div style="font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;">15-18 min -- Action Commitment</div>
                             <div style="font-size:13px;font-weight:600;margin:2px 0;">What Can We Do?</div>
                             <div style="font-size:11px;color:var(--text-sec);font-style:italic;">"Based on what we discussed, here's what I'm going to follow up on: [list items]. Anything else?"</div>
                         </div>
                         <div style="border-left:3px solid var(--accent);padding:10px 0 10px 14px;">
-                            <div style="font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;">18-20 min — Close & Survey</div>
+                            <div style="font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;">18-20 min -- Close & Survey</div>
                             <div style="font-size:13px;font-weight:600;margin:2px 0;">QR Code Feedback</div>
-                            <div style="font-size:11px;color:var(--text-sec);font-style:italic;">"Please scan this QR code to give us quick anonymous feedback. It takes 30 seconds. Thank you — your voice matters."</div>
+                            <div style="font-size:11px;color:var(--text-sec);font-style:italic;">"Please scan this QR code to give us quick anonymous feedback. It takes 30 seconds. Thank you -- your voice matters."</div>
                         </div>
                     </div>
                 </div>
@@ -442,6 +464,10 @@
     </div>
 
 <script>
+window.onerror = function(msg, url, line, col, error) {
+    console.log('Caught error:', msg);
+    return true; // Suppress
+};
 // ============================================================
 // DPX7 CONNECTIONS ROUNDTABLE DASHBOARD - CLEAN REBUILD
 // ============================================================
@@ -450,17 +476,23 @@ var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbybtGx13qfnGSYO38WMFYN
 
 // --- Shared Data (Google Sheets) ---
 var cachedResponses = [];
+var aaSelectedWeek = 'all';
+var currentRTType = 'connections';
 var cachedNotes = [];
 var cachedAAs = [];
+var cachedBdayAAs = [];
+var cachedHighlights = [];
 var dataLoaded = false;
 
 function loadResponses() { return cachedResponses; }
 function loadNotes() { return cachedNotes; }
 function loadAAs() { return cachedAAs; }
+function loadBdayAAs() { return cachedBdayAAs; }
+function loadHighlights() { return cachedHighlights; }
 
 function fetchAllData(callback) {
     var done = 0;
-    var total = 3;
+    var total = 5;
     function check() { done++; if (done >= total) { dataLoaded = true; if (callback) callback(); } }
 
     fetch(SCRIPT_URL + '?tab=Responses').then(function(r) { return r.json(); }).then(function(data) {
@@ -498,6 +530,31 @@ function fetchAllData(callback) {
                     themes: row.Themes || '',
                     actions: row.Actions || '',
                     followup: row.Followup || '',
+                    rtType: row.RTType || 'connections',
+                    created: row.Timestamp || ''
+                };
+            });
+        }
+        check();
+    }).catch(function() { check(); });
+
+    fetch(SCRIPT_URL + '?tab=BdayAttendance').then(function(r) { return r.json(); }).then(function(data) {
+        if (data.result === 'ok') {
+            cachedBdayAAs = data.data.map(function(row) {
+                return { month: row.Month || '', week: row.Week || '', date: row.Date || '', name: row.Name || '', added: row.Timestamp || '' };
+            });
+        }
+        check();
+    }).catch(function() { check(); });
+
+    fetch(SCRIPT_URL + '?tab=Highlights').then(function(r) { return r.json(); }).then(function(data) {
+        if (data.result === 'ok') {
+            cachedHighlights = data.data.map(function(row) {
+                return {
+                    topic: row.Topic || '',
+                    description: row.Description || '',
+                    stat: row.Statistic || '',
+                    goal: row.Goal || '',
                     created: row.Timestamp || ''
                 };
             });
@@ -608,7 +665,7 @@ document.getElementById('timeTabs').addEventListener('click', function(e) {
         qTab = 'all';
         // Hide notes and bday sections
         document.getElementById('notesSection').style.display = 'none';
-        document.getElementById('bdaySection').style.display = 'none';
+        document.getElementById('winsSection').style.display = 'none';
         // Restore regular dashboard panels for when user comes back
         document.getElementById('selectorRow').style.display = 'flex';
         document.getElementById('kpiGrid').style.display = 'grid';
@@ -651,18 +708,18 @@ document.getElementById('qTabs').addEventListener('click', function(e) {
         document.getElementById('distPanel').style.display = 'none';
         document.getElementById('tblSec').style.display = 'none';
         document.getElementById('notesSection').style.display = 'block';
-        document.getElementById('bdaySection').style.display = 'none';
+        document.getElementById('winsSection').style.display = 'none';
         initNoteWeeks();
         renderNotes();
-    } else if (q === 'bday') {
+    } else if (q === 'wins') {
         document.getElementById('selectorRow').style.display = 'none';
         document.getElementById('kpiGrid').style.display = 'none';
         document.getElementById('panelsRow').style.display = 'none';
         document.getElementById('distPanel').style.display = 'none';
         document.getElementById('tblSec').style.display = 'none';
         document.getElementById('notesSection').style.display = 'none';
-        document.getElementById('bdaySection').style.display = 'block';
-        initBdayView();
+        document.getElementById('winsSection').style.display = 'block';
+        initWinsView();
     } else {
         document.getElementById('selectorRow').style.display = 'flex';
         document.getElementById('kpiGrid').style.display = 'grid';
@@ -670,7 +727,7 @@ document.getElementById('qTabs').addEventListener('click', function(e) {
         document.getElementById('distPanel').style.display = 'block';
         document.getElementById('tblSec').style.display = 'block';
         document.getElementById('notesSection').style.display = 'none';
-        document.getElementById('bdaySection').style.display = 'none';
+        document.getElementById('winsSection').style.display = 'none';
         render();
     }
 });
@@ -795,7 +852,7 @@ function renderTrend() {
     });
 
     if (qKeys.length > 1) {
-        html += '<div class="legend"><b style="color:var(--accent);">●</b>Value <b style="color:var(--primary);">●</b>Direction <b style="color:var(--success);">●</b>Format <b style="color:#0073BB;">●</b>Voice</div>';
+        html += '<div class="legend"><b style="color:var(--accent);">&#9679;</b>Value <b style="color:var(--primary);">&#9679;</b>Direction <b style="color:var(--success);">&#9679;</b>Format <b style="color:#0073BB;">&#9679;</b>Voice</div>';
     }
     content.innerHTML = html;
 }
@@ -912,8 +969,10 @@ function initNoteWeeks() {
         sel.appendChild(opt);
     }
     document.getElementById('noteDate').value = now.toISOString().slice(0, 10);
+    if (currentRTType === 'birthday') { initBdayMonths(); }
     buildNoteBubbles();
     renderNotes();
+    renderNoteAAList();
 }
 
 function buildNoteBubbles() {
@@ -972,6 +1031,8 @@ function addNote() {
         return;
     }
 
+    var rtType = currentRTType || 'connections';
+
     document.getElementById('noteThemes').value = '';
     document.getElementById('noteActions').value = '';
     document.getElementById('noteFollowup').value = '';
@@ -983,11 +1044,16 @@ function addNote() {
         leader: leader || 'Leader',
         themes: themes,
         actions: actions,
-        followup: followup
+        followup: followup,
+        rtType: rtType
     }, function() {
+        cachedNotes.push({ week: week, date: date, leader: leader || 'Leader', themes: themes, actions: actions, followup: followup, rtType: rtType, created: new Date().toISOString() });
         buildNoteBubbles();
         renderNotes();
     });
+    // Optimistic update
+    cachedNotes.push({ week: week, date: date, leader: leader || 'Leader', themes: themes, actions: actions, followup: followup, rtType: rtType, created: new Date().toISOString() });
+    renderNotes();
 }
 
 function deleteNote(idx) {
@@ -1004,10 +1070,17 @@ function deleteNote(idx) {
 
 function renderNotes() {
     var notes = loadNotes();
-    var filtered = selectedNoteWeek === 'all' ? notes : notes.filter(function(n) { return n.week === selectedNoteWeek; });
+    // Filter by current RT type
+    var rtType = currentRTType || 'connections';
+    var filtered = notes.filter(function(n) { return (n.rtType || 'connections') === rtType; });
+    // Further filter by selected week
+    if (selectedNoteWeek !== 'all') {
+        filtered = filtered.filter(function(n) { return n.week === selectedNoteWeek; });
+    }
 
     var emptyEl = document.getElementById('notesEmpty');
     var listEl = document.getElementById('notesList');
+    var color = rtType === 'connections' ? '#0073BB' : '#E91E90';
 
     if (!filtered.length) {
         emptyEl.style.display = 'block';
@@ -1019,15 +1092,14 @@ function renderNotes() {
     var currentWeek = '';
     var html = '';
     filtered.forEach(function(n, i) {
-        // Find original index for delete
         var origIdx = notes.indexOf(n);
 
         if (n.week !== currentWeek) {
             if (currentWeek) html += '</div>';
             currentWeek = n.week;
             html += '<div style="margin-bottom:14px;background:var(--surface);border-radius:var(--radius);padding:14px;box-shadow:var(--shadow);">';
-            html += '<div style="display:flex;align-items:center;gap:6px;padding-bottom:6px;border-bottom:2px solid #0073BB;margin-bottom:8px;">';
-            html += '<span style="background:#0073BB;color:#fff;font-weight:800;font-size:11px;padding:3px 8px;border-radius:4px;">' + escapeHTML(n.week) + '</span>';
+            html += '<div style="display:flex;align-items:center;gap:6px;padding-bottom:6px;border-bottom:2px solid ' + color + ';margin-bottom:8px;">';
+            html += '<span style="background:' + color + ';color:#fff;font-weight:800;font-size:11px;padding:3px 8px;border-radius:4px;">' + escapeHTML(n.week) + '</span>';
             html += '</div>';
         }
 
@@ -1037,7 +1109,7 @@ function renderNotes() {
             catch(e) { dateStr = n.date; }
         }
 
-        html += '<div style="background:var(--bg);border-radius:8px;padding:12px;margin-bottom:6px;border-left:3px solid #0073BB;">';
+        html += '<div style="background:var(--bg);border-radius:8px;padding:12px;margin-bottom:6px;border-left:3px solid ' + color + ';">';
         html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">';
         html += '<div style="display:flex;gap:8px;align-items:center;">';
         html += '<span style="font-size:11px;font-weight:600;color:var(--primary);">' + escapeHTML(n.leader) + '</span>';
@@ -1055,255 +1127,14 @@ function renderNotes() {
             html += '<div style="font-size:11px;color:var(--text);line-height:1.5;">' + escapeHTML(n.actions) + '</div></div>';
         }
         if (n.followup) {
-            html += '<div><div style="font-size:9px;font-weight:600;color:#0073BB;text-transform:uppercase;margin-bottom:2px;"><i class="fa-solid fa-rotate" style="margin-right:2px;"></i>Follow-up</div>';
+            html += '<div><div style="font-size:9px;font-weight:600;color:' + color + ';text-transform:uppercase;margin-bottom:2px;"><i class="fa-solid fa-rotate" style="margin-right:2px;"></i>Follow-up</div>';
             html += '<div style="font-size:11px;color:var(--text);line-height:1.5;">' + escapeHTML(n.followup) + '</div></div>';
         }
         html += '</div>';
     });
     if (currentWeek) html += '</div>';
-
     listEl.innerHTML = html;
 }
-
-// --- Collapsible Agenda ---
-function toggleAgenda() {
-    var body = document.getElementById('agendaBody');
-    var arrow = document.getElementById('agendaArrow');
-    if (body.style.maxHeight === '0px' || body.style.maxHeight === '') {
-        body.style.maxHeight = '2000px';
-        arrow.style.transform = 'rotate(180deg)';
-    } else {
-        body.style.maxHeight = '0px';
-        arrow.style.transform = 'rotate(0deg)';
-    }
-}
-
-
-// --- AA ATTENDANCE TRACKING ---
-var aaViewMode = 'week';
-var aaSelectedWeek = 'all';
-// loadAAs() is now defined in the shared data layer above
-
-function initAAView() {
-    // Populate week dropdown
-    var sel = document.getElementById('aaWeekSelect');
-    sel.innerHTML = '';
-    var now = new Date();
-    var currentWk = getWeekNum(now);
-    for (var i = 0; i < 12; i++) {
-        var wk = currentWk - i;
-        if (wk < 1) continue;
-        var opt = document.createElement('option');
-        opt.value = 'Wk ' + wk;
-        opt.textContent = 'Wk ' + wk + (i === 0 ? ' (current)' : '');
-        sel.appendChild(opt);
-    }
-    buildAAWeekBubbles();
-    renderAAView();
-}
-
-function addAA() {
-    var week = document.getElementById('aaWeekSelect').value;
-    var name = document.getElementById('aaNameInput').value.trim();
-    if (!name) { alert('Please enter an AA name or login.'); return; }
-
-    var records = loadAAs();
-    var exists = records.some(function(r) {
-        return r.week === week && r.name.toLowerCase() === name.toLowerCase();
-    });
-    if (exists) {
-        alert(name + ' is already logged for ' + week + '.');
-        return;
-    }
-
-    document.getElementById('aaNameInput').value = '';
-    document.getElementById('aaNameInput').focus();
-
-    postToSheet({ action: 'addAA', week: week, name: name }, function() {
-        buildAAWeekBubbles();
-        renderAAView();
-    });
-}
-
-function removeAA(idx) {
-    var records = loadAAs();
-    var record = records[idx];
-    if (!record) return;
-
-    postToSheet({ action: 'removeAA', week: record.week, name: record.name }, function() {
-        buildAAWeekBubbles();
-        renderAAView();
-    });
-}
-
-function switchAAView(mode) {
-    aaViewMode = mode;
-    document.getElementById('aaViewWeek').className = 'chip' + (mode === 'week' ? ' on' : '');
-    document.getElementById('aaViewAll').className = 'chip' + (mode === 'all' ? ' on' : '');
-    document.getElementById('aaWeekView').style.display = mode === 'week' ? 'block' : 'none';
-    document.getElementById('aaAllView').style.display = mode === 'all' ? 'block' : 'none';
-    renderAAView();
-}
-
-function buildAAWeekBubbles() {
-    var records = loadAAs();
-    var weeks = {};
-    records.forEach(function(r) {
-        if (!weeks[r.week]) weeks[r.week] = 0;
-        weeks[r.week]++;
-    });
-    var currentWk = 'Wk ' + getWeekNum(new Date());
-    if (!weeks[currentWk]) weeks[currentWk] = 0;
-
-    var sorted = Object.keys(weeks).sort(function(a, b) {
-        return parseInt(b.replace('Wk ', '')) - parseInt(a.replace('Wk ', ''));
-    });
-
-    var container = document.getElementById('aaWeekBubbles');
-    container.innerHTML = '';
-
-    var allBubble = document.createElement('div');
-    allBubble.className = 'wk-bubble' + (aaSelectedWeek === 'all' ? ' on' : '');
-    allBubble.textContent = 'All Weeks';
-    allBubble.addEventListener('click', function() {
-        aaSelectedWeek = 'all';
-        buildAAWeekBubbles();
-        renderAAView();
-    });
-    container.appendChild(allBubble);
-
-    sorted.forEach(function(w) {
-        var count = weeks[w];
-        var bubble = document.createElement('div');
-        bubble.className = 'wk-bubble' + (aaSelectedWeek === w ? ' on' : '');
-        bubble.innerHTML = w + ' <span style="opacity:.6;font-size:9px;">(' + count + ')</span>';
-        bubble.addEventListener('click', function() {
-            aaSelectedWeek = w;
-            buildAAWeekBubbles();
-            renderAAView();
-        });
-        container.appendChild(bubble);
-    });
-}
-
-function renderAAView() {
-    if (aaViewMode === 'week') {
-        renderAAWeekView();
-    } else {
-        renderAAAllView();
-    }
-}
-
-function renderAAWeekView() {
-    var records = loadAAs();
-    var filtered = aaSelectedWeek === 'all' ? records : records.filter(function(r) { return r.week === aaSelectedWeek; });
-
-    var content = document.getElementById('aaWeekContent');
-
-    if (!filtered.length) {
-        content.innerHTML = '<div style="text-align:center;padding:30px;color:var(--text-muted);background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);">' +
-            '<i class="fa-solid fa-users" style="font-size:32px;margin-bottom:8px;color:var(--border);display:block;"></i>' +
-            'No attendance logged yet. Add AAs above!</div>';
-        return;
-    }
-
-    // Group by week
-    var byWeek = {};
-    filtered.forEach(function(r) {
-        if (!byWeek[r.week]) byWeek[r.week] = [];
-        byWeek[r.week].push(r);
-    });
-
-    var sortedWeeks = Object.keys(byWeek).sort(function(a, b) {
-        return parseInt(b.replace('Wk ', '')) - parseInt(a.replace('Wk ', ''));
-    });
-
-    var html = '';
-    sortedWeeks.forEach(function(wk) {
-        var aas = byWeek[wk];
-        html += '<div style="background:var(--surface);border-radius:var(--radius);padding:14px;box-shadow:var(--shadow);margin-bottom:12px;">';
-        html += '<div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:8px;border-bottom:2px solid var(--accent);margin-bottom:10px;">';
-        html += '<div style="display:flex;align-items:center;gap:6px;">';
-        html += '<span style="background:var(--accent);color:var(--primary);font-weight:800;font-size:11px;padding:3px 8px;border-radius:4px;">' + wk + '</span>';
-        html += '</div>';
-        html += '<span style="font-size:11px;color:var(--text-muted);"><i class="fa-solid fa-users" style="margin-right:3px;"></i>' + aas.length + ' AA' + (aas.length !== 1 ? 's' : '') + '</span>';
-        html += '</div>';
-
-        aas.forEach(function(r) {
-            var origIdx = records.indexOf(r);
-            html += '<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 10px;margin-bottom:4px;background:var(--bg);border-radius:6px;">';
-            html += '<div style="display:flex;align-items:center;gap:8px;">';
-            html += '<i class="fa-solid fa-user" style="color:var(--accent);font-size:11px;"></i>';
-            html += '<span style="font-size:12px;font-weight:500;">' + escapeHTML(r.name) + '</span>';
-            html += '</div>';
-            html += '<div style="display:flex;align-items:center;gap:6px;">';
-            html += '<button data-engage-login="' + escapeHTML(r.name) + '" class="engage-btn" style="padding:4px 10px;background:var(--accent);color:var(--primary);border:none;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:4px;white-space:nowrap;" title="Copy login & open Engage"><i class="fa-solid fa-star"></i>Engage</button>';
-            html += '<button onclick="removeAA(' + origIdx + ')" style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:10px;" title="Remove"><i class="fa-solid fa-xmark"></i></button>';
-            html += '</div>';
-            html += '</div>';
-        });
-        html += '</div>';
-    });
-
-    content.innerHTML = html;
-}
-
-function renderAAAllView() {
-    var records = loadAAs();
-    var content = document.getElementById('aaAllContent');
-    var countEl = document.getElementById('aaTotalCount');
-
-    if (!records.length) {
-        countEl.textContent = '';
-        content.innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-muted);">No AAs logged yet.</div>';
-        return;
-    }
-
-    // Build roster: unique AAs with count and weeks
-    var roster = {};
-    records.forEach(function(r) {
-        var key = r.name.toLowerCase();
-        if (!roster[key]) roster[key] = { name: r.name, count: 0, weeks: [] };
-        roster[key].count++;
-        if (roster[key].weeks.indexOf(r.week) === -1) roster[key].weeks.push(r.week);
-    });
-
-    var sorted = Object.values(roster).sort(function(a, b) {
-        return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
-    });
-
-    countEl.textContent = sorted.length + ' unique AA' + (sorted.length !== 1 ? 's' : '');
-
-    var html = '<table style="width:100%;border-collapse:collapse;font-size:12px;">';
-    html += '<thead><tr><th style="text-align:left;padding:8px 10px;">AA Name</th><th style="text-align:center;padding:8px 10px;">Sessions</th><th style="text-align:left;padding:8px 10px;">Weeks</th></tr></thead>';
-    html += '<tbody>';
-    sorted.forEach(function(aa) {
-        var weeksSorted = aa.weeks.sort(function(a, b) {
-            return parseInt(a.replace('Wk ', '')) - parseInt(b.replace('Wk ', ''));
-        });
-        var weekChips = weeksSorted.map(function(w) {
-            return '<span style="display:inline-block;padding:2px 6px;background:var(--bg);border-radius:4px;font-size:10px;color:var(--text-sec);margin:1px 2px;">' + w + '</span>';
-        }).join('');
-
-        html += '<tr>';
-        html += '<td style="padding:8px 10px;"><div style="display:flex;align-items:center;gap:6px;"><i class="fa-solid fa-user" style="color:var(--accent);font-size:10px;"></i><span style="font-weight:500;">' + escapeHTML(aa.name) + '</span><button data-engage-login="' + escapeHTML(aa.name) + '" class="engage-btn" style="padding:2px 8px;background:var(--accent);color:var(--primary);border:none;border-radius:4px;font-size:10px;font-weight:700;cursor:pointer;margin-left:4px;" title="Copy login & open Engage"><i class="fa-solid fa-star"></i></button></div></td>';
-        html += '<td style="padding:8px 10px;text-align:center;"><span style="display:inline-block;background:' + (aa.count >= 3 ? 'var(--success-light)' : aa.count >= 2 ? 'var(--warning-light)' : 'var(--error-light)') + ';color:' + (aa.count >= 3 ? 'var(--success)' : aa.count >= 2 ? 'var(--warning)' : 'var(--error)') + ';padding:2px 8px;border-radius:10px;font-weight:700;font-size:11px;">' + aa.count + '</span></td>';
-        html += '<td style="padding:8px 10px;">' + weekChips + '</td>';
-        html += '</tr>';
-    });
-    html += '</tbody></table>';
-
-    content.innerHTML = html;
-}
-
-// Enter key to add AA quickly
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter' && document.activeElement && document.activeElement.id === 'aaNameInput') {
-        e.preventDefault();
-        addAA();
-    }
-});
-
 
 
 // --- OPEN ENGAGE FOR AA ---
@@ -1583,378 +1414,329 @@ document.addEventListener('click', function(e) {
 });
 
 
-// --- BIRTHDAY ROUNDTABLE ---
-var BDAY_TAB = 'BdayAttendance';
-var cachedBdayAAs = [];
-var bdaySelectedFilter = 'all';
 
-function loadBdayAAs() { return cachedBdayAAs; }
 
-function initBdayView() {
-    // Populate month dropdown
-    var monthSel = document.getElementById('bdayMonth');
-    monthSel.innerHTML = '';
+function switchRTType(type) {
+    currentRTType = type;
+    var connBtn = document.getElementById('rtTypeConn');
+    var bdayBtn = document.getElementById('rtTypeBday');
+    var formTitle = document.getElementById('noteFormTitle');
+    var attendTitle = document.getElementById('attendanceTitle');
+    var saveBtn = document.getElementById('saveNoteBtn');
+    var addBtn = document.getElementById('addAABtn');
+    var bdayFields = document.getElementById('bdayExtraFields');
+
+    if (type === 'connections') {
+        connBtn.style.background = '#0073BB';
+        connBtn.style.color = '#fff';
+        connBtn.style.borderColor = '#0073BB';
+        connBtn.className = 'chip on';
+        connBtn.style.cssText = 'padding:8px 16px;font-size:13px;font-weight:700;background:#0073BB;color:#fff;border-color:#0073BB;border:1px solid #0073BB;border-radius:16px;cursor:pointer;';
+        bdayBtn.className = 'chip';
+        bdayBtn.style.cssText = 'padding:8px 16px;font-size:13px;font-weight:700;border:1px solid var(--border);border-radius:16px;color:var(--text-sec);cursor:pointer;';
+        formTitle.innerHTML = '<i class="fa-solid fa-plus-circle" style="color:#0073BB;margin-right:4px;"></i>Add Connections RT Note';
+        attendTitle.innerHTML = '<i class="fa-solid fa-user-plus" style="color:#0073BB;margin-right:4px;"></i>Log AA Attendance';
+        saveBtn.style.background = '#0073BB';
+        addBtn.style.background = '#0073BB';
+        bdayFields.style.display = 'none';
+        document.getElementById('noteFormCard').style.borderTop = '3px solid #0073BB';
+        document.getElementById('noteAttendanceCard').style.borderTop = '3px solid #0073BB';
+    } else {
+        bdayBtn.style.cssText = 'padding:8px 16px;font-size:13px;font-weight:700;background:#E91E90;color:#fff;border-color:#E91E90;border:1px solid #E91E90;border-radius:16px;cursor:pointer;';
+        bdayBtn.className = 'chip on';
+        connBtn.className = 'chip';
+        connBtn.style.cssText = 'padding:8px 16px;font-size:13px;font-weight:700;border:1px solid var(--border);border-radius:16px;color:var(--text-sec);cursor:pointer;';
+        formTitle.innerHTML = '<i class="fa-solid fa-plus-circle" style="color:#E91E90;margin-right:4px;"></i>Add Birthday RT Note';
+        attendTitle.innerHTML = '<i class="fa-solid fa-user-plus" style="color:#E91E90;margin-right:4px;"></i>Log AA Attendance';
+        saveBtn.style.background = '#E91E90';
+        addBtn.style.background = '#E91E90';
+        bdayFields.style.display = 'block';
+        initBdayMonths();
+        document.getElementById('noteFormCard').style.borderTop = '3px solid #E91E90';
+        document.getElementById('noteAttendanceCard').style.borderTop = '3px solid #E91E90';
+    }
+    // Re-render notes filtered by type
+    renderNotes();
+    renderNoteAAList();
+}
+
+function initBdayMonths() {
+    var sel = document.getElementById('bdayMonth');
+    if (!sel) return;
+    sel.innerHTML = '';
     var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
     var now = new Date();
-    var currentMonth = now.getMonth();
-    for (var i = 0; i < 12; i++) {
-        var mIdx = (currentMonth - i + 12) % 12;
+    var currentMonth = months[now.getMonth()];
+    months.forEach(function(m) {
         var opt = document.createElement('option');
-        opt.value = months[mIdx];
-        opt.textContent = months[mIdx] + (i === 0 ? ' (current)' : '');
-        monthSel.appendChild(opt);
-    }
-
-    // Populate week dropdown
-    var weekSel = document.getElementById('bdayWeekSelect');
-    weekSel.innerHTML = '';
-    var currentWk = getWeekNum(now);
-    for (var i = 0; i < 12; i++) {
-        var wk = currentWk - i;
-        if (wk < 1) continue;
-        var opt = document.createElement('option');
-        opt.value = 'Wk ' + wk;
-        opt.textContent = 'Wk ' + wk + (i === 0 ? ' (current)' : '');
-        weekSel.appendChild(opt);
-    }
-
-    // Set today's date
-    document.getElementById('bdayDate').value = now.toISOString().slice(0, 10);
-
-    // Fetch birthday data
-    fetchBdayData(function() {
-        buildBdayBubbles();
-        renderBdayList();
+        opt.value = m;
+        opt.textContent = m === currentMonth ? m + ' (current)' : m;
+        if (m === currentMonth) opt.selected = true;
+        sel.appendChild(opt);
     });
 }
 
-function fetchBdayData(callback) {
-    fetch(SCRIPT_URL + '?tab=' + BDAY_TAB).then(function(r) { return r.json(); }).then(function(data) {
-        if (data.result === 'ok') {
-            cachedBdayAAs = data.data.map(function(row) {
-                return {
-                    month: row.Month || '',
-                    week: row.Week || '',
-                    date: row.Date || '',
-                    name: row.Name || '',
-                    added: row.Timestamp || ''
-                };
-            });
-        }
-        if (callback) callback();
-    }).catch(function() {
-        if (callback) callback();
-    });
+// ============================================================
+// AA ATTENDANCE WITHIN LEADER NOTES
+// ============================================================
+function addNoteAA() {
+    var login = document.getElementById('noteAAInput').value.trim().toLowerCase();
+    if (!login) return;
+
+    if (currentRTType === 'connections') {
+        var week = document.getElementById('noteWeekSelect').value;
+        if (!week) { alert('Select a week first'); return; }
+        // Check duplicate
+        var exists = cachedAAs.some(function(a) { return a.name === login && a.week === week; });
+        if (exists) { alert(login + ' already logged for ' + week); return; }
+        postToSheet({ action: 'addAA', week: week, name: login }, function() {
+            cachedAAs.push({ week: week, name: login, added: new Date().toISOString() });
+            document.getElementById('noteAAInput').value = '';
+            renderNoteAAList();
+        });
+    } else {
+        var month = document.getElementById('bdayMonth') ? document.getElementById('bdayMonth').value : '';
+        var week = document.getElementById('noteWeekSelect').value;
+        var date = document.getElementById('noteDate').value;
+        if (!month || !week) { alert('Select month and week first'); return; }
+        var exists = cachedBdayAAs.some(function(a) { return a.name === login && a.week === week && a.month === month; });
+        if (exists) { alert(login + ' already logged for ' + month + ' ' + week); return; }
+        postToSheet({ action: 'addBday', month: month, week: week, date: date, name: login }, function() {
+            cachedBdayAAs.push({ month: month, week: week, date: date, name: login, added: new Date().toISOString() });
+            document.getElementById('noteAAInput').value = '';
+            renderNoteAAList();
+        });
+    }
 }
 
-function addBdayAA() {
-    var month = document.getElementById('bdayMonth').value;
-    var week = document.getElementById('bdayWeekSelect').value;
-    var date = document.getElementById('bdayDate').value;
-    var name = document.getElementById('bdayAAInput').value.trim();
+// Enter key for AA input
+document.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter' && document.activeElement && document.activeElement.id === 'noteAAInput') {
+        e.preventDefault();
+        addNoteAA();
+    }
+});
 
-    if (!name) { alert('Please enter an AA login.'); return; }
+function removeNoteAA(name, week, type) {
+    if (type === 'connections') {
+        postToSheet({ action: 'removeAA', week: week, name: name }, function() {
+            cachedAAs = cachedAAs.filter(function(a) { return !(a.name === name && a.week === week); });
+            renderNoteAAList();
+        });
+    } else {
+        postToSheet({ action: 'removeBday', week: week, name: name }, function() {
+            cachedBdayAAs = cachedBdayAAs.filter(function(a) { return !(a.name === name && a.week === week); });
+            renderNoteAAList();
+        });
+    }
+}
 
-    // Check duplicate
-    var exists = cachedBdayAAs.some(function(r) {
-        return r.month === month && r.week === week && r.name.toLowerCase() === name.toLowerCase();
-    });
-    if (exists) {
-        alert(name + ' is already logged for ' + month + ' ' + week + '.');
+function renderNoteAAList() {
+    var container = document.getElementById('noteAAList');
+    if (!container) return;
+    var week = document.getElementById('noteWeekSelect').value;
+    var list, type, color;
+
+    if (currentRTType === 'connections') {
+        list = cachedAAs.filter(function(a) { return a.week === week; });
+        type = 'connections';
+        color = '#0073BB';
+    } else {
+        var month = document.getElementById('bdayMonth') ? document.getElementById('bdayMonth').value : '';
+        list = cachedBdayAAs.filter(function(a) { return a.week === week && (!month || a.month === month); });
+        type = 'birthday';
+        color = '#E91E90';
+    }
+
+    if (!list.length) {
+        container.innerHTML = '<div style="font-size:11px;color:var(--text-muted);padding:8px 0;">No AAs logged for this week yet.</div>';
         return;
     }
 
-    document.getElementById('bdayAAInput').value = '';
-    document.getElementById('bdayAAInput').focus();
-
-    // Post to sheet
-    fetch(SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'addBday', month: month, week: week, date: date, name: name })
-    }).then(function() {
-        setTimeout(function() {
-            fetchBdayData(function() { buildBdayBubbles(); renderBdayList(); });
-        }, 1500);
-    }).catch(function() {
-        setTimeout(function() {
-            fetchBdayData(function() { buildBdayBubbles(); renderBdayList(); });
-        }, 1500);
+    var html = '<div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;">';
+    list.forEach(function(aa) {
+        html += '<div style="display:flex;align-items:center;gap:6px;background:var(--bg);border-radius:8px;padding:6px 10px;border-left:3px solid ' + color + ';">';
+        html += '<span style="font-size:12px;font-weight:600;">' + escapeHTML(aa.name) + '</span>';
+        html += '<button data-engage-login="' + escapeHTML(aa.name) + '" data-engage-type="' + type + '" style="background:none;border:none;color:' + color + ';cursor:pointer;font-size:11px;padding:2px 4px;" title="Engage"><i class="fa-solid fa-star"></i></button>';
+        html += '<button onclick="removeNoteAA('' + escapeHTML(aa.name).replace(/'/g, "\\'") + "','" + escapeHTML(week).replace(/'/g, "\\'") + "','" + type + '')" style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:10px;" title="Remove"><i class="fa-solid fa-xmark"></i></button>';
+        html += '</div>';
     });
+    html += '</div>';
+    html += '<div style="font-size:10px;color:var(--text-muted);margin-top:6px;">' + list.length + ' AA' + (list.length !== 1 ? 's' : '') + ' logged</div>';
+    container.innerHTML = html;
 }
 
-function removeBdayAA(month, week, name) {
-    fetch(SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'removeBday', month: month, week: week, name: name })
-    }).then(function() {
-        setTimeout(function() {
-            fetchBdayData(function() { buildBdayBubbles(); renderBdayList(); });
-        }, 1500);
-    });
+// ============================================================
+// AA OVERVIEW TAB (Read-Only)
+// ============================================================
+var aaOverviewType = 'connections';
+
+function switchAAOverview(type) {
+    aaOverviewType = type;
+    var connBtn = document.getElementById('aaOverviewConn');
+    var bdayBtn = document.getElementById('aaOverviewBday');
+
+    if (type === 'connections') {
+        connBtn.style.cssText = 'padding:8px 14px;font-size:12px;font-weight:700;background:#0073BB;color:#fff;border-color:#0073BB;border:1px solid #0073BB;border-radius:16px;cursor:pointer;';
+        connBtn.className = 'chip on';
+        bdayBtn.className = 'chip';
+        bdayBtn.style.cssText = 'padding:8px 14px;font-size:12px;font-weight:700;border:1px solid var(--border);border-radius:16px;color:var(--text-sec);cursor:pointer;';
+        document.getElementById('aaConnOverview').style.display = 'block';
+        document.getElementById('aaBdayOverview').style.display = 'none';
+    } else {
+        bdayBtn.style.cssText = 'padding:8px 14px;font-size:12px;font-weight:700;background:#E91E90;color:#fff;border-color:#E91E90;border:1px solid #E91E90;border-radius:16px;cursor:pointer;';
+        bdayBtn.className = 'chip on';
+        connBtn.className = 'chip';
+        connBtn.style.cssText = 'padding:8px 14px;font-size:12px;font-weight:700;border:1px solid var(--border);border-radius:16px;color:var(--text-sec);cursor:pointer;';
+        document.getElementById('aaConnOverview').style.display = 'none';
+        document.getElementById('aaBdayOverview').style.display = 'block';
+    }
+    renderAAOverview();
 }
 
-function buildBdayBubbles() {
-    var records = loadBdayAAs();
-    var filters = {};
-    records.forEach(function(r) {
-        var key = r.month + ' - ' + r.week;
-        if (!filters[key]) filters[key] = 0;
-        filters[key]++;
-    });
+function initAAView() {
+    renderAAOverview();
+}
 
-    var container = document.getElementById('bdayWeekBubbles');
-    container.innerHTML = '';
+function renderAAOverview() {
+    // Connections overview
+    var connContent = document.getElementById('aaConnContent');
+    var connEmpty = document.getElementById('aaConnEmpty');
+    var aas = cachedAAs;
 
-    var allBubble = document.createElement('div');
-    allBubble.className = 'wk-bubble' + (bdaySelectedFilter === 'all' ? ' on' : '');
-    allBubble.textContent = 'All';
-    allBubble.addEventListener('click', function() {
-        bdaySelectedFilter = 'all';
-        buildBdayBubbles();
-        renderBdayList();
-    });
-    container.appendChild(allBubble);
-
-    var sorted = Object.keys(filters).sort().reverse();
-    sorted.forEach(function(key) {
-        var bubble = document.createElement('div');
-        bubble.className = 'wk-bubble' + (bdaySelectedFilter === key ? ' on' : '');
-        bubble.innerHTML = key + ' <span style="opacity:.6;font-size:9px;">(' + filters[key] + ')</span>';
-        bubble.addEventListener('click', function() {
-            bdaySelectedFilter = key;
-            buildBdayBubbles();
-            renderBdayList();
+    if (!aas.length) {
+        connEmpty.style.display = 'block';
+        connContent.innerHTML = '';
+    } else {
+        connEmpty.style.display = 'none';
+        var aaMap = {};
+        aas.forEach(function(a) {
+            if (!aaMap[a.name]) aaMap[a.name] = { weeks: [], count: 0 };
+            aaMap[a.name].weeks.push(a.week);
+            aaMap[a.name].count++;
         });
-        container.appendChild(bubble);
-    });
+        var sorted = Object.keys(aaMap).sort();
+        var html = '<div style="background:var(--surface);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);margin-bottom:14px;">';
+        html += '<div style="display:flex;align-items:center;gap:6px;margin-bottom:10px;"><span style="background:#0073BB;color:#fff;font-weight:700;font-size:11px;padding:3px 8px;border-radius:4px;">' + sorted.length + ' AAs</span><span style="font-size:11px;color:var(--text-muted);">' + aas.length + ' total sessions</span></div>';
+        html += '<table style="width:100%;border-collapse:collapse;font-size:12px;">';
+        html += '<tr><th style="text-align:left;padding:6px 8px;background:var(--bg);font-size:10px;text-transform:uppercase;color:var(--text-sec);">AA Login</th><th style="text-align:center;padding:6px 8px;background:var(--bg);font-size:10px;text-transform:uppercase;color:var(--text-sec);">Sessions</th><th style="text-align:left;padding:6px 8px;background:var(--bg);font-size:10px;text-transform:uppercase;color:var(--text-sec);">Weeks</th></tr>';
+        sorted.forEach(function(name) {
+            var info = aaMap[name];
+            var countColor = info.count >= 3 ? 'var(--success)' : info.count >= 2 ? 'var(--warning)' : 'var(--error)';
+            html += '<tr><td style="padding:6px 8px;border-bottom:1px solid #F0F2F5;font-weight:600;">' + escapeHTML(name) + '</td>';
+            html += '<td style="padding:6px 8px;border-bottom:1px solid #F0F2F5;text-align:center;"><span style="background:' + countColor + ';color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;">' + info.count + '</span></td>';
+            html += '<td style="padding:6px 8px;border-bottom:1px solid #F0F2F5;font-size:11px;color:var(--text-sec);">' + info.weeks.join(', ') + '</td></tr>';
+        });
+        html += '</table></div>';
+        connContent.innerHTML = html;
+    }
+
+    // Birthday overview
+    var bdayContent = document.getElementById('aaBdayContent');
+    var bdayEmpty = document.getElementById('aaBdayEmpty');
+    var bdayAAs = cachedBdayAAs;
+
+    if (!bdayAAs.length) {
+        bdayEmpty.style.display = 'block';
+        bdayContent.innerHTML = '';
+    } else {
+        bdayEmpty.style.display = 'none';
+        var bdayMap = {};
+        bdayAAs.forEach(function(a) {
+            if (!bdayMap[a.name]) bdayMap[a.name] = { sessions: [], count: 0 };
+            bdayMap[a.name].sessions.push((a.month || '') + ' ' + (a.week || ''));
+            bdayMap[a.name].count++;
+        });
+        var bdaySorted = Object.keys(bdayMap).sort();
+        var html2 = '<div style="background:var(--surface);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);margin-bottom:14px;">';
+        html2 += '<div style="display:flex;align-items:center;gap:6px;margin-bottom:10px;"><span style="background:#E91E90;color:#fff;font-weight:700;font-size:11px;padding:3px 8px;border-radius:4px;">' + bdaySorted.length + ' AAs</span><span style="font-size:11px;color:var(--text-muted);">' + bdayAAs.length + ' total sessions</span></div>';
+        html2 += '<table style="width:100%;border-collapse:collapse;font-size:12px;">';
+        html2 += '<tr><th style="text-align:left;padding:6px 8px;background:var(--bg);font-size:10px;text-transform:uppercase;color:var(--text-sec);">AA Login</th><th style="text-align:center;padding:6px 8px;background:var(--bg);font-size:10px;text-transform:uppercase;color:var(--text-sec);">Sessions</th><th style="text-align:left;padding:6px 8px;background:var(--bg);font-size:10px;text-transform:uppercase;color:var(--text-sec);">When</th></tr>';
+        bdaySorted.forEach(function(name) {
+            var info = bdayMap[name];
+            var countColor = info.count >= 3 ? 'var(--success)' : info.count >= 2 ? 'var(--warning)' : 'var(--error)';
+            html2 += '<tr><td style="padding:6px 8px;border-bottom:1px solid #F0F2F5;font-weight:600;">' + escapeHTML(name) + '</td>';
+            html2 += '<td style="padding:6px 8px;border-bottom:1px solid #F0F2F5;text-align:center;"><span style="background:' + countColor + ';color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;">' + info.count + '</span></td>';
+            html2 += '<td style="padding:6px 8px;border-bottom:1px solid #F0F2F5;font-size:11px;color:var(--text-sec);">' + info.sessions.join(', ') + '</td></tr>';
+        });
+        html2 += '</table></div>';
+        bdayContent.innerHTML = html2;
+    }
 }
 
-function renderBdayList() {
-    var records = loadBdayAAs();
-    var filtered = bdaySelectedFilter === 'all' ? records : records.filter(function(r) {
-        return (r.month + ' - ' + r.week) === bdaySelectedFilter;
+// ============================================================
+// HIGHLIGHTS / WINS
+// ============================================================
+function initWinsView() {
+    renderHighlights();
+}
+
+function addHighlight() {
+    var topic = document.getElementById('winTopic').value.trim();
+    var desc = document.getElementById('winDescription').value.trim();
+    var stat = document.getElementById('winStat').value.trim();
+    var goal = document.getElementById('winGoal').value.trim();
+    if (!topic) { alert('Enter a topic'); return; }
+
+    postToSheet({ action: 'addHighlight', topic: topic, description: desc, stat: stat, goal: goal }, function() {
+        cachedHighlights.push({ topic: topic, description: desc, stat: stat, goal: goal, created: new Date().toISOString() });
+        document.getElementById('winTopic').value = '';
+        document.getElementById('winDescription').value = '';
+        document.getElementById('winStat').value = '';
+        document.getElementById('winGoal').value = '';
+        renderHighlights();
     });
+    // Optimistic render
+    setTimeout(function() { renderHighlights(); }, 500);
+}
 
-    var listEl = document.getElementById('bdayList');
-    var emptyEl = document.getElementById('bdayEmpty');
+function deleteHighlight(idx) {
+    if (!confirm('Delete this highlight?')) return;
+    var item = cachedHighlights[idx];
+    postToSheet({ action: 'removeHighlight', topic: item.topic, created: item.created }, function() {
+        cachedHighlights.splice(idx, 1);
+        renderHighlights();
+    });
+    cachedHighlights.splice(idx, 1);
+    renderHighlights();
+}
 
-    if (!filtered.length) {
-        listEl.innerHTML = '';
+function renderHighlights() {
+    var highlights = cachedHighlights;
+    var emptyEl = document.getElementById('winsEmpty');
+    var listEl = document.getElementById('winsList');
+
+    if (!highlights.length) {
         emptyEl.style.display = 'block';
+        listEl.innerHTML = '';
         return;
     }
     emptyEl.style.display = 'none';
 
-    // Group by month + week
-    var groups = {};
-    filtered.forEach(function(r) {
-        var key = r.month + ' - ' + r.week;
-        if (!groups[key]) groups[key] = [];
-        groups[key].push(r);
-    });
-
     var html = '';
-    var sortedKeys = Object.keys(groups).sort().reverse();
-    sortedKeys.forEach(function(key) {
-        var aas = groups[key];
-        html += '<div style="background:var(--surface);border-radius:var(--radius);padding:14px;box-shadow:var(--shadow);margin-bottom:12px;border-left:4px solid #E91E90;">';
-        html += '<div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:8px;border-bottom:2px solid #F8BBD0;margin-bottom:10px;">';
+    highlights.forEach(function(h, i) {
+        html += '<div style="background:var(--surface);border-radius:var(--radius);padding:14px;box-shadow:var(--shadow);margin-bottom:10px;border-left:3px solid #067D62;">';
+        html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">';
         html += '<div style="display:flex;align-items:center;gap:6px;">';
-        html += '<span style="background:#E91E90;color:white;font-weight:800;font-size:11px;padding:3px 8px;border-radius:4px;"><i class="fa-solid fa-cake-candles" style="margin-right:4px;"></i>' + key + '</span>';
+        html += '<i class="fa-solid fa-trophy" style="color:#067D62;font-size:14px;"></i>';
+        html += '<span style="font-size:14px;font-weight:700;color:var(--text);">' + escapeHTML(h.topic) + '</span>';
         html += '</div>';
-        html += '<span style="font-size:11px;color:var(--text-muted);">' + aas.length + ' AA' + (aas.length !== 1 ? 's' : '') + '</span>';
+        html += '<button onclick="deleteHighlight(' + i + ')" style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:10px;" title="Delete"><i class="fa-solid fa-xmark"></i></button>';
         html += '</div>';
-
-        aas.forEach(function(r) {
-            var dateStr = '';
-            if (r.date) {
-                try { dateStr = new Date(r.date + 'T12:00:00').toLocaleDateString('en-US', {month:'short', day:'numeric'}); }
-                catch(e) { dateStr = r.date; }
-            }
-            html += '<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 10px;margin-bottom:4px;background:var(--bg);border-radius:6px;">';
-            html += '<div style="display:flex;align-items:center;gap:8px;">';
-            html += '<i class="fa-solid fa-user" style="color:#E91E90;font-size:11px;"></i>';
-            html += '<span style="font-size:12px;font-weight:500;">' + escapeHTML(r.name) + '</span>';
-            if (dateStr) html += '<span style="font-size:10px;color:var(--text-muted);">' + dateStr + '</span>';
+        if (h.description) {
+            html += '<div style="font-size:12px;color:var(--text-sec);line-height:1.5;margin-bottom:8px;">' + escapeHTML(h.description) + '</div>';
+        }
+        if (h.stat || h.goal) {
+            html += '<div style="display:flex;gap:12px;align-items:center;">';
+            if (h.stat) html += '<span style="background:var(--success-light);color:var(--success);padding:4px 10px;border-radius:6px;font-size:12px;font-weight:700;">Stat: ' + escapeHTML(h.stat) + '</span>';
+            if (h.goal) html += '<span style="background:#E3F2FD;color:#0073BB;padding:4px 10px;border-radius:6px;font-size:12px;font-weight:700;">Goal: ' + escapeHTML(h.goal) + '</span>';
             html += '</div>';
-            html += '<div style="display:flex;align-items:center;gap:6px;">';
-            html += '<button data-bday-engage="' + escapeHTML(r.name) + '" class="bday-engage-btn" style="padding:4px 10px;background:#E91E90;color:white;border:none;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:4px;white-space:nowrap;" title="Recognize in Engage"><i class="fa-solid fa-star"></i>Engage</button>';
-            html += '<button onclick="removeBdayAA(\'' + escapeHTML(r.month) + '\',\'' + escapeHTML(r.week) + '\',\'' + escapeHTML(r.name) + '\')" style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:10px;" title="Remove"><i class="fa-solid fa-xmark"></i></button>';
-            html += '</div>';
-            html += '</div>';
-        });
+        }
         html += '</div>';
     });
-
     listEl.innerHTML = html;
 }
 
-// Birthday Engage presets
-var bdayEngagePresets = [];
-
-function openBdayEngage(login) {
-    var today = getFormattedDate();
-
-    bdayEngagePresets = [
-        'Date: ' + today + ' | DPX7 Birthday Roundtable | Recognition | Participated in the DPX7 Birthday Roundtable, celebrating team members and building connections through recognition of our associates.',
-        'Happy Birthday! Thank you for being part of our DPX7 Birthday Roundtable celebration! Your presence and positive energy help make DPX7 a great place to work. We appreciate you and hope you had an amazing day!',
-        'Shout-out for joining the DPX7 Birthday Roundtable! Celebrating our team members is what makes our site culture special. Thank you for being a valued part of the DPX7 family — here is to another great year!',
-        'Happy Birthday and thank you for your dedication to DPX7! Your hard work and positive attitude make a real difference every day. We are grateful to have you on the team and look forward to your continued success!'
-    ];
-
-    var el = document.createElement('div');
-    el.id = 'bdayEngageContainer';
-
-    var modal = document.createElement('div');
-    modal.className = 'recog-overlay';
-    modal.onclick = function(e) { if (e.target === modal) closeBdayEngage(); };
-
-    var box = document.createElement('div');
-    box.className = 'recog-modal';
-
-    // Header
-    var hdr = document.createElement('div');
-    hdr.style.cssText = 'display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;';
-    var hdrLeft = document.createElement('div');
-    hdrLeft.innerHTML = '<h3 style="font-size:20px;"><i class="fa-solid fa-cake-candles" style="color:#E91E90;margin-right:8px;"></i>Birthday Recognition: ' + escapeHTML(login) + '</h3><div style="font-size:13px;color:var(--text-muted);margin-top:4px;">' + today + '</div>';
-    var closeBtn = document.createElement('button');
-    closeBtn.textContent = '\u00D7';
-    closeBtn.style.cssText = 'background:none;border:none;font-size:26px;cursor:pointer;color:var(--text-muted);line-height:1;';
-    closeBtn.onclick = closeBdayEngage;
-    hdr.appendChild(hdrLeft);
-    hdr.appendChild(closeBtn);
-    box.appendChild(hdr);
-
-    // Step 1
-    var step1 = document.createElement('div');
-    step1.style.marginBottom = '18px';
-    step1.innerHTML = '<div style="font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;margin-bottom:8px;">Step 1: Open Engage & Search</div>';
-    var openBtn = document.createElement('button');
-    openBtn.style.cssText = 'display:flex;align-items:center;gap:8px;padding:12px 18px;background:#E91E90;color:white;border:none;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;width:100%;justify-content:center;';
-    openBtn.innerHTML = '<i class="fa-solid fa-arrow-up-right-from-square"></i>Copy \u201C' + escapeHTML(login) + '\u201D & Open Engage';
-    openBtn.onclick = function() {
-        navigator.clipboard.writeText(login).then(function() {
-            openBtn.innerHTML = '<i class="fa-solid fa-check"></i> Copied! Opening Engage...';
-            openBtn.style.background = 'var(--success)';
-            setTimeout(function() { window.open('https://atoz.amazon.work/engage', '_blank'); }, 500);
-        });
-    };
-    step1.appendChild(openBtn);
-    box.appendChild(step1);
-
-    // Log Engagement - Pink/Rose theme
-    var engSection = document.createElement('div');
-    engSection.style.cssText = 'background:#FFF0F5;border:2px solid #E91E90;border-radius:10px;padding:16px;margin-bottom:16px;';
-    var engHeader = document.createElement('div');
-    engHeader.style.cssText = 'display:flex;align-items:center;gap:8px;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #F8BBD0;';
-    engHeader.innerHTML = '<i class="fa-solid fa-clipboard-list" style="font-size:18px;color:#C2185B;"></i><div><div style="font-size:15px;font-weight:700;color:#C2185B;">Log Engagement</div><div style="font-size:12px;color:#AD1457;">Type: Recognition</div></div>';
-    engSection.appendChild(engHeader);
-
-    var engCard = document.createElement('div');
-    engCard.style.cssText = 'background:white;border:1px solid #F8BBD0;border-radius:8px;padding:12px 16px;cursor:pointer;transition:all .15s;';
-    engCard.onmouseover = function() { if (!engCard.dataset.copied) engCard.style.borderColor = '#E91E90'; };
-    engCard.onmouseout = function() { if (!engCard.dataset.copied) engCard.style.borderColor = '#F8BBD0'; };
-    engCard.onclick = function() { copyBdayPreset(0, engCard); };
-    engCard.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;"><span style="font-size:13px;font-weight:700;color:#C2185B;">\uD83C\uDF82 Birthday Roundtable Participation</span><span class="copy-label" style="font-size:12px;color:var(--text-muted);">click to copy</span></div><div style="font-size:13px;color:var(--text-sec);line-height:1.5;font-style:italic;">Date: ' + today + ' | DPX7 Birthday Roundtable | Recognition | Participated in the DPX7 Birthday Roundtable celebration.</div>';
-    engSection.appendChild(engCard);
-    box.appendChild(engSection);
-
-    // Shout-Outs - Pink/Purple theme
-    var soSection = document.createElement('div');
-    soSection.style.cssText = 'background:#F3E5F5;border:2px solid #9C27B0;border-radius:10px;padding:16px;margin-bottom:16px;';
-    var soHeader = document.createElement('div');
-    soHeader.style.cssText = 'display:flex;align-items:center;gap:8px;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #CE93D8;';
-    soHeader.innerHTML = '<i class="fa-solid fa-star" style="font-size:18px;color:#9C27B0;"></i><div><div style="font-size:15px;font-weight:700;color:#9C27B0;">Send Shout-Out</div><div style="font-size:12px;color:#7B1FA2;">Birthday Celebration</div></div>';
-    soSection.appendChild(soHeader);
-
-    var soLabels = [
-        ['Happy Birthday Celebration', 'Happy Birthday! Thank you for being part of our Birthday Roundtable celebration! Your presence and positive energy help make DPX7 a great place to work.'],
-        ['Valued Team Member', 'Shout-out for joining the Birthday Roundtable! Celebrating our team members is what makes our site culture special. Thank you for being a valued part of the DPX7 family!'],
-        ['Birthday Appreciation', 'Happy Birthday and thank you for your dedication to DPX7! Your hard work and positive attitude make a real difference every day. We are grateful to have you on the team!']
-    ];
-
-    soLabels.forEach(function(item, idx) {
-        var card = document.createElement('div');
-        card.style.cssText = 'background:white;border:1px solid #CE93D8;border-radius:8px;padding:12px 16px;margin-bottom:10px;cursor:pointer;transition:all .15s;';
-        card.onmouseover = function() { if (!card.dataset.copied) card.style.borderColor = '#9C27B0'; };
-        card.onmouseout = function() { if (!card.dataset.copied) card.style.borderColor = '#CE93D8'; };
-        card.onclick = function() { copyBdayPreset(idx + 1, card); };
-        card.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;"><span style="font-size:13px;font-weight:700;color:#9C27B0;">\uD83C\uDF89 ' + item[0] + '</span><span class="copy-label" style="font-size:12px;color:var(--text-muted);">click to copy</span></div><div style="font-size:13px;color:var(--text-sec);line-height:1.5;font-style:italic;">' + item[1] + '</div>';
-        soSection.appendChild(card);
-    });
-    box.appendChild(soSection);
-
-    // Reminder
-    var reminder = document.createElement('div');
-    reminder.style.cssText = 'padding:10px 12px;background:var(--bg);border-radius:8px;font-size:11px;color:var(--text-sec);text-align:center;';
-    reminder.innerHTML = '<strong style="color:#C2185B;">Engagements</strong> \u2192 Type: <strong>Recognition</strong> &nbsp;|&nbsp; <strong style="color:#9C27B0;">Shout-Outs</strong> \u2192 <strong>Birthday Celebration</strong>';
-    box.appendChild(reminder);
-
-    modal.appendChild(box);
-    el.appendChild(modal);
-
-    var existing = document.getElementById('bdayEngageContainer');
-    if (existing) existing.remove();
-    document.body.appendChild(el);
-}
-
-function closeBdayEngage() {
-    var el = document.getElementById('bdayEngageContainer');
-    if (el) el.remove();
-}
-
-function copyBdayPreset(idx, cardEl) {
-    var text = bdayEngagePresets[idx] || '';
-    navigator.clipboard.writeText(text).then(function() {
-        cardEl.dataset.copied = 'true';
-        cardEl.style.borderColor = 'var(--success)';
-        cardEl.style.background = '#E8F5E9';
-        var label = cardEl.querySelector('.copy-label');
-        if (label) {
-            label.innerHTML = '<i class="fa-solid fa-check-circle" style="margin-right:3px;"></i>Copied!';
-            label.style.color = 'var(--success)';
-            label.style.fontWeight = '700';
-        }
-    });
-}
-
-// Birthday engage button delegation
-document.addEventListener('click', function(e) {
-    var btn = e.target.closest('.bday-engage-btn');
-    if (btn) {
-        var login = btn.getAttribute('data-bday-engage');
-        if (login) openBdayEngage(login);
-    }
-});
-
-// Enter key for birthday AA input
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter' && document.activeElement && document.activeElement.id === 'bdayAAInput') {
-        e.preventDefault();
-        addBdayAA();
-    }
-});
-
-// --- Init ---
-// Show loading state
-document.getElementById('headerStats').innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Loading shared data...';
-
-fetchAllData(function() {
-    all = cachedResponses;
-    buildChips();
-    render();
-    // Auto-refresh every 30 seconds
-    setInterval(function() {
-        fetchAllData(function() {
-            all = cachedResponses;
-            render();
-        });
-    }, 30000);
-});
 </script>
 </body>
 </html>
