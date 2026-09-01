@@ -287,13 +287,17 @@
             <div style="background:var(--surface);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);margin-bottom:14px;">
                 <h4 style="font-size:13px;font-weight:600;margin-bottom:12px;"><i class="fa-solid fa-plus-circle" style="color:#067D62;margin-right:4px;"></i>Add Highlight/Win</h4>
                 <div style="display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap;">
-                    <div style="flex:2;min-width:200px;">
+                    <div style="flex:2;min-width:180px;">
                         <label style="font-size:10px;font-weight:600;color:var(--text-muted);display:block;margin-bottom:3px;">WIN / HIGHLIGHT TOPIC</label>
                         <input type="text" id="winTopic" placeholder="e.g. PSE Goal Achievement" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:6px;font-size:12px;font-family:inherit;color:var(--text);">
                     </div>
-                    <div style="flex:1;min-width:100px;">
+                    <div style="flex:0 0 90px;">
                         <label style="font-size:10px;font-weight:600;color:var(--text-muted);display:block;margin-bottom:3px;">WEEK</label>
-                        <input type="text" id="winWeek" placeholder="e.g. Wk 35" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:6px;font-size:12px;font-family:inherit;color:var(--text);">
+                        <input type="text" id="winWeek" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:6px;font-size:12px;font-family:inherit;color:var(--text);background:var(--bg);">
+                    </div>
+                    <div style="flex:0 0 120px;">
+                        <label style="font-size:10px;font-weight:600;color:var(--text-muted);display:block;margin-bottom:3px;">DATE</label>
+                        <input type="text" id="winDate" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:6px;font-size:12px;font-family:inherit;color:var(--text);background:var(--bg);" readonly>
                     </div>
                 </div>
                 <div style="margin-bottom:8px;">
@@ -578,6 +582,7 @@ function fetchAllData(callback) {
                 return {
                     topic: row.Topic || '',
                     week: row.Week || '',
+                    date: row.Date || '',
                     description: row.Description || '',
                     stat: row.Statistic || '',
                     goal: row.Goal || '',
@@ -1729,6 +1734,12 @@ function renderAAOverview() {
 var winsSelectedWeek = 'all';
 
 function initWinsView() {
+    // Auto-populate week and date
+    var weekNum = getWeekNum(new Date());
+    var weekField = document.getElementById('winWeek');
+    var dateField = document.getElementById('winDate');
+    if (weekField && !weekField.value) weekField.value = 'Wk ' + weekNum;
+    if (dateField) dateField.value = getFormattedDate();
     buildWinsBubbles();
     renderHighlights();
 }
@@ -1779,7 +1790,8 @@ function addHighlight() {
     var goal = document.getElementById('winGoal').value.trim();
     if (!topic) { alert('Enter a topic'); return; }
 
-    var newItem = { topic: topic, week: week, description: desc, stat: stat, goal: goal, created: new Date().toISOString() };
+    var date = document.getElementById('winDate') ? document.getElementById('winDate').value : getFormattedDate();
+    var newItem = { topic: topic, week: week, date: date, description: desc, stat: stat, goal: goal, created: new Date().toISOString() };
     
     // Optimistic: add to cache + localStorage immediately
     cachedHighlights.push(newItem);
@@ -1789,12 +1801,15 @@ function addHighlight() {
     document.getElementById('winDescription').value = '';
     document.getElementById('winStat').value = '';
     document.getElementById('winGoal').value = '';
+    // Re-populate week and date for next entry
+    document.getElementById('winWeek').value = 'Wk ' + getWeekNum(new Date());
+    document.getElementById('winDate').value = getFormattedDate();
     buildWinsBubbles();
     renderHighlights();
     document.getElementById('winTopic').focus();
 
     // Post to sheet (fetchAllData will run after 1.5s)
-    postToSheet({ action: 'addHighlight', topic: topic, week: week, description: desc, stat: stat, goal: goal }, function() {});
+    postToSheet({ action: 'addHighlight', topic: topic, week: week, date: date, description: desc, stat: stat, goal: goal }, function() {});
 }
 
 function saveHighlightsToLocal() {
@@ -1871,7 +1886,10 @@ function renderHighlights() {
             html += '<i class="fa-solid fa-trophy" style="color:#067D62;font-size:14px;"></i>';
             html += '<span style="font-size:14px;font-weight:700;color:var(--text);">' + escapeHTML(h.topic) + '</span>';
             html += '</div>';
+            html += '<div style="display:flex;align-items:center;gap:6px;">';
+            if (h.date) html += '<span style="font-size:10px;color:var(--text-muted);">' + escapeHTML(h.date) + '</span>';
             html += '<button data-delete-highlight="' + realIdx + '" style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:10px;" title="Delete"><i class="fa-solid fa-xmark"></i></button>';
+            html += '</div>';
             html += '</div>';
             if (h.description) {
                 html += '<div style="font-size:12px;color:var(--text-sec);line-height:1.5;margin-bottom:8px;">' + escapeHTML(h.description) + '</div>';
@@ -1889,7 +1907,7 @@ function renderHighlights() {
 }
 
 // Enter key on Wins form fields
-['winTopic','winWeek','winStat','winGoal'].forEach(function(id) {
+['winTopic','winWeek','winDate','winStat','winGoal'].forEach(function(id) {
     var el = document.getElementById(id);
     if (el) el.addEventListener('keydown', function(e) { if (e.key === 'Enter') { e.preventDefault(); addHighlight(); } });
 });
