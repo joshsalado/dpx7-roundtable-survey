@@ -1400,6 +1400,18 @@ function copyAllLogins() {
 }
 
 
+
+// --- Remove AA button delegation ---
+document.addEventListener('click', function(e) {
+    var btn = e.target.closest('[data-remove-aa]');
+    if (btn) {
+        var name = btn.getAttribute('data-remove-aa');
+        var week = btn.getAttribute('data-remove-week');
+        var type = btn.getAttribute('data-remove-type');
+        removeNoteAA(name, week, type);
+    }
+});
+
 // --- Engage button delegation (avoids inline onclick escaping issues) ---
 document.addEventListener('click', function(e) {
     var btn = e.target.closest('.engage-btn');
@@ -1554,7 +1566,7 @@ function renderNoteAAList() {
         html += '<div style="display:flex;align-items:center;gap:6px;background:var(--bg);border-radius:8px;padding:6px 10px;border-left:3px solid ' + color + ';">';
         html += '<span style="font-size:12px;font-weight:600;">' + escapeHTML(aa.name) + '</span>';
         html += '<button data-engage-login="' + escapeHTML(aa.name) + '" data-engage-type="' + type + '" style="background:none;border:none;color:' + color + ';cursor:pointer;font-size:11px;padding:2px 4px;" title="Engage"><i class="fa-solid fa-star"></i></button>';
-        html += '<button onclick="removeNoteAA('' + escapeHTML(aa.name).replace(/'/g, "\\'") + "','" + escapeHTML(week).replace(/'/g, "\\'") + "','" + type + '')" style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:10px;" title="Remove"><i class="fa-solid fa-xmark"></i></button>';
+        html += '<button data-remove-aa="' + escapeHTML(aa.name) + '" data-remove-week="' + escapeHTML(week) + '" data-remove-type="' + type + '" style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:10px;" title="Remove"><i class="fa-solid fa-xmark"></i></button>';
         html += '</div>';
     });
     html += '</div>';
