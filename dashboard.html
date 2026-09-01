@@ -530,6 +530,7 @@ function fetchAllData(callback) {
                 }
                 return aa;
             });
+            saveEngagedToLocal();
         }
         check();
     }).catch(function() { check(); });
@@ -566,6 +567,7 @@ function fetchAllData(callback) {
                 }
                 return aa;
             });
+            saveEngagedToLocal();
         }
         check();
     }).catch(function() { check(); });
@@ -1911,13 +1913,29 @@ function toggleEngaged(name, week, type) {
     if (!aa) return;
     var newVal = (aa.engaged === 'Yes') ? 'No' : 'Yes';
     aa.engaged = newVal;
-    // Save locally so it survives refetches — never deleted until confirmed by sheet
+    // Save locally so it survives refetches
     var key = type + ':' + name + ':' + week;
     localEngagedMap[key] = newVal;
+    // Also persist to localStorage as backup
+    saveEngagedToLocal();
     // Save to Google Sheets
     postToSheet({ action: 'markEngaged', name: name, week: week, type: type, engaged: newVal }, function() {});
     renderNoteAAList();
     renderAAOverview();
+}
+
+function saveEngagedToLocal() {
+    try { localStorage.setItem('dpx7_engaged', JSON.stringify(localEngagedMap)); } catch(e) {}
+}
+
+function loadEngagedFromLocal() {
+    try {
+        var saved = localStorage.getItem('dpx7_engaged');
+        if (saved) {
+            var parsed = JSON.parse(saved);
+            for (var k in parsed) { if (parsed.hasOwnProperty(k)) localEngagedMap[k] = parsed[k]; }
+        }
+    } catch(e) {}
 }
 
 
@@ -1942,6 +1960,7 @@ document.addEventListener('click', function(e) {
 
 // PAGE INITIALIZATION
 // ============================================================
+loadEngagedFromLocal();
 fetchAllData(function() {
     buildChips();
     render();
