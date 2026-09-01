@@ -521,7 +521,13 @@ function fetchAllData(callback) {
             cachedAAs = data.data.map(function(row) {
                 var aa = { week: row.Week || '', name: row.Name || '', engaged: row.Engaged || 'No', added: row.Timestamp || '' };
                 var key = 'connections:' + aa.name + ':' + aa.week;
-                if (localEngagedMap[key]) aa.engaged = localEngagedMap[key];
+                if (localEngagedMap[key] !== undefined) {
+                    if (aa.engaged === localEngagedMap[key]) {
+                        delete localEngagedMap[key]; // Sheet confirmed, safe to clear
+                    } else {
+                        aa.engaged = localEngagedMap[key]; // Override with local value
+                    }
+                }
                 return aa;
             });
         }
@@ -551,7 +557,13 @@ function fetchAllData(callback) {
             cachedBdayAAs = data.data.map(function(row) {
                 var aa = { month: row.Month || '', week: row.Week || '', date: row.Date || '', name: row.Name || '', engaged: row.Engaged || 'No', added: row.Timestamp || '' };
                 var key = 'birthday:' + aa.name + ':' + aa.week;
-                if (localEngagedMap[key]) aa.engaged = localEngagedMap[key];
+                if (localEngagedMap[key] !== undefined) {
+                    if (aa.engaged === localEngagedMap[key]) {
+                        delete localEngagedMap[key];
+                    } else {
+                        aa.engaged = localEngagedMap[key];
+                    }
+                }
                 return aa;
             });
         }
@@ -1899,14 +1911,11 @@ function toggleEngaged(name, week, type) {
     if (!aa) return;
     var newVal = (aa.engaged === 'Yes') ? 'No' : 'Yes';
     aa.engaged = newVal;
-    // Save locally so it survives refetches
+    // Save locally so it survives refetches — never deleted until confirmed by sheet
     var key = type + ':' + name + ':' + week;
     localEngagedMap[key] = newVal;
     // Save to Google Sheets
-    postToSheet({ action: 'markEngaged', name: name, week: week, type: type, engaged: newVal }, function() {
-        // Clear local override once sheet confirms
-        delete localEngagedMap[key];
-    });
+    postToSheet({ action: 'markEngaged', name: name, week: week, type: type, engaged: newVal }, function() {});
     renderNoteAAList();
     renderAAOverview();
 }
