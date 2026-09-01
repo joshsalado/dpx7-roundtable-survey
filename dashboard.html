@@ -1577,19 +1577,19 @@ function renderNoteAAList() {
         var checkIcon = isEngaged ? 'fa-solid fa-square-check' : 'fa-regular fa-square';
         var engBtnBg = type === 'birthday' ? '#E91E90' : '#FF9900';
 
-        html += '<div style="display:flex;align-items:center;gap:8px;background:var(--bg);border-radius:8px;padding:8px 12px;margin-bottom:6px;border-left:3px solid ' + color + ';">';
+        html += '<div style="display:flex;align-items:center;gap:6px;background:var(--bg);border-radius:8px;padding:6px 10px;margin-bottom:5px;border-left:3px solid ' + color + ';">';
+
+        // AA Name (takes up space)
+        html += '<span style="font-size:12px;font-weight:600;flex:1;">' + escapeHTML(aa.name) + '</span>';
 
         // Checkbox
-        html += '<button data-toggle-engaged="' + escapeHTML(aa.name) + '" data-engaged-week="' + escapeHTML(week) + '" data-engaged-type="' + type + '" style="background:none;border:none;color:' + checkColor + ';cursor:pointer;font-size:16px;padding:0 2px;flex-shrink:0;" title="' + (isEngaged ? 'Engaged' : 'Mark as Engaged') + '"><i class="' + checkIcon + '"></i></button>';
+        html += '<button data-toggle-engaged="' + escapeHTML(aa.name) + '" data-engaged-week="' + escapeHTML(week) + '" data-engaged-type="' + type + '" style="background:none;border:none;color:' + checkColor + ';cursor:pointer;font-size:14px;padding:2px 3px;flex-shrink:0;" title="' + (isEngaged ? 'Engaged' : 'Mark as Engaged') + '"><i class="' + checkIcon + '"></i></button>';
 
-        // AA Name
-        html += '<span style="font-size:13px;font-weight:600;min-width:80px;">' + escapeHTML(aa.name) + '</span>';
-
-        // Orange Engage button (full width)
-        html += '<button data-engage-login="' + escapeHTML(aa.name) + '" data-engage-type="' + type + '" style="flex:1;background:' + engBtnBg + ';color:#fff;border:none;border-radius:6px;padding:6px 12px;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:4px;"><i class="fa-solid fa-star"></i> Engage</button>';
+        // Small orange Engage button
+        html += '<button data-engage-login="' + escapeHTML(aa.name) + '" data-engage-type="' + type + '" style="background:' + engBtnBg + ';color:#fff;border:none;border-radius:4px;padding:3px 8px;font-size:10px;font-weight:700;cursor:pointer;flex-shrink:0;"><i class="fa-solid fa-star" style="margin-right:2px;font-size:9px;"></i>Engage</button>';
 
         // Remove button
-        html += '<button data-remove-aa="' + escapeHTML(aa.name) + '" data-remove-week="' + escapeHTML(week) + '" data-remove-type="' + type + '" style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:11px;padding:0 2px;flex-shrink:0;" title="Remove"><i class="fa-solid fa-xmark"></i></button>';
+        html += '<button data-remove-aa="' + escapeHTML(aa.name) + '" data-remove-week="' + escapeHTML(week) + '" data-remove-type="' + type + '" style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:10px;padding:2px 3px;flex-shrink:0;" title="Remove"><i class="fa-solid fa-xmark"></i></button>';
 
         html += '</div>';
     });
