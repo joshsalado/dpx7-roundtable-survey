@@ -16,21 +16,21 @@
         .hdr .sub{font-size:12px;color:var(--text-muted);}
 
         .tab-bar{display:flex;background:var(--surface);border-radius:10px;box-shadow:var(--shadow);margin-bottom:12px;overflow:hidden;}
-        .tab{flex:1;text-align:center;padding:11px 10px;font-size:12px;font-weight:600;color:var(--text-sec);cursor:pointer;border-bottom:3px solid transparent;transition:all .2s;}
-        .tab:hover{background:#F8F9FA;color:var(--text);}
-        .tab.on{color:var(--accent);border-bottom-color:var(--accent);background:#FFF8F0;}
+        .tab{flex:1;text-align:center;padding:11px 10px;font-size:12px;font-weight:600;color:var(--text-sec);cursor:pointer;border-bottom:3px solid transparent;transition:all .15s;background:#FFF8F0;}
+        .tab:hover{background:#FFE8CC;color:var(--text);}
+        .tab.on{color:#fff;border-bottom-color:#D4760A;background:#D4760A;font-weight:700;}
 
         .q-tab-bar{display:flex;background:var(--surface);border-radius:10px;box-shadow:var(--shadow);margin-bottom:12px;overflow:hidden;}
-        .qtab{flex:1;text-align:center;padding:10px 8px;font-size:11px;font-weight:600;color:var(--text-sec);cursor:pointer;border-bottom:3px solid transparent;transition:all .2s;}
-        .qtab:hover{background:#F8F9FA;color:var(--text);}
-        .qtab.on.q-all{background:var(--primary);color:var(--accent);border-bottom-color:transparent;}
-        .qtab.on.q-1{background:#FF9900;color:var(--primary);border-bottom-color:transparent;}
-        .qtab.on.q-2{background:#232F3E;color:#fff;border-bottom-color:transparent;}
-        .qtab.on.q-3{background:#067D62;color:#fff;border-bottom-color:transparent;}
-        .qtab.on.q-4{background:#0073BB;color:#fff;border-bottom-color:transparent;}
-        .qtab.on.q-5{background:#8B5CF6;color:#fff;border-bottom-color:transparent;}
-        .qtab.on.q-notes{background:#0073BB;color:#fff;border-bottom-color:transparent;}
-        .qtab.on.q-wins{background:#067D62;color:#fff;border-bottom-color:transparent;}
+        .qtab{flex:1;text-align:center;padding:8px 6px;font-size:11px;font-weight:500;color:var(--text-sec);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap;background:#F0F4FF;}
+        .qtab:hover{background:#DCE4F5;color:var(--text);}
+        .qtab.on.q-all{background:#fff;color:#232F3E;font-weight:700;border-bottom:3px solid #232F3E;}
+        .qtab.on.q-1{background:#fff;color:#232F3E;font-weight:700;border-bottom:3px solid #FF9900;}
+        .qtab.on.q-2{background:#fff;color:#232F3E;font-weight:700;border-bottom:3px solid #232F3E;}
+        .qtab.on.q-3{background:#fff;color:#232F3E;font-weight:700;border-bottom:3px solid #067D62;}
+        .qtab.on.q-4{background:#fff;color:#232F3E;font-weight:700;border-bottom:3px solid #0073BB;}
+        .qtab.on.q-5{background:#fff;color:#232F3E;font-weight:700;border-bottom:3px solid #8B5CF6;}
+        .qtab.on.q-notes{background:#fff;color:#232F3E;font-weight:700;border-bottom:3px solid #0073BB;}
+        .qtab.on.q-wins{background:#fff;color:#232F3E;font-weight:700;border-bottom:3px solid #067D62;}
 
         .selector-row{display:flex;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap;}
         .selector-row label{font-size:12px;font-weight:600;color:var(--text-sec);}
@@ -669,6 +669,12 @@ function scoreLabel(v) {
     if (v >= 2.5) return 'Moderate';
     return 'Needs Work';
 }
+function scoreKpiClass(v) {
+    if (v >= 3.2) return 'kpi-strong';
+    if (v >= 2.5) return 'kpi-moderate';
+    return 'kpi-needs-work';
+}
+
 
 function dotColor(v) {
     if (v >= 3.2) return 'var(--success)';
@@ -848,7 +854,7 @@ function renderKPIs(filtered) {
         ['q1','q2','q3','q4'].forEach(function(q) {
             var vals = filtered.map(function(d) { return d[q]; }).filter(Boolean);
             var a = avg(vals);
-            grid.innerHTML += '<div class="kpi"><div class="lbl">' + labels[q] + '</div><div class="val" style="color:' + scoreColor(a) + ';">' + (vals.length ? a.toFixed(1) : '--') + '</div><div class="tr" style="color:' + scoreColor(a) + ';">' + (vals.length ? scoreLabel(a) : '') + '</div></div>';
+            grid.innerHTML += '<div class="kpi ' + (vals.length ? scoreKpiClass(a) : '') + '"><div class="lbl">' + labels[q] + '</div><div class="val" style="color:' + scoreColor(a) + ';">' + (vals.length ? a.toFixed(1) : '--') + '</div><div class="tr" style="color:' + scoreColor(a) + ';">' + (vals.length ? scoreLabel(a) : '') + '</div></div>';
         });
         grid.innerHTML += '<div class="kpi"><div class="lbl">Responses</div><div class="val" style="color:#0073BB;">' + filtered.length + '</div><div class="tr neu">in selection</div></div>';
     } else {
