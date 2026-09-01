@@ -486,6 +486,7 @@ var cachedNotes = [];
 var cachedAAs = [];
 var cachedBdayAAs = [];
 var cachedHighlights = [];
+var localEngagedMap = {}; // Tracks engaged status locally to survive refetches
 var dataLoaded = false;
 
 function loadResponses() { return cachedResponses; }
@@ -518,7 +519,10 @@ function fetchAllData(callback) {
     fetch(SCRIPT_URL + '?tab=Attendance').then(function(r) { return r.json(); }).then(function(data) {
         if (data.result === 'ok') {
             cachedAAs = data.data.map(function(row) {
-                return { week: row.Week || '', name: row.Name || '', engaged: row.Engaged || 'No', added: row.Timestamp || '' };
+                var aa = { week: row.Week || '', name: row.Name || '', engaged: row.Engaged || 'No', added: row.Timestamp || '' };
+                var key = 'connections:' + aa.name + ':' + aa.week;
+                if (localEngagedMap[key]) aa.engaged = localEngagedMap[key];
+                return aa;
             });
         }
         check();
@@ -545,7 +549,10 @@ function fetchAllData(callback) {
     fetch(SCRIPT_URL + '?tab=BdayAttendance').then(function(r) { return r.json(); }).then(function(data) {
         if (data.result === 'ok') {
             cachedBdayAAs = data.data.map(function(row) {
-                return { month: row.Month || '', week: row.Week || '', date: row.Date || '', name: row.Name || '', engaged: row.Engaged || 'No', added: row.Timestamp || '' };
+                var aa = { month: row.Month || '', week: row.Week || '', date: row.Date || '', name: row.Name || '', engaged: row.Engaged || 'No', added: row.Timestamp || '' };
+                var key = 'birthday:' + aa.name + ':' + aa.week;
+                if (localEngagedMap[key]) aa.engaged = localEngagedMap[key];
+                return aa;
             });
         }
         check();
@@ -1507,7 +1514,7 @@ function addNoteAA() {
         var exists = cachedAAs.some(function(a) { return a.name === login && a.week === week; });
         if (exists) { alert(login + ' already logged for ' + week); return; }
         postToSheet({ action: 'addAA', week: week, name: login }, function() {
-            cachedAAs.push({ week: week, name: login, added: new Date().toISOString() });
+            cachedAAs.push({ week: week, name: login, engaged: 'No', added: new Date().toISOString() });
             document.getElementById('noteAAInput').value = '';
             renderNoteAAList();
         });
@@ -1519,7 +1526,7 @@ function addNoteAA() {
         var exists = cachedBdayAAs.some(function(a) { return a.name === login && a.week === week && a.month === month; });
         if (exists) { alert(login + ' already logged for ' + month + ' ' + week); return; }
         postToSheet({ action: 'addBday', month: month, week: week, date: date, name: login }, function() {
-            cachedBdayAAs.push({ month: month, week: week, date: date, name: login, added: new Date().toISOString() });
+            cachedBdayAAs.push({ month: month, week: week, date: date, name: login, engaged: 'No', added: new Date().toISOString() });
             document.getElementById('noteAAInput').value = '';
             renderNoteAAList();
         });
@@ -1892,8 +1899,14 @@ function toggleEngaged(name, week, type) {
     if (!aa) return;
     var newVal = (aa.engaged === 'Yes') ? 'No' : 'Yes';
     aa.engaged = newVal;
+    // Save locally so it survives refetches
+    var key = type + ':' + name + ':' + week;
+    localEngagedMap[key] = newVal;
     // Save to Google Sheets
-    postToSheet({ action: 'markEngaged', name: name, week: week, type: type, engaged: newVal }, function() {});
+    postToSheet({ action: 'markEngaged', name: name, week: week, type: type, engaged: newVal }, function() {
+        // Clear local override once sheet confirms
+        delete localEngagedMap[key];
+    });
     renderNoteAAList();
     renderAAOverview();
 }
