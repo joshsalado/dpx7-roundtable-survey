@@ -1423,7 +1423,7 @@ document.addEventListener('click', function(e) {
 
 // --- Engage button delegation (avoids inline onclick escaping issues) ---
 document.addEventListener('click', function(e) {
-    var btn = e.target.closest('.engage-btn');
+    var btn = e.target.closest('[data-engage-login]');
     if (btn) {
         var login = btn.getAttribute('data-engage-login');
         if (login) openEngage(login);
@@ -1575,10 +1575,10 @@ function renderNoteAAList() {
         var isEngaged = aa.engaged === 'Yes' || aa.engaged === true;
         var checkColor = isEngaged ? '#067D62' : '#ccc';
         var checkIcon = isEngaged ? 'fa-solid fa-square-check' : 'fa-regular fa-square';
-        html += '<div style="display:flex;align-items:center;gap:6px;background:var(--bg);border-radius:8px;padding:6px 10px;border-left:3px solid ' + color + ';">';
-        html += '<span style="font-size:12px;font-weight:600;">' + escapeHTML(aa.name) + '</span>';
-        html += '<button data-engage-login="' + escapeHTML(aa.name) + '" data-engage-type="' + type + '" style="background:none;border:none;color:' + color + ';cursor:pointer;font-size:11px;padding:2px 4px;" title="Engage"><i class="fa-solid fa-star"></i></button>';
-        html += '<button data-toggle-engaged="' + escapeHTML(aa.name) + '" data-engaged-week="' + escapeHTML(week) + '" data-engaged-type="' + type + '" style="background:none;border:none;color:' + checkColor + ';cursor:pointer;font-size:14px;padding:2px 4px;" title="' + (isEngaged ? 'Engaged' : 'Mark as Engaged') + '"><i class="' + checkIcon + '"></i></button>';
+        html += '<div style="display:flex;align-items:center;gap:4px;background:var(--bg);border-radius:8px;padding:6px 10px;border-left:3px solid ' + color + ';">';
+        html += '<span style="font-size:12px;font-weight:600;flex:1;">' + escapeHTML(aa.name) + '</span>';
+        html += '<button data-toggle-engaged="' + escapeHTML(aa.name) + '" data-engaged-week="' + escapeHTML(week) + '" data-engaged-type="' + type + '" style="background:none;border:none;color:' + checkColor + ';cursor:pointer;font-size:14px;padding:2px 4px;" title="' + (isEngaged ? 'Engaged \u2713' : 'Mark as Engaged') + '"><i class="' + checkIcon + '"></i></button>';
+        html += '<button data-engage-login="' + escapeHTML(aa.name) + '" data-engage-type="' + type + '" style="background:none;border:none;color:' + color + ';cursor:pointer;font-size:13px;padding:2px 4px;" title="Engage"><i class="fa-solid fa-star"></i></button>';
         html += '<button data-remove-aa="' + escapeHTML(aa.name) + '" data-remove-week="' + escapeHTML(week) + '" data-remove-type="' + type + '" style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:10px;" title="Remove"><i class="fa-solid fa-xmark"></i></button>';
         html += '</div>';
     });
