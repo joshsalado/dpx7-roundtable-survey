@@ -1548,11 +1548,13 @@ function addNoteAA() {
         // Check duplicate
         var exists = cachedAAs.some(function(a) { return a.name === login && a.week === week; });
         if (exists) { alert(login + ' already logged for ' + week); return; }
-        postToSheet({ action: 'addAA', week: week, name: login }, function() {
-            cachedAAs.push({ week: week, name: login, engaged: 'No', added: new Date().toISOString() });
-            document.getElementById('noteAAInput').value = '';
-            renderNoteAAList();
-        });
+        // Optimistic: add to cache + render immediately
+        cachedAAs.push({ week: week, name: login, engaged: 'No', added: new Date().toISOString() });
+        document.getElementById('noteAAInput').value = '';
+        renderNoteAAList();
+        renderAAOverview();
+        // Post to sheet in background
+        postToSheet({ action: 'addAA', week: week, name: login }, function() {});
     } else {
         var month = document.getElementById('bdayMonth') ? document.getElementById('bdayMonth').value : '';
         var week = document.getElementById('noteWeekSelect').value;
@@ -1560,12 +1562,16 @@ function addNoteAA() {
         if (!month || !week) { alert('Select month and week first'); return; }
         var exists = cachedBdayAAs.some(function(a) { return a.name === login && a.week === week && a.month === month; });
         if (exists) { alert(login + ' already logged for ' + month + ' ' + week); return; }
-        postToSheet({ action: 'addBday', month: month, week: week, date: date, name: login }, function() {
-            cachedBdayAAs.push({ month: month, week: week, date: date, name: login, engaged: 'No', added: new Date().toISOString() });
-            document.getElementById('noteAAInput').value = '';
-            renderNoteAAList();
-        });
+        // Optimistic: add to cache + render immediately
+        cachedBdayAAs.push({ month: month, week: week, date: date, name: login, engaged: 'No', added: new Date().toISOString() });
+        document.getElementById('noteAAInput').value = '';
+        renderNoteAAList();
+        renderAAOverview();
+        // Post to sheet in background
+        postToSheet({ action: 'addBday', month: month, week: week, date: date, name: login }, function() {});
     }
+    // Focus back to input for rapid entry
+    document.getElementById('noteAAInput').focus();
 }
 
 // Enter key for AA input
@@ -1890,7 +1896,7 @@ function renderHighlights() {
 
         groups[w].forEach(function(h) {
             var realIdx = cachedHighlights.indexOf(h);
-            var descPreview = (h.description || '').length > 50 ? h.description.substring(0, 50) + '...' : (h.description || '');
+            var descPreview = (h.description || '').length > 120 ? h.description.substring(0, 120) + '...' : (h.description || '');
 
             html += '<div data-win-detail="' + realIdx + '" class="win-row" style="background:var(--surface);border-radius:var(--radius);padding:10px 14px;box-shadow:var(--shadow);margin-bottom:6px;border-left:3px solid #067D62;cursor:pointer;">';
             html += '<div style="display:flex;align-items:center;gap:10px;">';
