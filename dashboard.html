@@ -1601,15 +1601,19 @@ document.addEventListener('keypress', function(e) {
 
 function removeNoteAA(name, week, type) {
     if (type === 'connections') {
-        postToSheet({ action: 'removeAA', week: week, name: name }, function() {
-            cachedAAs = cachedAAs.filter(function(a) { return !(a.name === name && a.week === week); });
-            renderNoteAAList();
-        });
+        // Optimistic: remove from cache + render immediately
+        cachedAAs = cachedAAs.filter(function(a) { return !(a.name === name && a.week === week); });
+        renderNoteAAList();
+        renderAAOverview();
+        // Post to sheet in background
+        postToSheet({ action: 'removeAA', week: week, name: name }, function() {});
     } else {
-        postToSheet({ action: 'removeBday', week: week, name: name }, function() {
-            cachedBdayAAs = cachedBdayAAs.filter(function(a) { return !(a.name === name && a.week === week); });
-            renderNoteAAList();
-        });
+        // Optimistic: remove from cache + render immediately
+        cachedBdayAAs = cachedBdayAAs.filter(function(a) { return !(a.name === name && a.week === week); });
+        renderNoteAAList();
+        renderAAOverview();
+        // Post to sheet in background
+        postToSheet({ action: 'removeBday', week: week, name: name }, function() {});
     }
 }
 
