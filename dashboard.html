@@ -374,6 +374,9 @@
                 <div class="chip" id="aaOverviewBday" onclick="switchAAOverview('birthday')" style="padding:8px 14px;font-size:12px;font-weight:700;"><i class="fa-solid fa-cake-candles" style="margin-right:4px;"></i>Birthday RT</div>
             </div>
 
+            <!-- AA Week Filter Bubbles -->
+            <div id="aaWeekBubbles" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;"></div>
+
             <!-- Connections AA Overview -->
             <div id="aaConnOverview">
                 <div id="aaConnContent"></div>
@@ -527,18 +530,21 @@ function fetchAllData(callback) {
 
     fetch(SCRIPT_URL + '?tab=Attendance').then(function(r) { return r.json(); }).then(function(data) {
         if (data.result === 'ok') {
-            cachedAAs = data.data.map(function(row) {
+            var sheetAAs = data.data.map(function(row) {
                 var aa = { week: row.Week || '', name: row.Name || '', engaged: (row.Engaged === 'Yes' ? 'Yes' : 'No'), added: row.Timestamp || '' };
                 var key = 'connections:' + aa.name + ':' + aa.week;
                 if (localEngagedMap[key] !== undefined) {
                     if (aa.engaged === localEngagedMap[key]) {
-                        delete localEngagedMap[key]; // Sheet confirmed, safe to clear
+                        delete localEngagedMap[key];
                     } else {
-                        aa.engaged = localEngagedMap[key]; // Override with local value
+                        aa.engaged = localEngagedMap[key];
                     }
                 }
                 return aa;
             });
+            if (sheetAAs.length >= cachedAAs.length) {
+                cachedAAs = sheetAAs;
+            }
             saveEngagedToLocal();
         }
         check();
@@ -564,7 +570,7 @@ function fetchAllData(callback) {
 
     fetch(SCRIPT_URL + '?tab=BdayAttendance').then(function(r) { return r.json(); }).then(function(data) {
         if (data.result === 'ok') {
-            cachedBdayAAs = data.data.map(function(row) {
+            var sheetBdayAAs = data.data.map(function(row) {
                 var aa = { month: row.Month || '', week: row.Week || '', date: row.Date || '', name: row.Name || '', engaged: (row.Engaged === 'Yes' ? 'Yes' : 'No'), added: row.Timestamp || '' };
                 var key = 'birthday:' + aa.name + ':' + aa.week + ':' + aa.month;
                 if (localEngagedMap[key] !== undefined) {
@@ -576,6 +582,9 @@ function fetchAllData(callback) {
                 }
                 return aa;
             });
+            if (sheetBdayAAs.length >= cachedBdayAAs.length) {
+                cachedBdayAAs = sheetBdayAAs;
+            }
             saveEngagedToLocal();
         }
         check();
@@ -1651,9 +1660,11 @@ function renderNoteAAList() {
 // AA OVERVIEW TAB (Read-Only)
 // ============================================================
 var aaOverviewType = 'connections';
+var aaOverviewWeek = 'all';
 
 function switchAAOverview(type) {
     aaOverviewType = type;
+    aaOverviewWeek = 'all'; // Reset week filter when switching RT type
     var connBtn = document.getElementById('aaOverviewConn');
     var bdayBtn = document.getElementById('aaOverviewBday');
 
@@ -1680,20 +1691,26 @@ function initAAView() {
 }
 
 function renderAAOverview() {
+    buildAAWeekBubbles();
+
     // Connections overview
     var connContent = document.getElementById('aaConnContent');
     var connEmpty = document.getElementById('aaConnEmpty');
     var aas = cachedAAs;
+    if (aaOverviewWeek !== 'all') {
+        aas = aas.filter(function(a) { return a.week === aaOverviewWeek; });
+    }
 
     if (!aas.length) {
         connEmpty.style.display = 'block';
+        connEmpty.querySelector('div').textContent = aaOverviewWeek !== 'all' ? 'No AAs for ' + aaOverviewWeek : 'No AAs logged yet. Add attendance in the Leader Notes tab.';
         connContent.innerHTML = '';
     } else {
         connEmpty.style.display = 'none';
         var aaMap = {};
         aas.forEach(function(a) {
             if (!aaMap[a.name]) aaMap[a.name] = { weeks: [], engaged: false };
-            aaMap[a.name].weeks.push(a.week);
+            if (aaMap[a.name].weeks.indexOf(a.week) === -1) aaMap[a.name].weeks.push(a.week);
             if (a.engaged === 'Yes') aaMap[a.name].engaged = true;
         });
         var sorted = Object.keys(aaMap).sort();
@@ -1716,16 +1733,21 @@ function renderAAOverview() {
     var bdayContent = document.getElementById('aaBdayContent');
     var bdayEmpty = document.getElementById('aaBdayEmpty');
     var bdayAAs = cachedBdayAAs;
+    if (aaOverviewWeek !== 'all') {
+        bdayAAs = bdayAAs.filter(function(a) { return a.week === aaOverviewWeek; });
+    }
 
     if (!bdayAAs.length) {
         bdayEmpty.style.display = 'block';
+        bdayEmpty.querySelector('div').textContent = aaOverviewWeek !== 'all' ? 'No AAs for ' + aaOverviewWeek : 'No birthday AAs logged yet.';
         bdayContent.innerHTML = '';
     } else {
         bdayEmpty.style.display = 'none';
         var bdayMap = {};
         bdayAAs.forEach(function(a) {
             if (!bdayMap[a.name]) bdayMap[a.name] = { sessions: [], engaged: false };
-            bdayMap[a.name].sessions.push((a.month || '') + ' ' + (a.week || ''));
+            var label = (a.month || '') + ' ' + (a.week || '');
+            if (bdayMap[a.name].sessions.indexOf(label) === -1) bdayMap[a.name].sessions.push(label);
             if (a.engaged === 'Yes') bdayMap[a.name].engaged = true;
         });
         var bdaySorted = Object.keys(bdayMap).sort();
@@ -1743,6 +1765,37 @@ function renderAAOverview() {
         html2 += '</table></div>';
         bdayContent.innerHTML = html2;
     }
+}
+
+function buildAAWeekBubbles() {
+    var container = document.getElementById('aaWeekBubbles');
+    if (!container) return;
+    var source = aaOverviewType === 'connections' ? cachedAAs : cachedBdayAAs;
+    var weeks = [];
+    source.forEach(function(a) {
+        if (a.week && weeks.indexOf(a.week) === -1) weeks.push(a.week);
+    });
+    weeks.sort(function(a, b) {
+        var na = parseInt(a.replace(/[^0-9]/g, '')) || 0;
+        var nb = parseInt(b.replace(/[^0-9]/g, '')) || 0;
+        return na - nb;
+    });
+    container.innerHTML = '';
+    var allBub = document.createElement('span');
+    allBub.className = 'wk-bubble' + (aaOverviewWeek === 'all' ? ' on' : '');
+    allBub.textContent = 'All';
+    allBub.setAttribute('data-aa-week-filter', 'all');
+    if (aaOverviewWeek === 'all') allBub.style.cssText = 'background:#0073BB;border-color:#0073BB;color:#fff;';
+    container.appendChild(allBub);
+    weeks.forEach(function(w) {
+        var isOn = aaOverviewWeek === w;
+        var bub = document.createElement('span');
+        bub.className = 'wk-bubble' + (isOn ? ' on' : '');
+        bub.textContent = w;
+        bub.setAttribute('data-aa-week-filter', w);
+        if (isOn) bub.style.cssText = 'background:#0073BB;border-color:#0073BB;color:#fff;';
+        container.appendChild(bub);
+    });
 }
 
 // ============================================================
@@ -2109,6 +2162,16 @@ function closeWinDetail() {
     var el = document.getElementById('winDetailContainer');
     if (el) el.remove();
 }
+
+
+// --- AA Overview week filter bubble delegation ---
+document.addEventListener('click', function(e) {
+    var bub = e.target.closest('[data-aa-week-filter]');
+    if (bub) {
+        aaOverviewWeek = bub.getAttribute('data-aa-week-filter');
+        renderAAOverview();
+    }
+});
 
 // PAGE INITIALIZATION
 // ============================================================
