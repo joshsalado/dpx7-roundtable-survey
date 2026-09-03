@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DPX7 Connections Roundtable - Leadership Dashboard</title>
@@ -119,56 +118,56 @@
 <body>
     <div class="hdr">
         <div class="hdr-left"><span class="badge">DPX7</span><div><h1>Connections Roundtable Results</h1><div class="sub">Leadership Dashboard</div></div></div>
-        <div style="display:flex;align-items:center;gap:12px;"><div class="sub" id="headerStats"></div><a href="https://docs.google.com/spreadsheets/d/1tPuGQcPbQbuhYUX6K642-lB4z1OXqUx9ue_j6sZvCO4/edit" target="_blank" style="display:inline-flex;align-items:center;gap:5px;padding:6px 12px;background:var(--success);color:white;border-radius:6px;font-size:11px;font-weight:600;text-decoration:none;white-space:nowrap;"><i class="fa-solid fa-table"></i>View Raw Data</a></div>
+        <div style="display:flex;align-items:center;gap:12px;"><div class="sub" id="headerStats"><strong>3</strong> responses • <strong>3.2</strong> avg score</div><a href="https://docs.google.com/spreadsheets/d/1tPuGQcPbQbuhYUX6K642-lB4z1OXqUx9ue_j6sZvCO4/edit" target="_blank" style="display:inline-flex;align-items:center;gap:5px;padding:6px 12px;background:var(--success);color:white;border-radius:6px;font-size:11px;font-weight:600;text-decoration:none;white-space:nowrap;" data-agent-id="1"><i class="fa-solid fa-table"></i>View Raw Data</a></div>
     </div>
 
     <!-- Time Period Tabs -->
     <div class="tab-bar" id="timeTabs">
-        <div class="tab on" data-tab="week"><i class="fa-solid fa-calendar-week" style="margin-right:4px;"></i>Week</div>
-        <div class="tab" data-tab="month"><i class="fa-solid fa-calendar-days" style="margin-right:4px;"></i>Month</div>
-        <div class="tab" data-tab="quarter"><i class="fa-solid fa-chart-pie" style="margin-right:4px;"></i>Quarter</div>
-        <div class="tab" data-tab="year"><i class="fa-solid fa-calendar" style="margin-right:4px;"></i>Year</div>
-        <div class="tab" data-tab="qr" style="border-left:1px solid var(--border);"><i class="fa-solid fa-qrcode" style="margin-right:4px;"></i>QR Code</div>
-        <div class="tab" data-tab="aas"><i class="fa-solid fa-users" style="margin-right:4px;"></i>AAs</div>
-        <div class="tab" data-tab="howto"><i class="fa-solid fa-circle-question" style="margin-right:4px;"></i>How To</div>
+        <div class="tab" data-tab="week" data-agent-id="5"><i class="fa-solid fa-calendar-week" style="margin-right:4px;"></i>Week</div>
+        <div class="tab" data-tab="month" data-agent-id="6"><i class="fa-solid fa-calendar-days" style="margin-right:4px;"></i>Month</div>
+        <div class="tab" data-tab="quarter" data-agent-id="7"><i class="fa-solid fa-chart-pie" style="margin-right:4px;"></i>Quarter</div>
+        <div class="tab" data-tab="year" data-agent-id="8"><i class="fa-solid fa-calendar" style="margin-right:4px;"></i>Year</div>
+        <div class="tab" data-tab="qr" style="border-left:1px solid var(--border);" data-agent-id="9"><i class="fa-solid fa-qrcode" style="margin-right:4px;"></i>QR Code</div>
+        <div class="tab" data-tab="aas" data-agent-id="10"><i class="fa-solid fa-users" style="margin-right:4px;"></i>AAs</div>
+        <div class="tab on" data-tab="howto" data-agent-id="11"><i class="fa-solid fa-circle-question" style="margin-right:4px;"></i>How To</div>
     </div>
 
     <!-- Dashboard View -->
     <div id="dash-view">
         <!-- Question Tabs -->
         <div class="q-tab-bar" id="qTabs">
-            <div class="qtab on q-all" data-q="all">All Questions</div>
-            <div class="qtab q-1" data-q="q1">Q1: Value Added</div>
-            <div class="qtab q-2" data-q="q2">Q2: Site Direction</div>
-            <div class="qtab q-3" data-q="q3">Q3: Format</div>
-            <div class="qtab q-4" data-q="q4">Q4: Voice Heard</div>
-            <div class="qtab q-5" data-q="q5">Q5: Written</div>
-            <div class="qtab q-notes" data-q="notes"><i class="fa-solid fa-notebook" style="margin-right:3px;"></i>Leader Notes</div>
-            <div class="qtab q-wins" data-q="wins"><i class="fa-solid fa-trophy" style="margin-right:3px;"></i>Highlights/Wins</div>
+            <div class="qtab on q-all" data-q="all" data-agent-id="12">All Questions</div>
+            <div class="qtab q-1" data-q="q1" data-agent-id="13">Q1: Value Added</div>
+            <div class="qtab q-2" data-q="q2" data-agent-id="14">Q2: Site Direction</div>
+            <div class="qtab q-3" data-q="q3" data-agent-id="15">Q3: Format</div>
+            <div class="qtab q-4" data-q="q4" data-agent-id="16">Q4: Voice Heard</div>
+            <div class="qtab q-5" data-q="q5" data-agent-id="17">Q5: Written</div>
+            <div class="qtab q-notes" data-q="notes" data-agent-id="18"><i class="fa-solid fa-notebook" style="margin-right:3px;"></i>Leader Notes</div>
+            <div class="qtab q-wins" data-q="wins" data-agent-id="19"><i class="fa-solid fa-trophy" style="margin-right:3px;"></i>Highlights/Wins</div>
         </div>
 
         <!-- Dashboard Content (hideable) -->
-        <div id="dash-content">
+        <div id="dash-content" style="display: none;">
         <!-- Period Selector -->
         <div class="selector-row" id="selectorRow">
-            <label id="sel-label">Select Week(s):</label>
-            <div id="period-chips" style="display:flex;gap:6px;flex-wrap:wrap;"></div>
+            <label id="sel-label">Select:</label>
+            <div id="period-chips" style="display:flex;gap:6px;flex-wrap:wrap;"><div class="chip on" data-key="2026">2026 <span style="opacity:.6;font-size:10px;">(3)</span></div></div>
         </div>
 
         <!-- KPIs -->
-        <div class="kpis" id="kpiGrid"></div>
+        <div class="kpis" id="kpiGrid"><div class="kpi kpi-strong"><div class="lbl">Value Added</div><div class="val" style="color:var(--success);">3.3</div><div class="tr" style="color:var(--success);">Strong</div></div><div class="kpi kpi-moderate"><div class="lbl">Site Direction</div><div class="val" style="color:var(--warning);">3.0</div><div class="tr" style="color:var(--warning);">Moderate</div></div><div class="kpi kpi-strong"><div class="lbl">Format</div><div class="val" style="color:var(--success);">3.3</div><div class="tr" style="color:var(--success);">Strong</div></div><div class="kpi kpi-moderate"><div class="lbl">Voice Heard</div><div class="val" style="color:var(--warning);">3.0</div><div class="tr" style="color:var(--warning);">Moderate</div></div><div class="kpi kpi-moderate"><div class="lbl">Overall</div><div class="val" style="color:var(--warning);">3.2</div><div class="tr" style="color:var(--warning);">Moderate</div></div><div class="kpi"><div class="lbl">Responses</div><div class="val" style="color:#0073BB;">3</div><div class="tr neu">in selection</div></div></div>
 
         <!-- Two-column panels -->
         <div class="panels-row" id="panelsRow">
             <div class="panel" id="trendPanel">
                 <h3><i class="fa-solid fa-chart-line" style="color:var(--accent);margin-right:6px;"></i>Score Trend</h3>
                 <div class="ps">Average scores across periods</div>
-                <div id="trendContent"></div>
+                <div id="trendContent"><div class="trend-row"><div class="trend-period">2026</div><div class="trend-dots"><div class="dot" style="background:var(--success);" title="Value: 3.3">3.3</div><div class="dot" style="background:var(--accent);" title="Direction: 3.0">3.0</div><div class="dot" style="background:var(--success);" title="Format: 3.3">3.3</div><div class="dot" style="background:var(--accent);" title="Voice: 3.0">3.0</div></div><div class="trend-n">n=3</div></div><div class="legend"><b style="color:var(--accent);">●</b>Value <b style="color:var(--primary);">●</b>Direction <b style="color:var(--success);">●</b>Format <b style="color:#0073BB;">●</b>Voice</div></div>
             </div>
-            <div class="panel" id="compPanel">
+            <div class="panel" id="compPanel" style="display: block;">
                 <h3><i class="fa-solid fa-bars" style="color:var(--accent);margin-right:6px;"></i>Question Comparison</h3>
                 <div class="ps">Average by question (| = 3.0 goal)</div>
-                <div id="compContent"></div>
+                <div id="compContent"><div class="bar-row"><div class="bar-label">Value Added</div><div class="bar-track"><div class="bar-fill" style="width:83%;background:#FF9900;"></div><div class="bar-val" style="left:83%;padding-left:6px;">3.3</div></div></div><div class="bar-row"><div class="bar-label">Site Direction</div><div class="bar-track"><div class="bar-fill" style="width:75%;background:#37475A;"></div><div class="bar-val" style="left:75%;padding-left:6px;">3.0</div></div></div><div class="bar-row"><div class="bar-label">Format</div><div class="bar-track"><div class="bar-fill" style="width:83%;background:#067D62;"></div><div class="bar-val" style="left:83%;padding-left:6px;">3.3</div></div></div><div class="bar-row"><div class="bar-label">Voice Heard</div><div class="bar-track"><div class="bar-fill" style="width:75%;background:#0073BB;"></div><div class="bar-val" style="left:75%;padding-left:6px;">3.0</div></div></div></div>
             </div>
         </div>
 
@@ -176,13 +175,13 @@
         <div class="panel" id="distPanel">
             <h3><i class="fa-solid fa-chart-column" style="color:var(--accent);margin-right:6px;"></i>Score Distribution</h3>
             <div class="ps">How scores break down across the 1-4 scale</div>
-            <div class="dist-bars" id="distContent"></div>
+            <div class="dist-bars" id="distContent"><div class="dist-col"><div class="dist-num">8%</div><div class="dist-bar" style="height:18.333333333333332px;background:var(--error);"></div><div class="dist-lbl">1 (Low)</div></div><div class="dist-col"><div class="dist-num">17%</div><div class="dist-bar" style="height:36.666666666666664px;background:var(--warning);"></div><div class="dist-lbl">2</div></div><div class="dist-col"><div class="dist-num">25%</div><div class="dist-bar" style="height:55px;background:#0073BB;"></div><div class="dist-lbl">3</div></div><div class="dist-col"><div class="dist-num">50%</div><div class="dist-bar" style="height:110px;background:var(--success);"></div><div class="dist-lbl">4 (High)</div></div></div>
         </div>
 
         <!-- Individual Responses Table -->
         <div class="tbl-sec" id="tblSec">
             <h3 id="tbl-title"><i class="fa-solid fa-comments" style="color:var(--accent);margin-right:6px;"></i>Individual Responses</h3>
-            <div id="tblContent"></div>
+            <div id="tblContent"><table><thead><tr><th>Date</th><th>Q1</th><th>Q2</th><th>Q3</th><th>Q4</th><th>Written Feedback</th></tr></thead><tbody><tr><td>Sep 1</td><td><span class="sb m">2</span></td><td><span class="sb l">1</span></td><td><span class="sb h">3</span></td><td><span class="sb m">2</span></td><td class="wf">It's ok</td></tr><tr><td>Sep 1</td><td><span class="sb h">4</span></td><td><span class="sb h">4</span></td><td><span class="sb h">3</span></td><td><span class="sb h">3</span></td><td class="wf">Test Test Test</td></tr><tr><td>Aug 30</td><td><span class="sb h">4</span></td><td><span class="sb h">4</span></td><td><span class="sb h">4</span></td><td><span class="sb h">4</span></td><td class="wf">I would like Josh to use AI more often. </td></tr></tbody></table></div>
         </div>
 
         <!-- Leader Notes Section (Combined Connections & Birthday RT) -->
@@ -281,7 +280,7 @@
             <div style="background:var(--surface);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);margin-bottom:14px;">
                 <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
                     <i class="fa-solid fa-trophy" style="color:#067D62;font-size:16px;"></i>
-                    <h3 style="font-size:14px;font-weight:700;">DPX7 Highlights & Wins</h3>
+                    <h3 style="font-size:14px;font-weight:700;">DPX7 Highlights &amp; Wins</h3>
                 </div>
                 <div style="font-size:11px;color:var(--text-muted);margin-bottom:12px;">Track site achievements, milestones, and wins</div>
                 <!-- Week Filter Bubbles -->
@@ -302,7 +301,7 @@
                     </div>
                     <div style="flex:0 0 120px;">
                         <label style="font-size:10px;font-weight:600;color:var(--text-muted);display:block;margin-bottom:3px;">DATE</label>
-                        <input type="text" id="winDate" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:6px;font-size:12px;font-family:inherit;color:var(--text);background:var(--bg);" readonly>
+                        <input type="text" id="winDate" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:6px;font-size:12px;font-family:inherit;color:var(--text);background:var(--bg);" readonly="">
                     </div>
                 </div>
                 <div style="margin-bottom:8px;">
@@ -344,12 +343,12 @@
             <h2 style="font-size:22px;font-weight:700;margin-bottom:6px;">Connections Roundtable</h2>
             <p style="font-size:14px;color:var(--text-sec);margin-bottom:24px;">Your feedback helps us build a better workplace</p>
             <div style="border:2px solid var(--border);border-radius:12px;padding:16px;display:inline-block;background:#fff;margin-bottom:20px;">
-                <div style="width:280px;height:280px;display:flex;align-items:center;justify-content:center;"><svg xmlns="http://www.w3.org/2000/svg" width="287" height="287" viewBox="0 0 287 287"><rect width="287" height="287" fill="white"/><path d="M28,28h7v7h-7zM35,28h7v7h-7zM42,28h7v7h-7zM49,28h7v7h-7zM56,28h7v7h-7zM63,28h7v7h-7zM70,28h7v7h-7zM105,28h7v7h-7zM112,28h7v7h-7zM119,28h7v7h-7zM126,28h7v7h-7zM133,28h7v7h-7zM147,28h7v7h-7zM161,28h7v7h-7zM175,28h7v7h-7zM182,28h7v7h-7zM189,28h7v7h-7zM210,28h7v7h-7zM217,28h7v7h-7zM224,28h7v7h-7zM231,28h7v7h-7zM238,28h7v7h-7zM245,28h7v7h-7zM252,28h7v7h-7zM28,35h7v7h-7zM70,35h7v7h-7zM84,35h7v7h-7zM112,35h7v7h-7zM126,35h7v7h-7zM133,35h7v7h-7zM140,35h7v7h-7zM154,35h7v7h-7zM161,35h7v7h-7zM168,35h7v7h-7zM175,35h7v7h-7zM182,35h7v7h-7zM189,35h7v7h-7zM196,35h7v7h-7zM210,35h7v7h-7zM252,35h7v7h-7zM28,42h7v7h-7zM42,42h7v7h-7zM49,42h7v7h-7zM56,42h7v7h-7zM70,42h7v7h-7zM91,42h7v7h-7zM105,42h7v7h-7zM119,42h7v7h-7zM126,42h7v7h-7zM133,42h7v7h-7zM147,42h7v7h-7zM154,42h7v7h-7zM168,42h7v7h-7zM189,42h7v7h-7zM196,42h7v7h-7zM210,42h7v7h-7zM224,42h7v7h-7zM231,42h7v7h-7zM238,42h7v7h-7zM252,42h7v7h-7zM28,49h7v7h-7zM42,49h7v7h-7zM49,49h7v7h-7zM56,49h7v7h-7zM70,49h7v7h-7zM105,49h7v7h-7zM119,49h7v7h-7zM126,49h7v7h-7zM140,49h7v7h-7zM147,49h7v7h-7zM154,49h7v7h-7zM182,49h7v7h-7zM189,49h7v7h-7zM210,49h7v7h-7zM224,49h7v7h-7zM231,49h7v7h-7zM238,49h7v7h-7zM252,49h7v7h-7zM28,56h7v7h-7zM42,56h7v7h-7zM49,56h7v7h-7zM56,56h7v7h-7zM70,56h7v7h-7zM84,56h7v7h-7zM105,56h7v7h-7zM112,56h7v7h-7zM126,56h7v7h-7zM140,56h7v7h-7zM154,56h7v7h-7zM168,56h7v7h-7zM189,56h7v7h-7zM196,56h7v7h-7zM210,56h7v7h-7zM224,56h7v7h-7zM231,56h7v7h-7zM238,56h7v7h-7zM252,56h7v7h-7zM28,63h7v7h-7zM70,63h7v7h-7zM98,63h7v7h-7zM105,63h7v7h-7zM112,63h7v7h-7zM119,63h7v7h-7zM126,63h7v7h-7zM133,63h7v7h-7zM140,63h7v7h-7zM147,63h7v7h-7zM154,63h7v7h-7zM161,63h7v7h-7zM168,63h7v7h-7zM175,63h7v7h-7zM189,63h7v7h-7zM196,63h7v7h-7zM210,63h7v7h-7zM252,63h7v7h-7zM28,70h7v7h-7zM35,70h7v7h-7zM42,70h7v7h-7zM49,70h7v7h-7zM56,70h7v7h-7zM63,70h7v7h-7zM70,70h7v7h-7zM84,70h7v7h-7zM98,70h7v7h-7zM112,70h7v7h-7zM126,70h7v7h-7zM140,70h7v7h-7zM154,70h7v7h-7zM168,70h7v7h-7zM182,70h7v7h-7zM196,70h7v7h-7zM210,70h7v7h-7zM217,70h7v7h-7zM224,70h7v7h-7zM231,70h7v7h-7zM238,70h7v7h-7zM245,70h7v7h-7zM252,70h7v7h-7zM91,77h7v7h-7zM105,77h7v7h-7zM112,77h7v7h-7zM119,77h7v7h-7zM133,77h7v7h-7zM147,77h7v7h-7zM168,77h7v7h-7zM175,77h7v7h-7zM182,77h7v7h-7zM189,77h7v7h-7zM196,77h7v7h-7zM28,84h7v7h-7zM42,84h7v7h-7zM56,84h7v7h-7zM70,84h7v7h-7zM91,84h7v7h-7zM98,84h7v7h-7zM105,84h7v7h-7zM119,84h7v7h-7zM140,84h7v7h-7zM147,84h7v7h-7zM161,84h7v7h-7zM168,84h7v7h-7zM175,84h7v7h-7zM224,84h7v7h-7zM245,84h7v7h-7zM28,91h7v7h-7zM42,91h7v7h-7zM63,91h7v7h-7zM77,91h7v7h-7zM84,91h7v7h-7zM91,91h7v7h-7zM112,91h7v7h-7zM119,91h7v7h-7zM126,91h7v7h-7zM147,91h7v7h-7zM168,91h7v7h-7zM175,91h7v7h-7zM196,91h7v7h-7zM203,91h7v7h-7zM210,91h7v7h-7zM217,91h7v7h-7zM245,91h7v7h-7zM252,91h7v7h-7zM42,98h7v7h-7zM49,98h7v7h-7zM56,98h7v7h-7zM63,98h7v7h-7zM70,98h7v7h-7zM91,98h7v7h-7zM98,98h7v7h-7zM105,98h7v7h-7zM126,98h7v7h-7zM154,98h7v7h-7zM175,98h7v7h-7zM182,98h7v7h-7zM196,98h7v7h-7zM203,98h7v7h-7zM210,98h7v7h-7zM217,98h7v7h-7zM238,98h7v7h-7zM252,98h7v7h-7zM35,105h7v7h-7zM42,105h7v7h-7zM77,105h7v7h-7zM84,105h7v7h-7zM91,105h7v7h-7zM98,105h7v7h-7zM112,105h7v7h-7zM119,105h7v7h-7zM126,105h7v7h-7zM140,105h7v7h-7zM147,105h7v7h-7zM154,105h7v7h-7zM168,105h7v7h-7zM175,105h7v7h-7zM182,105h7v7h-7zM189,105h7v7h-7zM203,105h7v7h-7zM224,105h7v7h-7zM252,105h7v7h-7zM28,112h7v7h-7zM35,112h7v7h-7zM42,112h7v7h-7zM56,112h7v7h-7zM70,112h7v7h-7zM84,112h7v7h-7zM126,112h7v7h-7zM133,112h7v7h-7zM140,112h7v7h-7zM154,112h7v7h-7zM168,112h7v7h-7zM175,112h7v7h-7zM189,112h7v7h-7zM196,112h7v7h-7zM203,112h7v7h-7zM210,112h7v7h-7zM231,112h7v7h-7zM245,112h7v7h-7zM252,112h7v7h-7zM28,119h7v7h-7zM42,119h7v7h-7zM49,119h7v7h-7zM91,119h7v7h-7zM112,119h7v7h-7zM126,119h7v7h-7zM133,119h7v7h-7zM140,119h7v7h-7zM154,119h7v7h-7zM182,119h7v7h-7zM196,119h7v7h-7zM210,119h7v7h-7zM238,119h7v7h-7zM252,119h7v7h-7zM28,126h7v7h-7zM70,126h7v7h-7zM84,126h7v7h-7zM105,126h7v7h-7zM112,126h7v7h-7zM119,126h7v7h-7zM126,126h7v7h-7zM133,126h7v7h-7zM140,126h7v7h-7zM154,126h7v7h-7zM196,126h7v7h-7zM203,126h7v7h-7zM231,126h7v7h-7zM238,126h7v7h-7zM245,126h7v7h-7zM252,126h7v7h-7zM35,133h7v7h-7zM56,133h7v7h-7zM63,133h7v7h-7zM77,133h7v7h-7zM84,133h7v7h-7zM105,133h7v7h-7zM112,133h7v7h-7zM119,133h7v7h-7zM126,133h7v7h-7zM140,133h7v7h-7zM147,133h7v7h-7zM161,133h7v7h-7zM175,133h7v7h-7zM189,133h7v7h-7zM196,133h7v7h-7zM210,133h7v7h-7zM224,133h7v7h-7zM245,133h7v7h-7zM56,140h7v7h-7zM70,140h7v7h-7zM84,140h7v7h-7zM119,140h7v7h-7zM133,140h7v7h-7zM140,140h7v7h-7zM147,140h7v7h-7zM161,140h7v7h-7zM168,140h7v7h-7zM175,140h7v7h-7zM189,140h7v7h-7zM196,140h7v7h-7zM203,140h7v7h-7zM210,140h7v7h-7zM231,140h7v7h-7zM28,147h7v7h-7zM42,147h7v7h-7zM49,147h7v7h-7zM63,147h7v7h-7zM91,147h7v7h-7zM98,147h7v7h-7zM105,147h7v7h-7zM119,147h7v7h-7zM140,147h7v7h-7zM154,147h7v7h-7zM168,147h7v7h-7zM175,147h7v7h-7zM196,147h7v7h-7zM203,147h7v7h-7zM210,147h7v7h-7zM217,147h7v7h-7zM252,147h7v7h-7zM28,154h7v7h-7zM56,154h7v7h-7zM70,154h7v7h-7zM77,154h7v7h-7zM91,154h7v7h-7zM126,154h7v7h-7zM147,154h7v7h-7zM168,154h7v7h-7zM203,154h7v7h-7zM210,154h7v7h-7zM238,154h7v7h-7zM252,154h7v7h-7zM28,161h7v7h-7zM42,161h7v7h-7zM77,161h7v7h-7zM91,161h7v7h-7zM98,161h7v7h-7zM112,161h7v7h-7zM119,161h7v7h-7zM133,161h7v7h-7zM168,161h7v7h-7zM175,161h7v7h-7zM182,161h7v7h-7zM203,161h7v7h-7zM217,161h7v7h-7zM224,161h7v7h-7zM245,161h7v7h-7zM28,168h7v7h-7zM35,168h7v7h-7zM42,168h7v7h-7zM56,168h7v7h-7zM70,168h7v7h-7zM77,168h7v7h-7zM84,168h7v7h-7zM98,168h7v7h-7zM105,168h7v7h-7zM119,168h7v7h-7zM126,168h7v7h-7zM133,168h7v7h-7zM161,168h7v7h-7zM175,168h7v7h-7zM196,168h7v7h-7zM203,168h7v7h-7zM210,168h7v7h-7zM231,168h7v7h-7zM35,175h7v7h-7zM42,175h7v7h-7zM49,175h7v7h-7zM56,175h7v7h-7zM63,175h7v7h-7zM77,175h7v7h-7zM84,175h7v7h-7zM91,175h7v7h-7zM98,175h7v7h-7zM105,175h7v7h-7zM112,175h7v7h-7zM119,175h7v7h-7zM126,175h7v7h-7zM133,175h7v7h-7zM147,175h7v7h-7zM168,175h7v7h-7zM175,175h7v7h-7zM182,175h7v7h-7zM196,175h7v7h-7zM203,175h7v7h-7zM210,175h7v7h-7zM231,175h7v7h-7zM245,175h7v7h-7zM252,175h7v7h-7zM28,182h7v7h-7zM49,182h7v7h-7zM70,182h7v7h-7zM77,182h7v7h-7zM112,182h7v7h-7zM119,182h7v7h-7zM126,182h7v7h-7zM182,182h7v7h-7zM196,182h7v7h-7zM217,182h7v7h-7zM224,182h7v7h-7zM245,182h7v7h-7zM252,182h7v7h-7zM35,189h7v7h-7zM42,189h7v7h-7zM49,189h7v7h-7zM84,189h7v7h-7zM105,189h7v7h-7zM119,189h7v7h-7zM133,189h7v7h-7zM147,189h7v7h-7zM154,189h7v7h-7zM161,189h7v7h-7zM168,189h7v7h-7zM175,189h7v7h-7zM182,189h7v7h-7zM203,189h7v7h-7zM210,189h7v7h-7zM245,189h7v7h-7zM28,196h7v7h-7zM49,196h7v7h-7zM63,196h7v7h-7zM70,196h7v7h-7zM84,196h7v7h-7zM105,196h7v7h-7zM112,196h7v7h-7zM119,196h7v7h-7zM140,196h7v7h-7zM147,196h7v7h-7zM168,196h7v7h-7zM175,196h7v7h-7zM196,196h7v7h-7zM203,196h7v7h-7zM210,196h7v7h-7zM217,196h7v7h-7zM224,196h7v7h-7zM245,196h7v7h-7zM252,196h7v7h-7zM84,203h7v7h-7zM98,203h7v7h-7zM105,203h7v7h-7zM126,203h7v7h-7zM140,203h7v7h-7zM147,203h7v7h-7zM175,203h7v7h-7zM196,203h7v7h-7zM224,203h7v7h-7zM231,203h7v7h-7zM252,203h7v7h-7zM28,210h7v7h-7zM35,210h7v7h-7zM42,210h7v7h-7zM49,210h7v7h-7zM56,210h7v7h-7zM63,210h7v7h-7zM70,210h7v7h-7zM91,210h7v7h-7zM105,210h7v7h-7zM119,210h7v7h-7zM126,210h7v7h-7zM140,210h7v7h-7zM154,210h7v7h-7zM175,210h7v7h-7zM182,210h7v7h-7zM189,210h7v7h-7zM196,210h7v7h-7zM210,210h7v7h-7zM224,210h7v7h-7zM238,210h7v7h-7zM245,210h7v7h-7zM252,210h7v7h-7zM28,217h7v7h-7zM70,217h7v7h-7zM126,217h7v7h-7zM140,217h7v7h-7zM147,217h7v7h-7zM154,217h7v7h-7zM168,217h7v7h-7zM175,217h7v7h-7zM196,217h7v7h-7zM224,217h7v7h-7zM245,217h7v7h-7zM28,224h7v7h-7zM42,224h7v7h-7zM49,224h7v7h-7zM56,224h7v7h-7zM70,224h7v7h-7zM84,224h7v7h-7zM98,224h7v7h-7zM112,224h7v7h-7zM133,224h7v7h-7zM140,224h7v7h-7zM154,224h7v7h-7zM161,224h7v7h-7zM168,224h7v7h-7zM175,224h7v7h-7zM196,224h7v7h-7zM203,224h7v7h-7zM210,224h7v7h-7zM217,224h7v7h-7zM224,224h7v7h-7zM231,224h7v7h-7zM252,224h7v7h-7zM28,231h7v7h-7zM42,231h7v7h-7zM49,231h7v7h-7zM56,231h7v7h-7zM70,231h7v7h-7zM91,231h7v7h-7zM105,231h7v7h-7zM112,231h7v7h-7zM133,231h7v7h-7zM140,231h7v7h-7zM147,231h7v7h-7zM154,231h7v7h-7zM168,231h7v7h-7zM175,231h7v7h-7zM182,231h7v7h-7zM196,231h7v7h-7zM224,231h7v7h-7zM238,231h7v7h-7zM252,231h7v7h-7zM28,238h7v7h-7zM42,238h7v7h-7zM49,238h7v7h-7zM56,238h7v7h-7zM70,238h7v7h-7zM84,238h7v7h-7zM105,238h7v7h-7zM126,238h7v7h-7zM133,238h7v7h-7zM140,238h7v7h-7zM147,238h7v7h-7zM154,238h7v7h-7zM168,238h7v7h-7zM189,238h7v7h-7zM224,238h7v7h-7zM231,238h7v7h-7zM252,238h7v7h-7zM28,245h7v7h-7zM70,245h7v7h-7zM98,245h7v7h-7zM105,245h7v7h-7zM112,245h7v7h-7zM126,245h7v7h-7zM140,245h7v7h-7zM147,245h7v7h-7zM168,245h7v7h-7zM175,245h7v7h-7zM189,245h7v7h-7zM196,245h7v7h-7zM203,245h7v7h-7zM224,245h7v7h-7zM245,245h7v7h-7zM28,252h7v7h-7zM35,252h7v7h-7zM42,252h7v7h-7zM49,252h7v7h-7zM56,252h7v7h-7zM63,252h7v7h-7zM70,252h7v7h-7zM84,252h7v7h-7zM98,252h7v7h-7zM105,252h7v7h-7zM112,252h7v7h-7zM133,252h7v7h-7zM140,252h7v7h-7zM147,252h7v7h-7zM154,252h7v7h-7zM168,252h7v7h-7zM175,252h7v7h-7zM189,252h7v7h-7zM196,252h7v7h-7zM203,252h7v7h-7zM210,252h7v7h-7zM224,252h7v7h-7zM231,252h7v7h-7zM245,252h7v7h-7zM252,252h7v7h-7z" fill="black"/></svg></div>
+                <div style="width:280px;height:280px;display:flex;align-items:center;justify-content:center;"><svg xmlns="http://www.w3.org/2000/svg" width="287" height="287" viewBox="0 0 287 287"><rect width="287" height="287" fill="white"></rect><path d="M28,28h7v7h-7zM35,28h7v7h-7zM42,28h7v7h-7zM49,28h7v7h-7zM56,28h7v7h-7zM63,28h7v7h-7zM70,28h7v7h-7zM105,28h7v7h-7zM112,28h7v7h-7zM119,28h7v7h-7zM126,28h7v7h-7zM133,28h7v7h-7zM147,28h7v7h-7zM161,28h7v7h-7zM175,28h7v7h-7zM182,28h7v7h-7zM189,28h7v7h-7zM210,28h7v7h-7zM217,28h7v7h-7zM224,28h7v7h-7zM231,28h7v7h-7zM238,28h7v7h-7zM245,28h7v7h-7zM252,28h7v7h-7zM28,35h7v7h-7zM70,35h7v7h-7zM84,35h7v7h-7zM112,35h7v7h-7zM126,35h7v7h-7zM133,35h7v7h-7zM140,35h7v7h-7zM154,35h7v7h-7zM161,35h7v7h-7zM168,35h7v7h-7zM175,35h7v7h-7zM182,35h7v7h-7zM189,35h7v7h-7zM196,35h7v7h-7zM210,35h7v7h-7zM252,35h7v7h-7zM28,42h7v7h-7zM42,42h7v7h-7zM49,42h7v7h-7zM56,42h7v7h-7zM70,42h7v7h-7zM91,42h7v7h-7zM105,42h7v7h-7zM119,42h7v7h-7zM126,42h7v7h-7zM133,42h7v7h-7zM147,42h7v7h-7zM154,42h7v7h-7zM168,42h7v7h-7zM189,42h7v7h-7zM196,42h7v7h-7zM210,42h7v7h-7zM224,42h7v7h-7zM231,42h7v7h-7zM238,42h7v7h-7zM252,42h7v7h-7zM28,49h7v7h-7zM42,49h7v7h-7zM49,49h7v7h-7zM56,49h7v7h-7zM70,49h7v7h-7zM105,49h7v7h-7zM119,49h7v7h-7zM126,49h7v7h-7zM140,49h7v7h-7zM147,49h7v7h-7zM154,49h7v7h-7zM182,49h7v7h-7zM189,49h7v7h-7zM210,49h7v7h-7zM224,49h7v7h-7zM231,49h7v7h-7zM238,49h7v7h-7zM252,49h7v7h-7zM28,56h7v7h-7zM42,56h7v7h-7zM49,56h7v7h-7zM56,56h7v7h-7zM70,56h7v7h-7zM84,56h7v7h-7zM105,56h7v7h-7zM112,56h7v7h-7zM126,56h7v7h-7zM140,56h7v7h-7zM154,56h7v7h-7zM168,56h7v7h-7zM189,56h7v7h-7zM196,56h7v7h-7zM210,56h7v7h-7zM224,56h7v7h-7zM231,56h7v7h-7zM238,56h7v7h-7zM252,56h7v7h-7zM28,63h7v7h-7zM70,63h7v7h-7zM98,63h7v7h-7zM105,63h7v7h-7zM112,63h7v7h-7zM119,63h7v7h-7zM126,63h7v7h-7zM133,63h7v7h-7zM140,63h7v7h-7zM147,63h7v7h-7zM154,63h7v7h-7zM161,63h7v7h-7zM168,63h7v7h-7zM175,63h7v7h-7zM189,63h7v7h-7zM196,63h7v7h-7zM210,63h7v7h-7zM252,63h7v7h-7zM28,70h7v7h-7zM35,70h7v7h-7zM42,70h7v7h-7zM49,70h7v7h-7zM56,70h7v7h-7zM63,70h7v7h-7zM70,70h7v7h-7zM84,70h7v7h-7zM98,70h7v7h-7zM112,70h7v7h-7zM126,70h7v7h-7zM140,70h7v7h-7zM154,70h7v7h-7zM168,70h7v7h-7zM182,70h7v7h-7zM196,70h7v7h-7zM210,70h7v7h-7zM217,70h7v7h-7zM224,70h7v7h-7zM231,70h7v7h-7zM238,70h7v7h-7zM245,70h7v7h-7zM252,70h7v7h-7zM91,77h7v7h-7zM105,77h7v7h-7zM112,77h7v7h-7zM119,77h7v7h-7zM133,77h7v7h-7zM147,77h7v7h-7zM168,77h7v7h-7zM175,77h7v7h-7zM182,77h7v7h-7zM189,77h7v7h-7zM196,77h7v7h-7zM28,84h7v7h-7zM42,84h7v7h-7zM56,84h7v7h-7zM70,84h7v7h-7zM91,84h7v7h-7zM98,84h7v7h-7zM105,84h7v7h-7zM119,84h7v7h-7zM140,84h7v7h-7zM147,84h7v7h-7zM161,84h7v7h-7zM168,84h7v7h-7zM175,84h7v7h-7zM224,84h7v7h-7zM245,84h7v7h-7zM28,91h7v7h-7zM42,91h7v7h-7zM63,91h7v7h-7zM77,91h7v7h-7zM84,91h7v7h-7zM91,91h7v7h-7zM112,91h7v7h-7zM119,91h7v7h-7zM126,91h7v7h-7zM147,91h7v7h-7zM168,91h7v7h-7zM175,91h7v7h-7zM196,91h7v7h-7zM203,91h7v7h-7zM210,91h7v7h-7zM217,91h7v7h-7zM245,91h7v7h-7zM252,91h7v7h-7zM42,98h7v7h-7zM49,98h7v7h-7zM56,98h7v7h-7zM63,98h7v7h-7zM70,98h7v7h-7zM91,98h7v7h-7zM98,98h7v7h-7zM105,98h7v7h-7zM126,98h7v7h-7zM154,98h7v7h-7zM175,98h7v7h-7zM182,98h7v7h-7zM196,98h7v7h-7zM203,98h7v7h-7zM210,98h7v7h-7zM217,98h7v7h-7zM238,98h7v7h-7zM252,98h7v7h-7zM35,105h7v7h-7zM42,105h7v7h-7zM77,105h7v7h-7zM84,105h7v7h-7zM91,105h7v7h-7zM98,105h7v7h-7zM112,105h7v7h-7zM119,105h7v7h-7zM126,105h7v7h-7zM140,105h7v7h-7zM147,105h7v7h-7zM154,105h7v7h-7zM168,105h7v7h-7zM175,105h7v7h-7zM182,105h7v7h-7zM189,105h7v7h-7zM203,105h7v7h-7zM224,105h7v7h-7zM252,105h7v7h-7zM28,112h7v7h-7zM35,112h7v7h-7zM42,112h7v7h-7zM56,112h7v7h-7zM70,112h7v7h-7zM84,112h7v7h-7zM126,112h7v7h-7zM133,112h7v7h-7zM140,112h7v7h-7zM154,112h7v7h-7zM168,112h7v7h-7zM175,112h7v7h-7zM189,112h7v7h-7zM196,112h7v7h-7zM203,112h7v7h-7zM210,112h7v7h-7zM231,112h7v7h-7zM245,112h7v7h-7zM252,112h7v7h-7zM28,119h7v7h-7zM42,119h7v7h-7zM49,119h7v7h-7zM91,119h7v7h-7zM112,119h7v7h-7zM126,119h7v7h-7zM133,119h7v7h-7zM140,119h7v7h-7zM154,119h7v7h-7zM182,119h7v7h-7zM196,119h7v7h-7zM210,119h7v7h-7zM238,119h7v7h-7zM252,119h7v7h-7zM28,126h7v7h-7zM70,126h7v7h-7zM84,126h7v7h-7zM105,126h7v7h-7zM112,126h7v7h-7zM119,126h7v7h-7zM126,126h7v7h-7zM133,126h7v7h-7zM140,126h7v7h-7zM154,126h7v7h-7zM196,126h7v7h-7zM203,126h7v7h-7zM231,126h7v7h-7zM238,126h7v7h-7zM245,126h7v7h-7zM252,126h7v7h-7zM35,133h7v7h-7zM56,133h7v7h-7zM63,133h7v7h-7zM77,133h7v7h-7zM84,133h7v7h-7zM105,133h7v7h-7zM112,133h7v7h-7zM119,133h7v7h-7zM126,133h7v7h-7zM140,133h7v7h-7zM147,133h7v7h-7zM161,133h7v7h-7zM175,133h7v7h-7zM189,133h7v7h-7zM196,133h7v7h-7zM210,133h7v7h-7zM224,133h7v7h-7zM245,133h7v7h-7zM56,140h7v7h-7zM70,140h7v7h-7zM84,140h7v7h-7zM119,140h7v7h-7zM133,140h7v7h-7zM140,140h7v7h-7zM147,140h7v7h-7zM161,140h7v7h-7zM168,140h7v7h-7zM175,140h7v7h-7zM189,140h7v7h-7zM196,140h7v7h-7zM203,140h7v7h-7zM210,140h7v7h-7zM231,140h7v7h-7zM28,147h7v7h-7zM42,147h7v7h-7zM49,147h7v7h-7zM63,147h7v7h-7zM91,147h7v7h-7zM98,147h7v7h-7zM105,147h7v7h-7zM119,147h7v7h-7zM140,147h7v7h-7zM154,147h7v7h-7zM168,147h7v7h-7zM175,147h7v7h-7zM196,147h7v7h-7zM203,147h7v7h-7zM210,147h7v7h-7zM217,147h7v7h-7zM252,147h7v7h-7zM28,154h7v7h-7zM56,154h7v7h-7zM70,154h7v7h-7zM77,154h7v7h-7zM91,154h7v7h-7zM126,154h7v7h-7zM147,154h7v7h-7zM168,154h7v7h-7zM203,154h7v7h-7zM210,154h7v7h-7zM238,154h7v7h-7zM252,154h7v7h-7zM28,161h7v7h-7zM42,161h7v7h-7zM77,161h7v7h-7zM91,161h7v7h-7zM98,161h7v7h-7zM112,161h7v7h-7zM119,161h7v7h-7zM133,161h7v7h-7zM168,161h7v7h-7zM175,161h7v7h-7zM182,161h7v7h-7zM203,161h7v7h-7zM217,161h7v7h-7zM224,161h7v7h-7zM245,161h7v7h-7zM28,168h7v7h-7zM35,168h7v7h-7zM42,168h7v7h-7zM56,168h7v7h-7zM70,168h7v7h-7zM77,168h7v7h-7zM84,168h7v7h-7zM98,168h7v7h-7zM105,168h7v7h-7zM119,168h7v7h-7zM126,168h7v7h-7zM133,168h7v7h-7zM161,168h7v7h-7zM175,168h7v7h-7zM196,168h7v7h-7zM203,168h7v7h-7zM210,168h7v7h-7zM231,168h7v7h-7zM35,175h7v7h-7zM42,175h7v7h-7zM49,175h7v7h-7zM56,175h7v7h-7zM63,175h7v7h-7zM77,175h7v7h-7zM84,175h7v7h-7zM91,175h7v7h-7zM98,175h7v7h-7zM105,175h7v7h-7zM112,175h7v7h-7zM119,175h7v7h-7zM126,175h7v7h-7zM133,175h7v7h-7zM147,175h7v7h-7zM168,175h7v7h-7zM175,175h7v7h-7zM182,175h7v7h-7zM196,175h7v7h-7zM203,175h7v7h-7zM210,175h7v7h-7zM231,175h7v7h-7zM245,175h7v7h-7zM252,175h7v7h-7zM28,182h7v7h-7zM49,182h7v7h-7zM70,182h7v7h-7zM77,182h7v7h-7zM112,182h7v7h-7zM119,182h7v7h-7zM126,182h7v7h-7zM182,182h7v7h-7zM196,182h7v7h-7zM217,182h7v7h-7zM224,182h7v7h-7zM245,182h7v7h-7zM252,182h7v7h-7zM35,189h7v7h-7zM42,189h7v7h-7zM49,189h7v7h-7zM84,189h7v7h-7zM105,189h7v7h-7zM119,189h7v7h-7zM133,189h7v7h-7zM147,189h7v7h-7zM154,189h7v7h-7zM161,189h7v7h-7zM168,189h7v7h-7zM175,189h7v7h-7zM182,189h7v7h-7zM203,189h7v7h-7zM210,189h7v7h-7zM245,189h7v7h-7zM28,196h7v7h-7zM49,196h7v7h-7zM63,196h7v7h-7zM70,196h7v7h-7zM84,196h7v7h-7zM105,196h7v7h-7zM112,196h7v7h-7zM119,196h7v7h-7zM140,196h7v7h-7zM147,196h7v7h-7zM168,196h7v7h-7zM175,196h7v7h-7zM196,196h7v7h-7zM203,196h7v7h-7zM210,196h7v7h-7zM217,196h7v7h-7zM224,196h7v7h-7zM245,196h7v7h-7zM252,196h7v7h-7zM84,203h7v7h-7zM98,203h7v7h-7zM105,203h7v7h-7zM126,203h7v7h-7zM140,203h7v7h-7zM147,203h7v7h-7zM175,203h7v7h-7zM196,203h7v7h-7zM224,203h7v7h-7zM231,203h7v7h-7zM252,203h7v7h-7zM28,210h7v7h-7zM35,210h7v7h-7zM42,210h7v7h-7zM49,210h7v7h-7zM56,210h7v7h-7zM63,210h7v7h-7zM70,210h7v7h-7zM91,210h7v7h-7zM105,210h7v7h-7zM119,210h7v7h-7zM126,210h7v7h-7zM140,210h7v7h-7zM154,210h7v7h-7zM175,210h7v7h-7zM182,210h7v7h-7zM189,210h7v7h-7zM196,210h7v7h-7zM210,210h7v7h-7zM224,210h7v7h-7zM238,210h7v7h-7zM245,210h7v7h-7zM252,210h7v7h-7zM28,217h7v7h-7zM70,217h7v7h-7zM126,217h7v7h-7zM140,217h7v7h-7zM147,217h7v7h-7zM154,217h7v7h-7zM168,217h7v7h-7zM175,217h7v7h-7zM196,217h7v7h-7zM224,217h7v7h-7zM245,217h7v7h-7zM28,224h7v7h-7zM42,224h7v7h-7zM49,224h7v7h-7zM56,224h7v7h-7zM70,224h7v7h-7zM84,224h7v7h-7zM98,224h7v7h-7zM112,224h7v7h-7zM133,224h7v7h-7zM140,224h7v7h-7zM154,224h7v7h-7zM161,224h7v7h-7zM168,224h7v7h-7zM175,224h7v7h-7zM196,224h7v7h-7zM203,224h7v7h-7zM210,224h7v7h-7zM217,224h7v7h-7zM224,224h7v7h-7zM231,224h7v7h-7zM252,224h7v7h-7zM28,231h7v7h-7zM42,231h7v7h-7zM49,231h7v7h-7zM56,231h7v7h-7zM70,231h7v7h-7zM91,231h7v7h-7zM105,231h7v7h-7zM112,231h7v7h-7zM133,231h7v7h-7zM140,231h7v7h-7zM147,231h7v7h-7zM154,231h7v7h-7zM168,231h7v7h-7zM175,231h7v7h-7zM182,231h7v7h-7zM196,231h7v7h-7zM224,231h7v7h-7zM238,231h7v7h-7zM252,231h7v7h-7zM28,238h7v7h-7zM42,238h7v7h-7zM49,238h7v7h-7zM56,238h7v7h-7zM70,238h7v7h-7zM84,238h7v7h-7zM105,238h7v7h-7zM126,238h7v7h-7zM133,238h7v7h-7zM140,238h7v7h-7zM147,238h7v7h-7zM154,238h7v7h-7zM168,238h7v7h-7zM189,238h7v7h-7zM224,238h7v7h-7zM231,238h7v7h-7zM252,238h7v7h-7zM28,245h7v7h-7zM70,245h7v7h-7zM98,245h7v7h-7zM105,245h7v7h-7zM112,245h7v7h-7zM126,245h7v7h-7zM140,245h7v7h-7zM147,245h7v7h-7zM168,245h7v7h-7zM175,245h7v7h-7zM189,245h7v7h-7zM196,245h7v7h-7zM203,245h7v7h-7zM224,245h7v7h-7zM245,245h7v7h-7zM28,252h7v7h-7zM35,252h7v7h-7zM42,252h7v7h-7zM49,252h7v7h-7zM56,252h7v7h-7zM63,252h7v7h-7zM70,252h7v7h-7zM84,252h7v7h-7zM98,252h7v7h-7zM105,252h7v7h-7zM112,252h7v7h-7zM133,252h7v7h-7zM140,252h7v7h-7zM147,252h7v7h-7zM154,252h7v7h-7zM168,252h7v7h-7zM175,252h7v7h-7zM189,252h7v7h-7zM196,252h7v7h-7zM203,252h7v7h-7zM210,252h7v7h-7zM224,252h7v7h-7zM231,252h7v7h-7zM245,252h7v7h-7zM252,252h7v7h-7z" fill="black"></path></svg></div>
             </div>
             <div style="display:flex;align-items:center;justify-content:center;gap:8px;font-size:16px;font-weight:600;color:var(--primary);margin-bottom:8px;">
                 <i class="fa-solid fa-camera" style="color:var(--accent);"></i> Scan with your phone camera
             </div>
-            <p style="font-size:13px;color:var(--success);font-weight:500;"><i class="fa-solid fa-shield-halved" style="margin-right:4px;"></i>100% Anonymous &mdash; Takes 30 seconds</p>
+            <p style="font-size:13px;color:var(--success);font-weight:500;"><i class="fa-solid fa-shield-halved" style="margin-right:4px;"></i>100% Anonymous — Takes 30 seconds</p>
             <div style="margin-top:16px;padding:8px 14px;background:var(--bg);border-radius:6px;font-size:11px;color:var(--text-muted);font-family:monospace;word-break:break-all;">https://joshsalado.github.io/dpx7-roundtable-survey/</div>
         </div>
     </div>
@@ -383,7 +382,7 @@
                 <div id="aaConnEmpty" style="text-align:center;padding:30px;color:var(--text-muted);background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);display:none;">
                     <i class="fa-solid fa-users" style="font-size:32px;margin-bottom:8px;color:var(--border);display:block;"></i>
                     <div style="font-size:13px;">No Connections RT attendance logged yet.</div>
-                    <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Go to Leader Notes > Connections RT to log attendance.</div>
+                    <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Go to Leader Notes &gt; Connections RT to log attendance.</div>
                 </div>
             </div>
 
@@ -393,7 +392,7 @@
                 <div id="aaBdayEmpty" style="text-align:center;padding:30px;color:var(--text-muted);background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);display:none;">
                     <i class="fa-solid fa-cake-candles" style="font-size:32px;margin-bottom:8px;color:var(--border);display:block;"></i>
                     <div style="font-size:13px;">No Birthday RT attendance logged yet.</div>
-                    <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Go to Leader Notes > Birthday RT to log attendance.</div>
+                    <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Go to Leader Notes &gt; Birthday RT to log attendance.</div>
                 </div>
             </div>
 
@@ -401,23 +400,23 @@
     </div>
 
     <!-- How To View -->
-    <div id="howto-view" style="display:none;">
+    <div id="howto-view" style="display: block;">
         <div style="max-width:700px;margin:0 auto;">
             <div style="background:var(--surface);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);margin-bottom:16px;">
                 <h2 style="font-size:18px;font-weight:700;margin-bottom:14px;"><i class="fa-solid fa-circle-question" style="color:var(--accent);margin-right:6px;"></i>How to Use the Roundtable Dashboard</h2>
                 <div style="display:flex;gap:14px;flex-wrap:wrap;margin-bottom:16px;">
                     <div style="flex:1;min-width:180px;background:var(--bg);border-radius:10px;padding:14px;">
-                        <div style="font-size:24px;margin-bottom:6px;">1&#xFE0F;&#x20E3;</div>
+                        <div style="font-size:24px;margin-bottom:6px;">1️⃣</div>
                         <div style="font-size:13px;font-weight:600;margin-bottom:4px;">Run the Roundtable</div>
                         <div style="font-size:11px;color:var(--text-sec);">Use the 20-min facilitation guide with 5-8 AAs. Focus on low-scoring Connections areas.</div>
                     </div>
                     <div style="flex:1;min-width:180px;background:var(--bg);border-radius:10px;padding:14px;">
-                        <div style="font-size:24px;margin-bottom:6px;">2&#xFE0F;&#x20E3;</div>
+                        <div style="font-size:24px;margin-bottom:6px;">2️⃣</div>
                         <div style="font-size:13px;font-weight:600;margin-bottom:4px;">Show the QR Code</div>
                         <div style="font-size:11px;color:var(--text-sec);">At the end, have AAs scan the QR code. It takes 30 seconds and is 100% anonymous.</div>
                     </div>
                     <div style="flex:1;min-width:180px;background:var(--bg);border-radius:10px;padding:14px;">
-                        <div style="font-size:24px;margin-bottom:6px;">3&#xFE0F;&#x20E3;</div>
+                        <div style="font-size:24px;margin-bottom:6px;">3️⃣</div>
                         <div style="font-size:13px;font-weight:600;margin-bottom:4px;">Track Results Here</div>
                         <div style="font-size:11px;color:var(--text-sec);">Come back to this dashboard to see scores, trends, and written feedback over time.</div>
                     </div>
@@ -439,42 +438,47 @@
             <!-- Quick Links -->
             <div style="background:var(--surface);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);margin-bottom:16px;">
                 <h3 style="font-size:14px;font-weight:700;margin-bottom:10px;"><i class="fa-solid fa-link" style="color:var(--accent);margin-right:6px;"></i>Quick Links</h3>
-                <p style="font-size:12px;margin-bottom:6px;"><strong>Survey:</strong> <a href="https://joshsalado.github.io/dpx7-roundtable-survey/" target="_blank" style="color:#0073BB;">https://joshsalado.github.io/dpx7-roundtable-survey/</a></p>
-                <p style="font-size:12px;"><strong>Dashboard:</strong> <a href="https://joshsalado.github.io/dpx7-roundtable-survey/dashboard.html" target="_blank" style="color:#0073BB;">https://joshsalado.github.io/dpx7-roundtable-survey/dashboard.html</a></p>
+                <p style="font-size:12px;margin-bottom:6px;"><strong>Survey:</strong> <a href="https://joshsalado.github.io/dpx7-roundtable-survey/" target="_blank" style="color:#0073BB;" data-agent-id="2">https://joshsalado.github.io/dpx7-roundtable-survey/</a></p>
+                <p style="font-size:12px;"><strong>Dashboard:</strong> <a href="https://joshsalado.github.io/dpx7-roundtable-survey/dashboard.html" target="_blank" style="color:#0073BB;" data-agent-id="3">https://joshsalado.github.io/dpx7-roundtable-survey/dashboard.html</a></p>
             </div>
 
             <!-- 20-Min Agenda (collapsible) -->
             <div style="background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:16px;overflow:hidden;">
-                <div id="agendaHeader" onclick="toggleAgenda()" style="padding:16px 20px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;">
+                <div id="agendaHeader" onclick="toggleAgenda()" style="padding:16px 20px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;" data-agent-id="4">
                     <h3 style="font-size:14px;font-weight:700;"><i class="fa-solid fa-clipboard-list" style="color:var(--accent);margin-right:6px;"></i>20-Minute Roundtable Agenda</h3>
                     <i class="fa-solid fa-chevron-down" id="agendaArrow" style="color:var(--text-muted);transition:transform .2s;"></i>
                 </div>
                 <div id="agendaBody" style="max-height:0;overflow:hidden;transition:max-height .3s ease;">
                     <div style="padding:0 20px 20px;">
                         <div style="border-left:3px solid var(--accent);padding:10px 0 10px 14px;margin-bottom:14px;">
-                            <div style="font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;">0-3 min -- Welcome</div>
-                            <div style="font-size:13px;font-weight:600;margin:2px 0;">Set the Tone</div>
-                            <div style="font-size:11px;color:var(--text-sec);font-style:italic;">"Thanks for being here. This is your time -- everything said here stays here. No wrong answers. We want to make DPX7 a better place to work."</div>
+                            <div style="font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;">0-2 min -- Welcome</div>
+                            <div style="font-size:13px;font-weight:600;margin:2px 0;">Thank You for Being Here</div>
+                            <div style="font-size:11px;color:var(--text-sec);font-style:italic;">"Hey everyone -- thank you for taking the time to be here today. We know your time is valuable and we genuinely appreciate you showing up. This roundtable exists because of you, and we want to make sure your voice is heard."</div>
                         </div>
                         <div style="border-left:3px solid var(--accent);padding:10px 0 10px 14px;margin-bottom:14px;">
-                            <div style="font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;">3-8 min -- Open Check-In</div>
-                            <div style="font-size:13px;font-weight:600;margin:2px 0;">How Are Things Going?</div>
-                            <div style="font-size:11px;color:var(--text-sec);font-style:italic;">"On a scale of 1-4, how would you rate your experience at DPX7 this past week? What went well? What could be better?"</div>
+                            <div style="font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;">2-5 min -- Why Connections Matter</div>
+                            <div style="font-size:13px;font-weight:600;margin:2px 0;">Why We're Here Today</div>
+                            <div style="font-size:11px;color:var(--text-sec);font-style:italic;">"The reason we're having this roundtable is to talk about our Connections scores and why they're so important for DPX7. Connections scores are how we measure whether this site is a place people actually want to work. They drive real changes -- from scheduling to leadership to the day-to-day environment. Your feedback is 100% anonymous. No one sees who said what. We need honest input to get better."</div>
                         </div>
                         <div style="border-left:3px solid var(--accent);padding:10px 0 10px 14px;margin-bottom:14px;">
-                            <div style="font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;">8-15 min -- Deep Dive</div>
-                            <div style="font-size:13px;font-weight:600;margin:2px 0;">Focus on Key Themes</div>
-                            <div style="font-size:11px;color:var(--text-sec);font-style:italic;">"What's one new skill you'd like to learn here?" / "How's your schedule flexibility?" / "Do you feel leaders are approachable?"</div>
+                            <div style="font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;">5-8 min -- RNI &amp; The Scoring Scale</div>
+                            <div style="font-size:13px;font-weight:600;margin:2px 0;">Why "Rather Not Answer" Hurts Us</div>
+                            <div style="font-size:11px;color:var(--text-sec);font-style:italic;">"When you select 'Rather Not Answer,' we get zero feedback -- we can't improve on something we can't see. Even if you feel negative about something, we'd much rather hear that than get nothing. Here's how to think about the 1-5 scale: A 1 or 2 means something isn't working. A 5 means we're crushing it. A 4 means we're doing well. A 3 is average -- and honestly, a 3 doesn't tell us much, so if you're leaning that way, a 2 actually helps us more because it flags where we need to dig in."</div>
                         </div>
                         <div style="border-left:3px solid var(--accent);padding:10px 0 10px 14px;margin-bottom:14px;">
-                            <div style="font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;">15-18 min -- Action Commitment</div>
-                            <div style="font-size:13px;font-weight:600;margin:2px 0;">What Can We Do?</div>
-                            <div style="font-size:11px;color:var(--text-sec);font-style:italic;">"Based on what we discussed, here's what I'm going to follow up on: [list items]. Anything else?"</div>
+                            <div style="font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;">8-12 min -- Your Feedback</div>
+                            <div style="font-size:13px;font-weight:600;margin:2px 0;">What Can We Do Better?</div>
+                            <div style="font-size:11px;color:var(--text-sec);font-style:italic;">"Now I want to hear from you -- what's working? What's not? What's one thing we could change that would make your day better? No idea is too small. This is your time."</div>
+                        </div>
+                        <div style="border-left:3px solid var(--accent);padding:10px 0 10px 14px;margin-bottom:14px;">
+                            <div style="font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;">12-16 min -- Site Wins &amp; Your Impact</div>
+                            <div style="font-size:13px;font-weight:600;margin:2px 0;">Why DPX7 Succeeds -- Because of You</div>
+                            <div style="font-size:11px;color:var(--text-sec);font-style:italic;">"I want to take a moment to talk about what makes this site great -- and it starts with you. Some of the best improvements we've made came directly from AA feedback. [Share specific site wins/highlights.] None of that happens without people on this floor speaking up. You are the reason this site runs the way it does."</div>
                         </div>
                         <div style="border-left:3px solid var(--accent);padding:10px 0 10px 14px;">
-                            <div style="font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;">18-20 min -- Close & Survey</div>
-                            <div style="font-size:13px;font-weight:600;margin:2px 0;">QR Code Feedback</div>
-                            <div style="font-size:11px;color:var(--text-sec);font-style:italic;">"Please scan this QR code to give us quick anonymous feedback. It takes 30 seconds. Thank you -- your voice matters."</div>
+                            <div style="font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;">16-20 min -- Close &amp; QR Code Survey</div>
+                            <div style="font-size:13px;font-weight:600;margin:2px 0;">Scan, Submit, Make an Impact</div>
+                            <div style="font-size:11px;color:var(--text-sec);font-style:italic;">"Before we wrap up -- please scan this QR code to give us quick, anonymous feedback. It takes 30 seconds. Remember: every submission matters. Even if it's a 1 or a 2, that's infinitely more valuable than an RNI. Thank you again for being here -- your voice is what makes DPX7 better."</div>
                         </div>
                     </div>
                 </div>
@@ -2175,6 +2179,19 @@ function closeWinDetail() {
     if (el) el.remove();
 }
 
+// --- Agenda accordion toggle ---
+function toggleAgenda() {
+    var body = document.getElementById('agendaBody');
+    var arrow = document.getElementById('agendaArrow');
+    if (body.style.maxHeight && body.style.maxHeight !== '0px') {
+        body.style.maxHeight = '0';
+        if (arrow) arrow.style.transform = 'rotate(0deg)';
+    } else {
+        body.style.maxHeight = body.scrollHeight + 'px';
+        if (arrow) arrow.style.transform = 'rotate(180deg)';
+    }
+}
+
 
 // --- AA Overview week filter bubble delegation ---
 document.addEventListener('click', function(e) {
@@ -2205,5 +2222,5 @@ setInterval(function() {
 }, 30000);
 
 </script>
-</body>
-</html>
+
+</div><div id="amazon-quick-browser-extension-fab" style="all: initial;"></div></body></html>
