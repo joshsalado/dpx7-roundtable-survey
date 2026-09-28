@@ -100,6 +100,7 @@
         
         /* Recognition Modal */
         .win-row:hover{background:var(--bg) !important;}
+        .note-row:hover{background:#EEF3F8 !important;}
 
         .recog-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px;}
         .recog-modal{background:var(--surface);border-radius:var(--radius);padding:28px 32px;max-width:640px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 8px 32px rgba(0,0,0,.2);}
@@ -1184,7 +1185,6 @@ function renderNotes() {
         if (n.date) {
             try {
                 var dRaw = n.date;
-                // If it's already a full ISO timestamp, use as-is; otherwise append noon time
                 var dObj = (dRaw.indexOf('T') > -1) ? new Date(dRaw) : new Date(dRaw + 'T12:00:00');
                 if (isNaN(dObj.getTime())) { dateStr = ''; }
                 else { dateStr = dObj.toLocaleDateString('en-US', {weekday:'short', month:'short', day:'numeric'}); }
@@ -1192,31 +1192,85 @@ function renderNotes() {
             catch(e) { dateStr = ''; }
         }
 
-        html += '<div style="background:var(--bg);border-radius:8px;padding:12px;margin-bottom:6px;border-left:3px solid ' + color + ';">';
-        html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">';
-        html += '<div style="display:flex;gap:8px;align-items:center;">';
-        html += '<span style="font-size:11px;font-weight:600;color:var(--primary);">' + escapeHTML(n.leader) + '</span>';
-        html += '<span style="font-size:10px;color:var(--text-muted);">' + dateStr + '</span>';
-        html += '</div>';
-        html += '<button onclick="deleteNote(' + origIdx + ')" style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:10px;" title="Delete"><i class="fa-solid fa-xmark"></i></button>';
-        html += '</div>';
+        // Build a short preview from themes (or actions/followup if no themes)
+        var previewSrc = n.themes || n.actions || n.followup || '';
+        var preview = previewSrc.length > 90 ? previewSrc.substring(0, 90) + '...' : previewSrc;
 
-        if (n.themes) {
-            html += '<div style="margin-bottom:6px;"><div style="font-size:9px;font-weight:600;color:var(--text-muted);text-transform:uppercase;margin-bottom:2px;">Themes</div>';
-            html += '<div style="font-size:11px;color:var(--text);line-height:1.5;">' + escapeHTML(n.themes) + '</div></div>';
+        // Compact clickable card
+        html += '<div class="note-row" data-note-detail="' + origIdx + '" style="background:var(--bg);border-radius:8px;padding:10px 12px;margin-bottom:6px;border-left:3px solid ' + color + ';cursor:pointer;">';
+        html += '<div style="display:flex;justify-content:space-between;align-items:center;">';
+        html += '<div style="display:flex;gap:8px;align-items:center;min-width:0;">';
+        html += '<span style="font-size:11px;font-weight:700;color:var(--primary);flex-shrink:0;">' + escapeHTML(n.leader) + '</span>';
+        html += '<span style="font-size:10px;color:var(--text-muted);flex-shrink:0;">' + dateStr + '</span>';
+        html += '</div>';
+        html += '<button data-delete-note="' + origIdx + '" style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:10px;flex-shrink:0;" title="Delete"><i class="fa-solid fa-xmark"></i></button>';
+        html += '</div>';
+        if (preview) {
+            html += '<div style="font-size:11px;color:var(--text-sec);line-height:1.4;margin-top:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + escapeHTML(preview) + '</div>';
         }
-        if (n.actions) {
-            html += '<div style="margin-bottom:6px;"><div style="font-size:9px;font-weight:600;color:var(--success);text-transform:uppercase;margin-bottom:2px;"><i class="fa-solid fa-check-circle" style="margin-right:2px;"></i>Actions</div>';
-            html += '<div style="font-size:11px;color:var(--text);line-height:1.5;">' + escapeHTML(n.actions) + '</div></div>';
-        }
-        if (n.followup) {
-            html += '<div><div style="font-size:9px;font-weight:600;color:' + color + ';text-transform:uppercase;margin-bottom:2px;"><i class="fa-solid fa-rotate" style="margin-right:2px;"></i>Follow-up</div>';
-            html += '<div style="font-size:11px;color:var(--text);line-height:1.5;">' + escapeHTML(n.followup) + '</div></div>';
-        }
+        html += '<div style="font-size:9px;color:' + color + ';margin-top:4px;font-weight:600;">Click to view full note</div>';
         html += '</div>';
     });
     if (currentWeek) html += '</div>';
     listEl.innerHTML = html;
+}
+
+function openNoteDetail(idx) {
+    var notes = loadNotes();
+    var n = notes[idx];
+    if (!n) return;
+    var color = (n.rtType || 'connections') === 'connections' ? '#0073BB' : '#E91E90';
+
+    var dateStr = '';
+    if (n.date) {
+        try {
+            var dRaw = n.date;
+            var dObj = (dRaw.indexOf('T') > -1) ? new Date(dRaw) : new Date(dRaw + 'T12:00:00');
+            if (!isNaN(dObj.getTime())) dateStr = dObj.toLocaleDateString('en-US', {weekday:'short', month:'short', day:'numeric', year:'numeric'});
+        } catch(e) {}
+    }
+
+    var el = document.createElement('div');
+    el.id = 'noteDetailContainer';
+    var overlay = document.createElement('div');
+    overlay.className = 'recog-overlay';
+    overlay.onclick = function(e) { if (e.target === overlay) closeNoteDetail(); };
+    var box = document.createElement('div');
+    box.className = 'recog-modal';
+
+    var hdr = document.createElement('div');
+    hdr.style.cssText = 'display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;';
+    var hdrLeft = document.createElement('div');
+    hdrLeft.innerHTML = '<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;"><span style="background:' + color + ';color:#fff;font-weight:800;font-size:12px;padding:3px 10px;border-radius:4px;">' + escapeHTML(n.week) + '</span><h3 style="font-size:18px;font-weight:700;">' + escapeHTML(n.leader) + '</h3></div><div style="font-size:12px;color:var(--text-muted);">' + dateStr + '</div>';
+    var closeBtn = document.createElement('button');
+    closeBtn.textContent = '\u00D7';
+    closeBtn.style.cssText = 'background:none;border:none;font-size:26px;cursor:pointer;color:var(--text-muted);line-height:1;';
+    closeBtn.onclick = closeNoteDetail;
+    hdr.appendChild(hdrLeft);
+    hdr.appendChild(closeBtn);
+    box.appendChild(hdr);
+
+    function section(label, text, labelColor, icon) {
+        if (!text) return;
+        var sec = document.createElement('div');
+        sec.style.cssText = 'background:var(--bg);border-radius:8px;padding:12px;margin-bottom:12px;border-left:3px solid ' + labelColor + ';';
+        sec.innerHTML = '<div style="font-size:10px;font-weight:700;color:' + labelColor + ';text-transform:uppercase;margin-bottom:6px;">' + (icon || '') + label + '</div><div style="font-size:13px;color:var(--text);line-height:1.6;white-space:pre-wrap;">' + escapeHTML(text) + '</div>';
+        box.appendChild(sec);
+    }
+    section('Themes', n.themes, color, '');
+    section('Actions', n.actions, '#067D62', '<i class="fa-solid fa-check-circle" style="margin-right:4px;"></i>');
+    section('Follow-up', n.followup, '#D4760A', '<i class="fa-solid fa-rotate" style="margin-right:4px;"></i>');
+
+    overlay.appendChild(box);
+    el.appendChild(overlay);
+    var existing = document.getElementById('noteDetailContainer');
+    if (existing) existing.remove();
+    document.body.appendChild(el);
+}
+
+function closeNoteDetail() {
+    var el = document.getElementById('noteDetailContainer');
+    if (el) el.remove();
 }
 
 
@@ -1495,7 +1549,8 @@ document.addEventListener('click', function(e) {
         var name = btn.getAttribute('data-remove-aa');
         var week = btn.getAttribute('data-remove-week');
         var type = btn.getAttribute('data-remove-type');
-        removeNoteAA(name, week, type);
+        var ok = confirm('\u26A0\uFE0F PERMANENTLY DELETE "' + name + '" from ' + week + '?\n\nThis removes the attendance record from the shared data for all leaders. Only delete if the login was entered incorrectly.\n\nClick OK to delete, or Cancel to keep.');
+        if (ok) removeNoteAA(name, week, type);
     }
 });
 
@@ -1639,51 +1694,70 @@ function removeNoteAA(name, week, type) {
 function renderNoteAAList() {
     var container = document.getElementById('noteAAList');
     if (!container) return;
-    var week = document.getElementById('noteWeekSelect').value;
-    var list, type, color, month = '';
+    var selWeek = document.getElementById('noteWeekSelect').value;
+    var type, color, allList;
 
     if (currentRTType === 'connections') {
-        list = cachedAAs.filter(function(a) { return a.week === week; });
         type = 'connections';
         color = '#0073BB';
+        allList = cachedAAs.slice();
     } else {
-        month = document.getElementById('bdayMonth') ? document.getElementById('bdayMonth').value : '';
-        list = cachedBdayAAs.filter(function(a) { return a.week === week && (!month || a.month === month); });
         type = 'birthday';
         color = '#E91E90';
+        allList = cachedBdayAAs.slice();
     }
 
-    if (!list.length) {
-        container.innerHTML = '<div style="font-size:11px;color:var(--text-muted);padding:8px 0;">No AAs logged for this week yet.</div>';
+    if (!allList.length) {
+        container.innerHTML = '<div style="font-size:11px;color:var(--text-muted);padding:8px 0;">No AAs logged yet.</div>';
         return;
     }
 
-    var html = '<div style="margin-top:8px;">';
-    list.forEach(function(aa) {
-        var isEngaged = aa.engaged === 'Yes' || aa.engaged === true;
-        var checkColor = isEngaged ? '#067D62' : '#bbb';
-        var checkIcon = isEngaged ? 'fa-solid fa-square-check' : 'fa-regular fa-square';
-        var engBtnBg = type === 'birthday' ? '#E91E90' : '#FF9900';
-        var aaMonth = aa.month || '';
-
-        html += '<div style="display:flex;align-items:center;gap:6px;background:var(--bg);border-radius:8px;padding:6px 10px;margin-bottom:5px;border-left:3px solid ' + color + ';">';
-
-        // AA Name (takes up space)
-        html += '<span style="font-size:12px;font-weight:600;flex:1;">' + escapeHTML(aa.name) + '</span>';
-
-        // Checkbox
-        html += '<button data-toggle-engaged="' + escapeHTML(aa.name) + '" data-engaged-week="' + escapeHTML(week) + '" data-engaged-type="' + type + '" data-engaged-month="' + escapeHTML(aaMonth) + '" style="background:none;border:none;color:' + checkColor + ';cursor:pointer;font-size:14px;padding:2px 3px;flex-shrink:0;" title="' + (isEngaged ? 'Engaged' : 'Mark as Engaged') + '"><i class="' + checkIcon + '"></i></button>';
-
-        // Small orange/pink Engage button
-        html += '<button data-engage-login="' + escapeHTML(aa.name) + '" data-engage-type="' + type + '" style="background:' + engBtnBg + ';color:#fff;border:none;border-radius:4px;padding:3px 8px;font-size:10px;font-weight:700;cursor:pointer;flex-shrink:0;"><i class="fa-solid fa-star" style="margin-right:2px;font-size:9px;"></i>Engage</button>';
-
-        // Remove button
-        html += '<button data-remove-aa="' + escapeHTML(aa.name) + '" data-remove-week="' + escapeHTML(week) + '" data-remove-type="' + type + '" style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:10px;padding:2px 3px;flex-shrink:0;" title="Remove"><i class="fa-solid fa-xmark"></i></button>';
-
-        html += '</div>';
+    // Group by week
+    var groups = {};
+    var order = [];
+    allList.forEach(function(aa) {
+        var w = aa.week || 'No Week';
+        if (!groups[w]) { groups[w] = []; order.push(w); }
+        groups[w].push(aa);
     });
+    // Sort weeks: current selected week first, then descending week number
+    order.sort(function(a, b) {
+        if (a === selWeek) return -1;
+        if (b === selWeek) return 1;
+        var na = parseInt(a.replace(/[^0-9]/g, '')) || 0;
+        var nb = parseInt(b.replace(/[^0-9]/g, '')) || 0;
+        return nb - na;
+    });
+
+    var totalCount = allList.length;
+    var html = '<div style="margin-top:8px;">';
+
+    order.forEach(function(w) {
+        var isCurrent = (w === selWeek);
+        // Week heading
+        html += '<div style="display:flex;align-items:center;gap:8px;margin:10px 0 6px 0;">';
+        html += '<span style="background:' + (isCurrent ? color : '#8894A5') + ';color:#fff;padding:3px 10px;border-radius:10px;font-size:11px;font-weight:700;">' + escapeHTML(w) + (isCurrent ? ' (current)' : '') + '</span>';
+        html += '<span style="font-size:10px;color:var(--text-muted);">' + groups[w].length + ' AA' + (groups[w].length !== 1 ? 's' : '') + '</span>';
+        html += '</div>';
+
+        groups[w].forEach(function(aa) {
+            var isEngaged = aa.engaged === 'Yes' || aa.engaged === true;
+            var checkColor = isEngaged ? '#067D62' : '#bbb';
+            var checkIcon = isEngaged ? 'fa-solid fa-square-check' : 'fa-regular fa-square';
+            var engBtnBg = type === 'birthday' ? '#E91E90' : '#FF9900';
+            var aaMonth = aa.month || '';
+
+            html += '<div style="display:flex;align-items:center;gap:6px;background:var(--bg);border-radius:8px;padding:6px 10px;margin-bottom:5px;border-left:3px solid ' + color + ';">';
+            html += '<span style="font-size:12px;font-weight:600;flex:1;">' + escapeHTML(aa.name) + '</span>';
+            html += '<button data-toggle-engaged="' + escapeHTML(aa.name) + '" data-engaged-week="' + escapeHTML(aa.week) + '" data-engaged-type="' + type + '" data-engaged-month="' + escapeHTML(aaMonth) + '" style="background:none;border:none;color:' + checkColor + ';cursor:pointer;font-size:14px;padding:2px 3px;flex-shrink:0;" title="' + (isEngaged ? 'Engaged' : 'Mark as Engaged') + '"><i class="' + checkIcon + '"></i></button>';
+            html += '<button data-engage-login="' + escapeHTML(aa.name) + '" data-engage-type="' + type + '" style="background:' + engBtnBg + ';color:#fff;border:none;border-radius:4px;padding:3px 8px;font-size:10px;font-weight:700;cursor:pointer;flex-shrink:0;"><i class="fa-solid fa-star" style="margin-right:2px;font-size:9px;"></i>Engage</button>';
+            html += '<button data-remove-aa="' + escapeHTML(aa.name) + '" data-remove-week="' + escapeHTML(aa.week) + '" data-remove-type="' + type + '" style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:10px;padding:2px 3px;flex-shrink:0;" title="Remove"><i class="fa-solid fa-xmark"></i></button>';
+            html += '</div>';
+        });
+    });
+
     html += '</div>';
-    html += '<div style="font-size:10px;color:var(--text-muted);margin-top:6px;">' + list.length + ' AA' + (list.length !== 1 ? 's' : '') + ' logged</div>';
+    html += '<div style="font-size:10px;color:var(--text-muted);margin-top:6px;">' + totalCount + ' AA' + (totalCount !== 1 ? 's' : '') + ' logged across ' + order.length + ' week' + (order.length !== 1 ? 's' : '') + '</div>';
     container.innerHTML = html;
 }
 
@@ -2201,6 +2275,24 @@ document.addEventListener('click', function(e) {
     if (bub) {
         aaOverviewWeek = bub.getAttribute('data-aa-week-filter');
         renderAAOverview();
+    }
+});
+
+
+// --- Note detail + delete delegation ---
+document.addEventListener('click', function(e) {
+    var delBtn = e.target.closest('[data-delete-note]');
+    if (delBtn) {
+        e.stopPropagation();
+        var idx = parseInt(delBtn.getAttribute('data-delete-note'));
+        if (confirm('Delete this leader note?\n\nThis permanently removes it from the shared data for all leaders.')) {
+            deleteNote(idx);
+        }
+        return;
+    }
+    var row = e.target.closest('[data-note-detail]');
+    if (row) {
+        openNoteDetail(parseInt(row.getAttribute('data-note-detail')));
     }
 });
 
