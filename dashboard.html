@@ -2448,6 +2448,21 @@ function syncLocalEngagementsToSheet() {
     } catch(e) {}
 }
 
+
+// --- Agenda collapse/expand toggle ---
+function toggleAgenda() {
+    var body = document.getElementById('agendaBody');
+    var arrow = document.getElementById('agendaArrow');
+    if (!body) return;
+    if (body.style.maxHeight && body.style.maxHeight !== '0px') {
+        body.style.maxHeight = '0px';
+        if (arrow) arrow.style.transform = 'rotate(0deg)';
+    } else {
+        body.style.maxHeight = body.scrollHeight + 'px';
+        if (arrow) arrow.style.transform = 'rotate(180deg)';
+    }
+}
+
 // PAGE INITIALIZATION
 // ============================================================
 loadEngagedFromLocal();
