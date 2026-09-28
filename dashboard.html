@@ -1760,10 +1760,9 @@ function renderNoteAAList() {
             var aaMonth = aa.month || '';
 
             html += '<div style="display:flex;align-items:center;gap:6px;background:var(--bg);border-radius:8px;padding:6px 10px;margin-bottom:5px;border-left:3px solid ' + color + ';">';
-            html += '<span style="font-size:12px;font-weight:600;flex:1;">' + escapeHTML(aa.name) + '</span>';
+            html += '<span data-manage-aa="' + escapeHTML(aa.name) + '" data-manage-week="' + escapeHTML(aa.week) + '" data-manage-type="' + type + '" data-manage-month="' + escapeHTML(aaMonth) + '" style="font-size:12px;font-weight:600;flex:1;cursor:pointer;text-decoration:underline;text-decoration-color:#ccc;text-underline-offset:2px;" title="Click to edit or delete">' + escapeHTML(aa.name) + '</span>';
             html += '<button data-toggle-engaged="' + escapeHTML(aa.name) + '" data-engaged-week="' + escapeHTML(aa.week) + '" data-engaged-type="' + type + '" data-engaged-month="' + escapeHTML(aaMonth) + '" style="background:none;border:none;color:' + checkColor + ';cursor:pointer;font-size:14px;padding:2px 3px;flex-shrink:0;" title="' + (isEngaged ? 'Engaged' : 'Mark as Engaged') + '"><i class="' + checkIcon + '"></i></button>';
             html += '<button data-engage-login="' + escapeHTML(aa.name) + '" data-engage-type="' + type + '" style="background:' + engBtnBg + ';color:#fff;border:none;border-radius:4px;padding:3px 8px;font-size:10px;font-weight:700;cursor:pointer;flex-shrink:0;"><i class="fa-solid fa-star" style="margin-right:2px;font-size:9px;"></i>Engage</button>';
-            html += '<button data-remove-aa="' + escapeHTML(aa.name) + '" data-remove-week="' + escapeHTML(aa.week) + '" data-remove-type="' + type + '" style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:10px;padding:2px 3px;flex-shrink:0;" title="Remove"><i class="fa-solid fa-xmark"></i></button>';
             html += '</div>';
         });
     });
@@ -2312,6 +2311,143 @@ document.addEventListener('click', function(e) {
     }
 });
 
+
+// --- Manage AA (edit/delete) modal ---
+document.addEventListener('click', function(e) {
+    var el = e.target.closest('[data-manage-aa]');
+    if (el) {
+        openManageAA(
+            el.getAttribute('data-manage-aa'),
+            el.getAttribute('data-manage-week'),
+            el.getAttribute('data-manage-type'),
+            el.getAttribute('data-manage-month') || ''
+        );
+    }
+});
+
+function openManageAA(name, week, type, month) {
+    var color = type === 'birthday' ? '#E91E90' : '#0073BB';
+    var el = document.createElement('div');
+    el.id = 'manageAAContainer';
+    var overlay = document.createElement('div');
+    overlay.className = 'recog-overlay';
+    overlay.onclick = function(e) { if (e.target === overlay) closeManageAA(); };
+    var box = document.createElement('div');
+    box.className = 'recog-modal';
+    box.style.maxWidth = '420px';
+
+    // Header
+    var hdr = document.createElement('div');
+    hdr.style.cssText = 'display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;';
+    hdr.innerHTML = '<h3 style="font-size:18px;font-weight:700;"><i class="fa-solid fa-user-pen" style="color:' + color + ';margin-right:8px;"></i>Manage AA</h3>';
+    var closeBtn = document.createElement('button');
+    closeBtn.textContent = '\u00D7';
+    closeBtn.style.cssText = 'background:none;border:none;font-size:26px;cursor:pointer;color:var(--text-muted);line-height:1;';
+    closeBtn.onclick = closeManageAA;
+    hdr.appendChild(closeBtn);
+    box.appendChild(hdr);
+
+    // Context line
+    var ctx = document.createElement('div');
+    ctx.style.cssText = 'font-size:12px;color:var(--text-muted);margin-bottom:14px;';
+    ctx.innerHTML = 'Logged for <strong>' + escapeHTML(week) + (month ? ' \u2022 ' + escapeHTML(month) : '') + '</strong>';
+    box.appendChild(ctx);
+
+    // Edit field
+    var lbl = document.createElement('div');
+    lbl.style.cssText = 'font-size:10px;font-weight:600;color:var(--text-muted);text-transform:uppercase;margin-bottom:4px;';
+    lbl.textContent = 'AA Login';
+    box.appendChild(lbl);
+    var input = document.createElement('input');
+    input.type = 'text';
+    input.value = name;
+    input.id = 'manageAAInput';
+    input.style.cssText = 'width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:6px;font-size:13px;font-family:inherit;color:var(--text);margin-bottom:14px;';
+    box.appendChild(input);
+
+    // Buttons row
+    var btnRow = document.createElement('div');
+    btnRow.style.cssText = 'display:flex;gap:10px;';
+
+    var saveBtn = document.createElement('button');
+    saveBtn.style.cssText = 'flex:1;background:' + color + ';color:#fff;border:none;border-radius:8px;padding:10px;font-size:13px;font-weight:700;cursor:pointer;';
+    saveBtn.innerHTML = '<i class="fa-solid fa-floppy-disk" style="margin-right:5px;"></i>Save Changes';
+    saveBtn.onclick = function() {
+        var newName = input.value.trim().toLowerCase();
+        if (!newName) { alert('Login cannot be blank.'); return; }
+        if (newName === name) { closeManageAA(); return; }
+        updateNoteAA(name, newName, week, type, month);
+        closeManageAA();
+    };
+    btnRow.appendChild(saveBtn);
+
+    var delBtn = document.createElement('button');
+    delBtn.style.cssText = 'flex:1;background:#fff;color:#C7511F;border:2px solid #C7511F;border-radius:8px;padding:10px;font-size:13px;font-weight:700;cursor:pointer;';
+    delBtn.innerHTML = '<i class="fa-solid fa-trash" style="margin-right:5px;"></i>Delete';
+    delBtn.onclick = function() {
+        var ok = confirm('\u26A0\uFE0F PERMANENTLY DELETE "' + name + '" from ' + week + '?\n\nThis removes the attendance record from the shared data for all leaders. Only delete if the login was entered incorrectly.\n\nClick OK to delete, or Cancel to keep.');
+        if (ok) { removeNoteAA(name, week, type); closeManageAA(); }
+    };
+    btnRow.appendChild(delBtn);
+    box.appendChild(btnRow);
+
+    overlay.appendChild(box);
+    el.appendChild(overlay);
+    var existing = document.getElementById('manageAAContainer');
+    if (existing) existing.remove();
+    document.body.appendChild(el);
+    setTimeout(function(){ input.focus(); input.select(); }, 50);
+}
+
+function closeManageAA() {
+    var el = document.getElementById('manageAAContainer');
+    if (el) el.remove();
+}
+
+function updateNoteAA(oldName, newName, week, type, month) {
+    // Update in cache
+    var list = type === 'birthday' ? cachedBdayAAs : cachedAAs;
+    var wasEngaged = 'No';
+    for (var i = 0; i < list.length; i++) {
+        var match = type === 'birthday'
+            ? (list[i].name === oldName && list[i].week === week && list[i].month === month)
+            : (list[i].name === oldName && list[i].week === week);
+        if (match) { wasEngaged = list[i].engaged || 'No'; list[i].name = newName; break; }
+    }
+    renderNoteAAList();
+    renderAAOverview();
+    // Persist: remove old, add new (preserve engaged), to the sheet
+    if (type === 'birthday') {
+        postToSheet({ action: 'removeBday', week: week, name: oldName }, function() {});
+        postToSheet({ action: 'addBday', month: month, week: week, date: '', name: newName }, function() {});
+        if (wasEngaged === 'Yes') { localEngagedMap['birthday:' + newName + ':' + week + ':' + month] = 'Yes'; postToSheet({ action: 'markEngaged', name: newName, week: week, type: 'birthday', engaged: 'Yes' }, function() {}); }
+    } else {
+        postToSheet({ action: 'removeAA', week: week, name: oldName }, function() {});
+        postToSheet({ action: 'addAA', week: week, name: newName }, function() {});
+        if (wasEngaged === 'Yes') { localEngagedMap['connections:' + newName + ':' + week] = 'Yes'; postToSheet({ action: 'markEngaged', name: newName, week: week, type: 'connections', engaged: 'Yes' }, function() {}); }
+    }
+    saveEngagedToLocal();
+}
+
+// --- One-time sync: push locally-saved engagements to the sheet ---
+function syncLocalEngagementsToSheet() {
+    try {
+        if (localStorage.getItem('dpx7_engagement_synced') === 'yes') return;
+        var synced = 0;
+        for (var key in localEngagedMap) {
+            if (!localEngagedMap.hasOwnProperty(key)) continue;
+            if (localEngagedMap[key] !== 'Yes') continue;
+            var parts = key.split(':');
+            var type = parts[0];
+            var name = parts[1];
+            var week = parts[2];
+            postToSheet({ action: 'markEngaged', name: name, week: week, type: type, engaged: 'Yes' }, function() {});
+            synced++;
+        }
+        if (synced > 0) { localStorage.setItem('dpx7_engagement_synced', 'yes'); }
+    } catch(e) {}
+}
+
 // PAGE INITIALIZATION
 // ============================================================
 loadEngagedFromLocal();
@@ -2319,6 +2455,7 @@ loadHighlightsFromLocal();
 fetchAllData(function() {
     buildChips();
     render();
+    syncLocalEngagementsToSheet();
 });
 
 // Auto-refresh every 30 seconds
